@@ -10,6 +10,7 @@ namespace HS_Save_Editor
         public Form1()
         {
             InitializeComponent();
+			combo_SaveLocation.DataSource = Enum.GetValues(typeof(Maps));
         }
 
         private void btn_loadSaveFile_Click(object sender, EventArgs e)
@@ -30,25 +31,33 @@ namespace HS_Save_Editor
 
 		private void fillAllValues()
         {
-			string line = "";
 			foreach (Vars id in Enum.GetValues(typeof(Vars)))
             {
-				line = string.Format
+				string line = string.Format
 					(
 					"{0}: {1}",id.ToString(),
 					DataUtils.Get(theData.values[(int)id])
 					);
 				list_values.Items.Add(line);
 			}
-			foreach (var key in theData.flags.Keys)
-            {
-				line = string.Format
-					(
-					"'{0}': {1}", key,
-					theData.flags[key]
-					);
-				list_flags.Items.Add(line);
+		}
 
+		private void fillAllFlags()
+        {
+			foreach (string key in theData.flags.Keys)
+			{
+				if (!chk_onlyFalse.Checked || !theData.flags[key])
+				{
+					string[] key_parts = key.Split('.');
+					string key_modified = string.Format("{0}({1}).{2}.{3}", (Maps)Convert.ToInt64(key_parts[0]), key_parts[0], key_parts[1], key_parts[2]);
+					string line = string.Format
+						(
+						"'{0}': {1}",
+						key_modified,
+						theData.flags[key]
+						);
+					list_flags.Items.Add(line);
+				}
 			}
 		}
 
@@ -85,32 +94,35 @@ namespace HS_Save_Editor
 			chk_mirror.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.MIRROR]);
 			chk_saveCrystals.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.SAVE_CRYSTAL]);
 			chk_greenSword.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.GREEN_SWORD]);
+			string[] position = data.position.Split('.');
+			combo_SaveLocation.SelectedItem = (Maps)Convert.ToInt64(position[0]);
+			txt_SaveLocationX.Text = position[1];
+			txt_SaveLocationY.Text = position[2];
+			txt_SaveLocationD.Text = position[3];
+			txt_portalStones.Text = GetCollectibleValues(Vars.TOTAL_PORTAL_STONES, Vars.PORTAL_STONES);
+			txt_Gems.Text = GetCollectibleValues(Vars.TOTAL_GEMS, Vars.GEMS);
+			txt_goldKey.Text = GetCollectibleValues(Vars.TOTAL_GOLD_KEYS, Vars.GOLD_KEYS);
+			txt_possum.Text = GetCollectibleValues(Vars.TOTAL_POSSUM_COINS, Vars.POSSUM_COINS);
+			txt_silverKey.Text = GetCollectibleValues(Vars.TOTAL_SILVER_KEYS, Vars.SILVER_KEYS);
+			txt_treasure.Text = GetCollectibleValues(Vars.TOTAL_TREASURES, Vars.TREASURES);
+
+
 			fillAllValues();
+			fillAllFlags();
 			
 
 			/*
-		GEM_BOOTS = 89,
-		PORTAL_STONES = 13,
-		GEMS,
-		TREASURES,
 		SECRET_TOKENS = 36,
 		NGP_TOKENS = 145,
-		GOLD_KEYS = 2,
-		SILVER_KEYS,
 		RED_KEYS,
 		BLUE_KEYS,
 		GREEN_KEYS,
 		PURPLE_KEYS = 85,
 		TEAL_KEYS,
 		TOTAL_SWORDS = 7,
-		TOTAL_GOLD_KEYS,
-		TOTAL_SILVER_KEYS,
 		TOTAL_RED_KEYS,
 		TOTAL_BLUE_KEYS,
 		TOTAL_GREEN_KEYS,
-		TOTAL_PORTAL_STONES = 16,
-		TOTAL_GEMS,
-		TOTAL_TREASURES,
 		TOTAL_GOLD_DOORS = 113,
 		TOTAL_SILVER_DOORS,
 		TOTAL_TEAL_DOORS,
@@ -186,11 +198,6 @@ namespace HS_Save_Editor
 		BACKDOOR_BANDITRY,
 		DRAGONSLAIN,
 		CONVERGENCE_KEY = 153,
-		POSSUM_COINS,
-		TOTAL_POSSUM_COINS,
-		BACKUP_T_POSSUM_COINS,
-		BACKUP_POSSUM_COINS,
-		BACKUP_MIRROR,
 		DRAGON_EGG,
 		CARROT,
 		GREEN_SWORD,
@@ -223,7 +230,27 @@ namespace HS_Save_Editor
             var savePosition = data.position;
         }
 
-        private void btn_save_Click(object sender, EventArgs e)
+		private string GetCollectibleValues(Vars total, Vars current)
+        {
+			string collectible = "";
+			if (theData != null)
+			{
+				int col_total = DataUtils.Get(theData.values[(int)total]);
+				int col_current = DataUtils.Get(theData.values[(int)current]);
+
+				collectible = string.Format
+					(
+					"{0}/{1}/{2}",
+					col_current,
+					col_total - col_current,
+					col_total
+					);
+
+			}
+			return collectible;
+		}
+
+		private void btn_save_Click(object sender, EventArgs e)
         {
 			update_data();
 			var positions = theData.position.Split('.');
@@ -258,5 +285,12 @@ namespace HS_Save_Editor
 			DataUtils.Set(ref theData, Vars.GREEN_SWORD, chk_greenSword.Checked ? (byte)1 : (byte)0);
 
 		}
-	}
+
+        private void chk_onlyFalse_CheckedChanged(object sender, EventArgs e)
+        {
+			list_flags.Items.Clear();
+			list_values.Items.Clear();
+			fillAllFlags();
+        }
+    }
 }

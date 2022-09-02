@@ -31,6 +31,14 @@
             this.btn_loadSaveFile = new System.Windows.Forms.Button();
             this.tab_saveData = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txt_SaveLocationD = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txt_SaveLocationX = new System.Windows.Forms.TextBox();
+            this.txt_SaveLocationY = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.combo_SaveLocation = new System.Windows.Forms.ComboBox();
             this.chk_greenSword = new System.Windows.Forms.CheckBox();
             this.chk_rShield = new System.Windows.Forms.CheckBox();
             this.chk_rSword = new System.Windows.Forms.CheckBox();
@@ -48,6 +56,19 @@
             this.label1 = new System.Windows.Forms.Label();
             this.box_steps = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.txt_silverKey = new System.Windows.Forms.TextBox();
+            this.txt_treasure = new System.Windows.Forms.TextBox();
+            this.txt_possum = new System.Windows.Forms.TextBox();
+            this.txt_goldKey = new System.Windows.Forms.TextBox();
+            this.txt_Gems = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txt_portalStones = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.chk_broom = new System.Windows.Forms.CheckBox();
             this.chk_spectacles = new System.Windows.Forms.CheckBox();
             this.chk_compass = new System.Windows.Forms.CheckBox();
@@ -61,9 +82,10 @@
             this.chk_lavaCharm = new System.Windows.Forms.CheckBox();
             this.chk_hammer = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.chk_onlyFalse = new System.Windows.Forms.CheckBox();
+            this.list_flags = new System.Windows.Forms.ListBox();
             this.list_values = new System.Windows.Forms.ListBox();
             this.btn_save = new System.Windows.Forms.Button();
-            this.list_flags = new System.Windows.Forms.ListBox();
             this.tab_saveData.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.box_deaths)).BeginInit();
@@ -96,6 +118,14 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label9);
+            this.tabPage1.Controls.Add(this.txt_SaveLocationD);
+            this.tabPage1.Controls.Add(this.label8);
+            this.tabPage1.Controls.Add(this.label7);
+            this.tabPage1.Controls.Add(this.txt_SaveLocationX);
+            this.tabPage1.Controls.Add(this.txt_SaveLocationY);
+            this.tabPage1.Controls.Add(this.label6);
+            this.tabPage1.Controls.Add(this.combo_SaveLocation);
             this.tabPage1.Controls.Add(this.chk_greenSword);
             this.tabPage1.Controls.Add(this.chk_rShield);
             this.tabPage1.Controls.Add(this.chk_rSword);
@@ -120,10 +150,75 @@
             this.tabPage1.Text = "Basic Info";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(349, 138);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(14, 15);
+            this.label9.TabIndex = 27;
+            this.label9.Text = "d";
+            // 
+            // txt_SaveLocationD
+            // 
+            this.txt_SaveLocationD.Location = new System.Drawing.Point(368, 130);
+            this.txt_SaveLocationD.Name = "txt_SaveLocationD";
+            this.txt_SaveLocationD.Size = new System.Drawing.Size(40, 23);
+            this.txt_SaveLocationD.TabIndex = 26;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(286, 138);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(13, 15);
+            this.label8.TabIndex = 25;
+            this.label8.Text = "y";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(230, 138);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(13, 15);
+            this.label7.TabIndex = 24;
+            this.label7.Text = "x";
+            // 
+            // txt_SaveLocationX
+            // 
+            this.txt_SaveLocationX.Location = new System.Drawing.Point(246, 130);
+            this.txt_SaveLocationX.Name = "txt_SaveLocationX";
+            this.txt_SaveLocationX.Size = new System.Drawing.Size(38, 23);
+            this.txt_SaveLocationX.TabIndex = 23;
+            // 
+            // txt_SaveLocationY
+            // 
+            this.txt_SaveLocationY.Location = new System.Drawing.Point(305, 130);
+            this.txt_SaveLocationY.Name = "txt_SaveLocationY";
+            this.txt_SaveLocationY.Size = new System.Drawing.Size(40, 23);
+            this.txt_SaveLocationY.TabIndex = 22;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(17, 133);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(80, 15);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "Save Location";
+            // 
+            // combo_SaveLocation
+            // 
+            this.combo_SaveLocation.FormattingEnabled = true;
+            this.combo_SaveLocation.Location = new System.Drawing.Point(103, 130);
+            this.combo_SaveLocation.Name = "combo_SaveLocation";
+            this.combo_SaveLocation.Size = new System.Drawing.Size(121, 23);
+            this.combo_SaveLocation.TabIndex = 3;
+            // 
             // chk_greenSword
             // 
             this.chk_greenSword.AutoSize = true;
-            this.chk_greenSword.Location = new System.Drawing.Point(416, 178);
+            this.chk_greenSword.Location = new System.Drawing.Point(506, 190);
             this.chk_greenSword.Name = "chk_greenSword";
             this.chk_greenSword.Size = new System.Drawing.Size(93, 19);
             this.chk_greenSword.TabIndex = 20;
@@ -133,7 +228,7 @@
             // chk_rShield
             // 
             this.chk_rShield.AutoSize = true;
-            this.chk_rShield.Location = new System.Drawing.Point(532, 115);
+            this.chk_rShield.Location = new System.Drawing.Point(622, 118);
             this.chk_rShield.Name = "chk_rShield";
             this.chk_rShield.Size = new System.Drawing.Size(81, 19);
             this.chk_rShield.TabIndex = 19;
@@ -143,7 +238,7 @@
             // chk_rSword
             // 
             this.chk_rSword.AutoSize = true;
-            this.chk_rSword.Location = new System.Drawing.Point(532, 79);
+            this.chk_rSword.Location = new System.Drawing.Point(622, 82);
             this.chk_rSword.Name = "chk_rSword";
             this.chk_rSword.Size = new System.Drawing.Size(82, 19);
             this.chk_rSword.TabIndex = 18;
@@ -153,7 +248,7 @@
             // chk_bHeart
             // 
             this.chk_bHeart.AutoSize = true;
-            this.chk_bHeart.Location = new System.Drawing.Point(416, 153);
+            this.chk_bHeart.Location = new System.Drawing.Point(506, 156);
             this.chk_bHeart.Name = "chk_bHeart";
             this.chk_bHeart.Size = new System.Drawing.Size(81, 19);
             this.chk_bHeart.TabIndex = 17;
@@ -163,7 +258,7 @@
             // chk_bShield
             // 
             this.chk_bShield.AutoSize = true;
-            this.chk_bShield.Location = new System.Drawing.Point(416, 115);
+            this.chk_bShield.Location = new System.Drawing.Point(506, 118);
             this.chk_bShield.Name = "chk_bShield";
             this.chk_bShield.Size = new System.Drawing.Size(84, 19);
             this.chk_bShield.TabIndex = 16;
@@ -173,7 +268,7 @@
             // chk_bSword
             // 
             this.chk_bSword.AutoSize = true;
-            this.chk_bSword.Location = new System.Drawing.Point(416, 79);
+            this.chk_bSword.Location = new System.Drawing.Point(506, 82);
             this.chk_bSword.Name = "chk_bSword";
             this.chk_bSword.Size = new System.Drawing.Size(85, 19);
             this.chk_bSword.TabIndex = 15;
@@ -205,14 +300,14 @@
             // 
             // box_swords
             // 
-            this.box_swords.Location = new System.Drawing.Point(483, 6);
+            this.box_swords.Location = new System.Drawing.Point(573, 9);
             this.box_swords.Name = "box_swords";
             this.box_swords.Size = new System.Drawing.Size(120, 23);
             this.box_swords.TabIndex = 7;
             // 
             // box_hearts
             // 
-            this.box_hearts.Location = new System.Drawing.Point(483, 41);
+            this.box_hearts.Location = new System.Drawing.Point(573, 44);
             this.box_hearts.Name = "box_hearts";
             this.box_hearts.Size = new System.Drawing.Size(120, 23);
             this.box_hearts.TabIndex = 6;
@@ -220,7 +315,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(412, 9);
+            this.label4.Location = new System.Drawing.Point(502, 12);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 15);
             this.label4.TabIndex = 4;
@@ -229,7 +324,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(416, 49);
+            this.label3.Location = new System.Drawing.Point(506, 52);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 15);
             this.label3.TabIndex = 3;
@@ -262,6 +357,19 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.txt_silverKey);
+            this.tabPage2.Controls.Add(this.txt_treasure);
+            this.tabPage2.Controls.Add(this.txt_possum);
+            this.tabPage2.Controls.Add(this.txt_goldKey);
+            this.tabPage2.Controls.Add(this.txt_Gems);
+            this.tabPage2.Controls.Add(this.label16);
+            this.tabPage2.Controls.Add(this.txt_portalStones);
+            this.tabPage2.Controls.Add(this.label15);
+            this.tabPage2.Controls.Add(this.label14);
+            this.tabPage2.Controls.Add(this.label13);
+            this.tabPage2.Controls.Add(this.label12);
+            this.tabPage2.Controls.Add(this.label11);
+            this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Controls.Add(this.chk_broom);
             this.tabPage2.Controls.Add(this.chk_spectacles);
             this.tabPage2.Controls.Add(this.chk_compass);
@@ -281,6 +389,112 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Collectibles";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // txt_silverKey
+            // 
+            this.txt_silverKey.Location = new System.Drawing.Point(589, 124);
+            this.txt_silverKey.Name = "txt_silverKey";
+            this.txt_silverKey.Size = new System.Drawing.Size(60, 23);
+            this.txt_silverKey.TabIndex = 50;
+            // 
+            // txt_treasure
+            // 
+            this.txt_treasure.Location = new System.Drawing.Point(589, 55);
+            this.txt_treasure.Name = "txt_treasure";
+            this.txt_treasure.Size = new System.Drawing.Size(60, 23);
+            this.txt_treasure.TabIndex = 49;
+            // 
+            // txt_possum
+            // 
+            this.txt_possum.Location = new System.Drawing.Point(421, 91);
+            this.txt_possum.Name = "txt_possum";
+            this.txt_possum.Size = new System.Drawing.Size(60, 23);
+            this.txt_possum.TabIndex = 48;
+            // 
+            // txt_goldKey
+            // 
+            this.txt_goldKey.Location = new System.Drawing.Point(589, 91);
+            this.txt_goldKey.Name = "txt_goldKey";
+            this.txt_goldKey.Size = new System.Drawing.Size(60, 23);
+            this.txt_goldKey.TabIndex = 47;
+            // 
+            // txt_Gems
+            // 
+            this.txt_Gems.Location = new System.Drawing.Point(421, 124);
+            this.txt_Gems.Name = "txt_Gems";
+            this.txt_Gems.Size = new System.Drawing.Size(60, 23);
+            this.txt_Gems.TabIndex = 46;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label16.Location = new System.Drawing.Point(327, 7);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(246, 20);
+            this.label16.TabIndex = 45;
+            this.label16.Text = "Collectibles (Current/Spent/Total)";
+            // 
+            // txt_portalStones
+            // 
+            this.txt_portalStones.Location = new System.Drawing.Point(421, 55);
+            this.txt_portalStones.Name = "txt_portalStones";
+            this.txt_portalStones.Size = new System.Drawing.Size(60, 23);
+            this.txt_portalStones.TabIndex = 44;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(329, 94);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(82, 15);
+            this.label15.TabIndex = 43;
+            this.label15.Text = "Possum Coins";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(374, 127);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(37, 15);
+            this.label14.TabIndex = 42;
+            this.label14.Text = "Gems";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(533, 58);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(50, 15);
+            this.label13.TabIndex = 41;
+            this.label13.Text = "Treasure";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(524, 94);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(59, 15);
+            this.label12.TabIndex = 40;
+            this.label12.Text = "Gold Keys";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(521, 127);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(62, 15);
+            this.label11.TabIndex = 39;
+            this.label11.Text = "Silver Keys";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(335, 58);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(76, 15);
+            this.label10.TabIndex = 38;
+            this.label10.Text = "Portal Stones";
             // 
             // chk_broom
             // 
@@ -404,6 +618,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.chk_onlyFalse);
             this.tabPage3.Controls.Add(this.list_flags);
             this.tabPage3.Controls.Add(this.list_values);
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
@@ -412,6 +627,28 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "All Values";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // chk_onlyFalse
+            // 
+            this.chk_onlyFalse.AutoSize = true;
+            this.chk_onlyFalse.Checked = true;
+            this.chk_onlyFalse.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_onlyFalse.Location = new System.Drawing.Point(421, 14);
+            this.chk_onlyFalse.Name = "chk_onlyFalse";
+            this.chk_onlyFalse.Size = new System.Drawing.Size(112, 19);
+            this.chk_onlyFalse.TabIndex = 2;
+            this.chk_onlyFalse.Text = "Show Only False";
+            this.chk_onlyFalse.UseVisualStyleBackColor = true;
+            this.chk_onlyFalse.CheckedChanged += new System.EventHandler(this.chk_onlyFalse_CheckedChanged);
+            // 
+            // list_flags
+            // 
+            this.list_flags.FormattingEnabled = true;
+            this.list_flags.ItemHeight = 15;
+            this.list_flags.Location = new System.Drawing.Point(421, 44);
+            this.list_flags.Name = "list_flags";
+            this.list_flags.Size = new System.Drawing.Size(315, 304);
+            this.list_flags.TabIndex = 1;
             // 
             // list_values
             // 
@@ -432,15 +669,6 @@
             this.btn_save.UseVisualStyleBackColor = true;
             this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
             // 
-            // list_flags
-            // 
-            this.list_flags.FormattingEnabled = true;
-            this.list_flags.ItemHeight = 15;
-            this.list_flags.Location = new System.Drawing.Point(421, 14);
-            this.list_flags.Name = "list_flags";
-            this.list_flags.Size = new System.Drawing.Size(315, 334);
-            this.list_flags.TabIndex = 1;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -460,6 +688,7 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -502,5 +731,27 @@
         private CheckBox chk_greenSword;
         private ListBox list_values;
         private ListBox list_flags;
+        private ComboBox combo_SaveLocation;
+        private Label label6;
+        private Label label8;
+        private Label label7;
+        private TextBox txt_SaveLocationX;
+        private TextBox txt_SaveLocationY;
+        private Label label9;
+        private TextBox txt_SaveLocationD;
+        private Label label15;
+        private Label label14;
+        private Label label13;
+        private Label label12;
+        private Label label11;
+        private Label label10;
+        private TextBox txt_portalStones;
+        private Label label16;
+        private TextBox txt_treasure;
+        private TextBox txt_possum;
+        private TextBox txt_goldKey;
+        private TextBox txt_Gems;
+        private TextBox txt_silverKey;
+        private CheckBox chk_onlyFalse;
     }
 }
