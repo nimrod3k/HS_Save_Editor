@@ -19,4 +19,10 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="flags.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

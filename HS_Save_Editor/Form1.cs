@@ -7,7 +7,9 @@ namespace HS_Save_Editor
     public partial class Form1 : Form
     {
         HSJsonData? theData = null;
-        public Form1()
+		List<string> allCollectibles = new List<string>();
+
+		public Form1()
         {
             InitializeComponent();
 			combo_SaveLocation.DataSource = Enum.GetValues(typeof(Maps));
@@ -45,25 +47,46 @@ namespace HS_Save_Editor
 
 		private void fillAllFlags()
         {
+			allCollectibles.Clear();
+			list_flags.Items.Clear();
+
+			allCollectibles = File.ReadAllLines("flags.txt").ToList<string>();
+			
 			foreach (string key in theData.flags.Keys)
 			{
-				if (!chk_onlyFalse.Checked || !theData.flags[key])
-				{
-					string[] key_parts = key.Split('.');
-					string key_modified = string.Format("{0}({1}).{2}.{3}", (Maps)Convert.ToInt64(key_parts[0]), key_parts[0], key_parts[1], key_parts[2]);
-					string line = string.Format
-						(
-						"'{0}': {1}",
-						key_modified,
-						theData.flags[key]
-						);
-					list_flags.Items.Add(line);
-				}
+				string[] key_parts = key.Split('.');
+				string line = string.Format
+					(
+					"({0})'{1}': {2}",
+					(Maps)Convert.ToInt64(key_parts[0]),
+					key,
+					theData.flags[key]
+					);
+				list_flags.Items.Add(line);
 			}
+			bool update = false;
+			foreach (string line in list_flags.Items)
+			{
+				if (!allCollectibles.Contains(line))
+                {
+					update = true;
+					allCollectibles.Add(line);
+                }
+			}
+			if (update)
+				File.WriteAllLines("flags.txt", (List<string>)allCollectibles.Cast<string>().ToList());
+			foreach (string line in list_flags.Items)
+			{
+				allCollectibles.Remove(line);
+			}
+			list_allitems.DataSource = allCollectibles;
 		}
 
-        private void fillForm(HSJsonData data)
+		private void fillForm(HSJsonData data)
         {
+			list_flags.Items.Clear();
+			list_values.Items.Clear();
+
             theData = data;
             box_hearts.Value = (decimal)DataUtils.Get(data.values[(int)Vars.HEARTS]);
 			box_steps.Text = DataUtils.TotalSteps.ToString();
@@ -260,38 +283,52 @@ namespace HS_Save_Editor
 		}
 
 		private void update_data()
-        {
+		{
 			DataUtils.TotalSteps = int.Parse(box_steps.Text);
 			DataUtils.Set(ref theData, Vars.SWORDS, (byte)box_swords.Value);
 			var splitTime = box_time.Text.Split(':');
-			theData.playtime =(Convert.ToInt64(splitTime[0]) * 3600) + (Convert.ToInt64(splitTime[1]) * 60) + Convert.ToInt64(splitTime[2]);
+			theData.playtime = (Convert.ToInt64(splitTime[0]) * 3600) + (Convert.ToInt64(splitTime[1]) * 60) + Convert.ToInt64(splitTime[2]);
 			theData.deaths = (int)box_deaths.Value;
-			DataUtils.Set(ref theData, Vars.GEM_HEART, chk_bHeart.Checked ? (byte)1:(byte)0);
-			DataUtils.Set(ref theData, Vars.GEM_BOOTS, chk_bobs.Checked ? (byte)1:(byte)0);
-			DataUtils.Set(ref theData, Vars.BOOTS, chk_boots.Checked ? (byte)1:(byte)0);
-			DataUtils.Set(ref theData, Vars.GEM_SHIELD, chk_bShield.Checked ? (byte)0x01:(byte)0x00);
-			DataUtils.Set(ref theData, Vars.GEM_SWORD, chk_bSword.Checked ? (byte)1:(byte)0);
-			DataUtils.Set(ref theData, Vars.HAMMERS, chk_hammer.Checked ? (byte)1:(byte)0);
-			DataUtils.Set(ref theData, Vars.LAVA_CHARMS, chk_lavaCharm.Checked ? (byte)1:(byte)0);
-			DataUtils.Set(ref theData, Vars.RED_SHIELD, chk_rShield.Checked ? (byte)1:(byte)0);
-			DataUtils.Set(ref theData, Vars.RED_SWORD, chk_rSword.Checked ? (byte)1:(byte)0);
-			DataUtils.Set(ref theData, Vars.WATER_RING, chk_windRing.Checked ? (byte)1:(byte)0);
-			DataUtils.Set(ref theData, Vars.COMPASSES, chk_compass.Checked ? (byte)1:(byte)0);
-			DataUtils.Set(ref theData, Vars.SPECTACLES, chk_spectacles.Checked ? (byte)1:(byte)0);
-			DataUtils.Set(ref theData, Vars.SKELETON_KEY, chk_skeletonKey.Checked ? (byte)1:(byte)0);
-			DataUtils.Set(ref theData, Vars.COLLECTOR_EYE, chk_smugglersEye.Checked ? (byte)1:(byte)0);
-			DataUtils.Set(ref theData, Vars.BROOM, chk_broom.Checked ? (byte)1:(byte)0);
-			DataUtils.Set(ref theData, Vars.MIRROR, chk_mirror.Checked ? (byte)1:(byte)0);
-			DataUtils.Set(ref theData, Vars.SAVE_CRYSTAL, chk_saveCrystals.Checked ? (byte)1:(byte)0);
+			DataUtils.Set(ref theData, Vars.GEM_HEART, chk_bHeart.Checked ? (byte)1 : (byte)0);
+			DataUtils.Set(ref theData, Vars.GEM_BOOTS, chk_bobs.Checked ? (byte)1 : (byte)0);
+			DataUtils.Set(ref theData, Vars.BOOTS, chk_boots.Checked ? (byte)1 : (byte)0);
+			DataUtils.Set(ref theData, Vars.GEM_SHIELD, chk_bShield.Checked ? (byte)0x01 : (byte)0x00);
+			DataUtils.Set(ref theData, Vars.GEM_SWORD, chk_bSword.Checked ? (byte)1 : (byte)0);
+			DataUtils.Set(ref theData, Vars.HAMMERS, chk_hammer.Checked ? (byte)1 : (byte)0);
+			DataUtils.Set(ref theData, Vars.LAVA_CHARMS, chk_lavaCharm.Checked ? (byte)1 : (byte)0);
+			DataUtils.Set(ref theData, Vars.RED_SHIELD, chk_rShield.Checked ? (byte)1 : (byte)0);
+			DataUtils.Set(ref theData, Vars.RED_SWORD, chk_rSword.Checked ? (byte)1 : (byte)0);
+			DataUtils.Set(ref theData, Vars.WATER_RING, chk_windRing.Checked ? (byte)1 : (byte)0);
+			DataUtils.Set(ref theData, Vars.COMPASSES, chk_compass.Checked ? (byte)1 : (byte)0);
+			DataUtils.Set(ref theData, Vars.SPECTACLES, chk_spectacles.Checked ? (byte)1 : (byte)0);
+			DataUtils.Set(ref theData, Vars.SKELETON_KEY, chk_skeletonKey.Checked ? (byte)1 : (byte)0);
+			DataUtils.Set(ref theData, Vars.COLLECTOR_EYE, chk_smugglersEye.Checked ? (byte)1 : (byte)0);
+			DataUtils.Set(ref theData, Vars.BROOM, chk_broom.Checked ? (byte)1 : (byte)0);
+			DataUtils.Set(ref theData, Vars.MIRROR, chk_mirror.Checked ? (byte)1 : (byte)0);
+			DataUtils.Set(ref theData, Vars.SAVE_CRYSTAL, chk_saveCrystals.Checked ? (byte)1 : (byte)0);
 			DataUtils.Set(ref theData, Vars.GREEN_SWORD, chk_greenSword.Checked ? (byte)1 : (byte)0);
+			theData.flags.Clear();
+			foreach (string item in list_flags.Items)
+			{
 
+				string[] temp = item.Split(')')[1].Replace("\'","").Split(':');
+				string key = temp[0];
+				bool val = Convert.ToBoolean(temp[1]);
+				theData.flags.Add(key, val);
+			}
 		}
 
-        private void chk_onlyFalse_CheckedChanged(object sender, EventArgs e)
+        private void btn_itemsLeft_Click(object sender, EventArgs e)
         {
-			list_flags.Items.Clear();
-			list_values.Items.Clear();
-			fillAllFlags();
+			list_flags.Items.Add(list_allitems.SelectedItem);
+			allCollectibles.RemoveAt(list_allitems.SelectedIndex);
         }
-    }
+
+        private void btn_itemsRight_Click(object sender, EventArgs e)
+        {
+			allCollectibles.Add((string)list_flags.SelectedItem);
+			list_flags.Items.RemoveAt(list_flags.SelectedIndex);
+
+		}
+	}
 }

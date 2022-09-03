@@ -82,10 +82,15 @@
             this.chk_lavaCharm = new System.Windows.Forms.CheckBox();
             this.chk_hammer = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.chk_onlyFalse = new System.Windows.Forms.CheckBox();
-            this.list_flags = new System.Windows.Forms.ListBox();
             this.list_values = new System.Windows.Forms.ListBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.btn_itemsRight = new System.Windows.Forms.Button();
+            this.btn_itemsLeft = new System.Windows.Forms.Button();
+            this.list_allitems = new System.Windows.Forms.ListBox();
+            this.list_flags = new System.Windows.Forms.ListBox();
             this.btn_save = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             this.tab_saveData.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.box_deaths)).BeginInit();
@@ -93,6 +98,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.box_hearts)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_loadSaveFile
@@ -110,6 +116,7 @@
             this.tab_saveData.Controls.Add(this.tabPage1);
             this.tab_saveData.Controls.Add(this.tabPage2);
             this.tab_saveData.Controls.Add(this.tabPage3);
+            this.tab_saveData.Controls.Add(this.tabPage4);
             this.tab_saveData.Location = new System.Drawing.Point(12, 40);
             this.tab_saveData.Name = "tab_saveData";
             this.tab_saveData.SelectedIndex = 0;
@@ -293,7 +300,7 @@
             // 
             // box_time
             // 
-            this.box_time.Location = new System.Drawing.Point(104, 46);
+            this.box_time.Location = new System.Drawing.Point(104, 54);
             this.box_time.Name = "box_time";
             this.box_time.Size = new System.Drawing.Size(120, 23);
             this.box_time.TabIndex = 8;
@@ -333,7 +340,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 49);
+            this.label2.Location = new System.Drawing.Point(15, 57);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(61, 15);
             this.label2.TabIndex = 2;
@@ -342,7 +349,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 9);
+            this.label1.Location = new System.Drawing.Point(13, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 15);
             this.label1.TabIndex = 1;
@@ -350,7 +357,7 @@
             // 
             // box_steps
             // 
-            this.box_steps.Location = new System.Drawing.Point(104, 6);
+            this.box_steps.Location = new System.Drawing.Point(104, 14);
             this.box_steps.Name = "box_steps";
             this.box_steps.Size = new System.Drawing.Size(120, 23);
             this.box_steps.TabIndex = 0;
@@ -618,8 +625,6 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.chk_onlyFalse);
-            this.tabPage3.Controls.Add(this.list_flags);
             this.tabPage3.Controls.Add(this.list_values);
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
@@ -627,28 +632,6 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "All Values";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // chk_onlyFalse
-            // 
-            this.chk_onlyFalse.AutoSize = true;
-            this.chk_onlyFalse.Checked = true;
-            this.chk_onlyFalse.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_onlyFalse.Location = new System.Drawing.Point(421, 14);
-            this.chk_onlyFalse.Name = "chk_onlyFalse";
-            this.chk_onlyFalse.Size = new System.Drawing.Size(112, 19);
-            this.chk_onlyFalse.TabIndex = 2;
-            this.chk_onlyFalse.Text = "Show Only False";
-            this.chk_onlyFalse.UseVisualStyleBackColor = true;
-            this.chk_onlyFalse.CheckedChanged += new System.EventHandler(this.chk_onlyFalse_CheckedChanged);
-            // 
-            // list_flags
-            // 
-            this.list_flags.FormattingEnabled = true;
-            this.list_flags.ItemHeight = 15;
-            this.list_flags.Location = new System.Drawing.Point(421, 44);
-            this.list_flags.Name = "list_flags";
-            this.list_flags.Size = new System.Drawing.Size(315, 304);
-            this.list_flags.TabIndex = 1;
             // 
             // list_values
             // 
@@ -659,6 +642,60 @@
             this.list_values.Size = new System.Drawing.Size(361, 334);
             this.list_values.TabIndex = 0;
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.label18);
+            this.tabPage4.Controls.Add(this.label17);
+            this.tabPage4.Controls.Add(this.btn_itemsRight);
+            this.tabPage4.Controls.Add(this.btn_itemsLeft);
+            this.tabPage4.Controls.Add(this.list_allitems);
+            this.tabPage4.Controls.Add(this.list_flags);
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(768, 370);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Items";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // btn_itemsRight
+            // 
+            this.btn_itemsRight.Location = new System.Drawing.Point(361, 177);
+            this.btn_itemsRight.Name = "btn_itemsRight";
+            this.btn_itemsRight.Size = new System.Drawing.Size(42, 23);
+            this.btn_itemsRight.TabIndex = 5;
+            this.btn_itemsRight.Text = ">>";
+            this.btn_itemsRight.UseVisualStyleBackColor = true;
+            this.btn_itemsRight.Click += new System.EventHandler(this.btn_itemsRight_Click);
+            // 
+            // btn_itemsLeft
+            // 
+            this.btn_itemsLeft.Location = new System.Drawing.Point(361, 148);
+            this.btn_itemsLeft.Name = "btn_itemsLeft";
+            this.btn_itemsLeft.Size = new System.Drawing.Size(42, 23);
+            this.btn_itemsLeft.TabIndex = 4;
+            this.btn_itemsLeft.Text = "<<";
+            this.btn_itemsLeft.UseVisualStyleBackColor = true;
+            this.btn_itemsLeft.Click += new System.EventHandler(this.btn_itemsLeft_Click);
+            // 
+            // list_allitems
+            // 
+            this.list_allitems.FormattingEnabled = true;
+            this.list_allitems.ItemHeight = 15;
+            this.list_allitems.Location = new System.Drawing.Point(409, 49);
+            this.list_allitems.Name = "list_allitems";
+            this.list_allitems.Size = new System.Drawing.Size(330, 304);
+            this.list_allitems.TabIndex = 3;
+            // 
+            // list_flags
+            // 
+            this.list_flags.FormattingEnabled = true;
+            this.list_flags.ItemHeight = 15;
+            this.list_flags.Location = new System.Drawing.Point(25, 49);
+            this.list_flags.Name = "list_flags";
+            this.list_flags.Size = new System.Drawing.Size(330, 304);
+            this.list_flags.TabIndex = 2;
+            // 
             // btn_save
             // 
             this.btn_save.Location = new System.Drawing.Point(151, 11);
@@ -668,6 +705,24 @@
             this.btn_save.Text = "Export Save File";
             this.btn_save.UseVisualStyleBackColor = true;
             this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(25, 20);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(73, 15);
+            this.label17.TabIndex = 6;
+            this.label17.Text = "Items Found";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(409, 20);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(59, 15);
+            this.label18.TabIndex = 7;
+            this.label18.Text = "Items Left";
             // 
             // Form1
             // 
@@ -688,7 +743,8 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -730,7 +786,6 @@
         private Button btn_save;
         private CheckBox chk_greenSword;
         private ListBox list_values;
-        private ListBox list_flags;
         private ComboBox combo_SaveLocation;
         private Label label6;
         private Label label8;
@@ -752,6 +807,12 @@
         private TextBox txt_goldKey;
         private TextBox txt_Gems;
         private TextBox txt_silverKey;
-        private CheckBox chk_onlyFalse;
+        private TabPage tabPage4;
+        private ListBox list_allitems;
+        private ListBox list_flags;
+        private Button btn_itemsRight;
+        private Button btn_itemsLeft;
+        private Label label18;
+        private Label label17;
     }
 }
