@@ -35,8 +35,9 @@ namespace HS_Save_Editor
             {
 				string line = string.Format
 					(
-					"{0}: {1}",id.ToString(),
-					DataUtils.Get(theData.values[(int)id])
+					"{0}({2}): {1}",id.ToString(),
+					DataUtils.Get(theData.values[(int)id]),
+					(int)id
 					);
 				list_values.Items.Add(line);
 			}
@@ -64,8 +65,8 @@ namespace HS_Save_Editor
         private void fillForm(HSJsonData data)
         {
             theData = data;
-            box_hearts.Value = data.hearts.Count;
-            box_steps.Text = DataUtils.TotalSteps.ToString();
+            box_hearts.Value = (decimal)DataUtils.Get(data.values[(int)Vars.HEARTS]);
+			box_steps.Text = DataUtils.TotalSteps.ToString();
             box_swords.Value = (decimal)DataUtils.Get(data.values[(int)Vars.SWORDS]);
             string time =
             box_time.Text = string.Format
