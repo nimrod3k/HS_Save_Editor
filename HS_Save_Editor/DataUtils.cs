@@ -61,7 +61,6 @@ namespace HS_Save_Editor
 			return new HSJsonData();
 		}
 
-
 		internal static string Unscramble(string text)
 		{
 			string text2 = text.Substring(10);
@@ -123,7 +122,6 @@ namespace HS_Save_Editor
 			
 		}
 
-
 		internal static byte Get(byte value)
 		{
 			return HS_Save_Tools.DeobfuscateValue(value);
@@ -140,9 +138,7 @@ namespace HS_Save_Editor
 		}
 
 		internal static int TotalSteps = 0;
-
 		internal static string filename = "";
-
 
 	}
 }
