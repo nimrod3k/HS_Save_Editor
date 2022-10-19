@@ -116,10 +116,10 @@ namespace HS_Save_Editor
 				string s2 = text2.Substring(Math.Min(text2.Length - 1, j * 8 + 4), Math.Min(8, text2.Length - (j * 8 + 4)));
 				text += HS_Save_Tools.Encode(s2, DataUtils.TotalSteps + j);
 			}
-			
+
 			string saveFile = filename + "_new";
 			File.WriteAllText(saveFile, text);
-			
+
 		}
 
 		internal static byte Get(byte value)
@@ -134,11 +134,54 @@ namespace HS_Save_Editor
 
 		internal static void Set(ref HSJsonData data, Vars item, byte val)
 		{
-			data.values[(int)item] = HS_Save_Tools.ObfuscateValue(val);
+			if ((int)item < data.values.Length)
+				data.values[(int)item] = HS_Save_Tools.ObfuscateValue(val);
 		}
 
 		internal static int TotalSteps = 0;
 		internal static string filename = "";
 
+		internal static List<string> heart_coords = new List<string>()
+		{
+			"4.31.54","4.60.65","4.61.10","4.22.5","4.15.75","10.73.44","10.41.59","10.17.65","10.51.70","10.42.112","10.78.115","10.95.92","10.114.101","10.97.79","10.82.26","10.89.13","10.79.1","10.103.2","14.12.87","14.38.102"
+		};
+		internal static List<string> gdoor_coords = new List<string>()
+		{
+			"10.2.19","10.9.18","10.50.12","10.40.115","10.38.59","10.45.56"
+		};
+		internal static List<string> sdoor_coords = new List<string>()
+		{
+			"10.43.56"
+		};
+		internal static List<string> gkey_coords = new List<string>()
+		{
+			"10.1.1", "10.44.11", "10.39.57"
+		};
+		internal static List<string> skey_coords = new List<string>()
+		{
+			"10.2.6","10.1.27"
+		};
+		internal static List<string> portal_st_coords = new List<string>()
+		{
+			"10.10.1", "10.1.17", "10.4.23", "10.40.12", "10.42.9",
+			"6.10.15"
+		};
+		internal static List<string> sword_coords = new List<string>()
+		{
+			"10.28.1", "10.6.2", "10.1.16"
+		};
+		internal static List<string> gem_coords = new List<string>()
+		{
+			"10.9.3","10.1.5","10.2.22","10.2.24","10.40.67"
+		};
+		internal static List<string> treasure_coords = new List<string>()
+		{
+			"6.11.16"
+		};
+
+		internal static Dictionary<string, string> mapFeatures = new Dictionary<string, string>()
+		{
+			{ "6.11.7", "Blue Key"}
+		};
 	}
 }

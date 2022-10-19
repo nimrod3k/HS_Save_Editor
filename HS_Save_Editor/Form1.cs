@@ -8,14 +8,92 @@ namespace HS_Save_Editor
     {
         HSJsonData? theData = null;
 		List<string> allCollectibles = new List<string>();
+		List<string> doneCollectibles = new List<string>();
+		List<string> undoneCollectibles = new List<string>();
 
 		public Form1()
         {
             InitializeComponent();
 			combo_SaveLocation.DataSource = Enum.GetValues(typeof(Maps));
+			load_allCollectibles();
         }
 
-        private void btn_loadSaveFile_Click(object sender, EventArgs e)
+		private void load_allCollectibles()
+        {
+			allCollectibles.Clear();
+			allCollectibles = File.ReadAllLines("flags.txt").ToList<string>();
+
+			foreach (string line in DataUtils.gdoor_coords)
+            {
+				DataUtils.mapFeatures.Add(line,"Gold Door");
+			}
+			foreach (string line in DataUtils.gem_coords)
+			{
+				DataUtils.mapFeatures.Add(line, "Gem");
+			}
+			foreach (string line in DataUtils.gkey_coords)
+			{
+				DataUtils.mapFeatures.Add(line, "Gold Key");
+			}
+			foreach (string line in DataUtils.heart_coords)
+			{
+				DataUtils.mapFeatures.Add(line, "Heart");
+			}
+			foreach (string line in DataUtils.portal_st_coords)
+			{
+				DataUtils.mapFeatures.Add(line, "Portal Stone");
+			}
+			foreach (string line in DataUtils.sdoor_coords)
+			{
+				DataUtils.mapFeatures.Add(line, "Silver Door");
+			}
+			foreach (string line in DataUtils.skey_coords)
+			{
+				DataUtils.mapFeatures.Add(line, "Silver Key");
+			}
+			foreach (string line in DataUtils.sword_coords)
+			{
+				DataUtils.mapFeatures.Add(line, "Sword");
+			}
+			foreach (string line in DataUtils.treasure_coords)
+			{
+				DataUtils.mapFeatures.Add(line, "Treasure");
+			}
+
+		}
+
+		private void load_doneCollectibles()
+		{
+			doneCollectibles.Clear();
+			foreach (string key in theData.flags.Keys)
+			{
+
+				string[] key_parts = key.Split('.');
+
+				string line = string.Format
+					(
+					"({0})'{1}': {2}",
+					(Maps)Convert.ToInt64(key_parts[0]),
+					key,
+					theData.flags[key]
+					);
+				doneCollectibles.Add(line);
+			}
+			bool update = false;
+			foreach (string line in doneCollectibles)
+			{
+				if (!allCollectibles.Contains(line))
+				{
+					update = true;
+					allCollectibles.Add(line);
+				}
+			}
+			if (update)
+				File.WriteAllLines("flags.txt", (List<string>)allCollectibles.Cast<string>().ToList());
+
+		}
+
+		private void btn_loadSaveFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog picker = new OpenFileDialog();
             picker.InitialDirectory = @"C:\Users\nimro\source\repos\HS_Save_Editor\HS_Save_Editor"; // Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location),@"..\..\");
@@ -34,61 +112,149 @@ namespace HS_Save_Editor
 		private void fillAllValues()
         {
 			foreach (Vars id in Enum.GetValues(typeof(Vars)))
-            {
-				string line = string.Format
-					(
-					"{0}({2}): {1}",id.ToString(),
-					DataUtils.Get(theData.values[(int)id]),
-					(int)id
-					);
-				list_values.Items.Add(line);
+			{
+				if ((int)id < theData.values.Length)
+				{
+					var percent = CompletionCalculator.calculateIndividualpercent(theData.values, id);
+
+					string line = string.Format
+						(
+						"{0}({2}): {1}  impact%: {3}", id.ToString(),
+						DataUtils.Get(theData.values[(int)id]),
+						(int)id,
+						percent
+						);
+					list_values.Items.Add(line);
+				}
 			}
+		}
+
+		private void fillMissedPercent()
+        {
+			List<Percent> percents = CompletionCalculator.calculateMissedpercent(theData.values);
+			foreach (var percent in percents)
+			{
+				if (percent.vars == Vars.NGPPP)
+                {
+					continue;
+                }
+				if (percent.multiplier >= 0)
+				{
+					string mult = (percent.multiplier * CompletionCalculator.scale).ToString();
+					if (percent.condition == Condition.None)
+					{
+						mult += " * number";
+
+					}
+					string line = string.Format
+						(
+						"{0}({1}): {2}%", percent.vars.ToString(),
+						(int)percent.vars,
+						mult
+						);
+					list_missedPercent.Items.Add(line);
+				}
+			}
+			if (!(DataUtils.Get(89) > 0 || DataUtils.Get(127) > 0))
+				list_missedPercent.Items.Add(string.Format("{0}({2}) or {1}({3}): {4}%", (Vars)89, (Vars)127, DataUtils.Get(89), DataUtils.Get(127), 25f * CompletionCalculator.scale));
+			if (!(DataUtils.Get(25) > 0 && DataUtils.Get(26) <= 0))
+				list_missedPercent.Items.Add(string.Format("Bloodmoon Finished: {0}%", 25f * CompletionCalculator.scale));
+			if (DataUtils.Get(144) != 0 && DataUtils.Get(149) != 0 && !(DataUtils.Get(54) > 0))
+				list_missedPercent.Items.Add(
+					string.Format("{0}({1}) (not NGP or NGPP): {2}%",
+					(Vars)54,
+					DataUtils.Get(54),
+					CompletionCalculator.num2 * CompletionCalculator.scale)
+					);
+
+
+		}
+
+		private void fillExtraPercent()
+		{
+			List<String> percents = CompletionCalculator.calculateExtraPercent(theData.values);
+			list_xtraPercent.DataSource = percents;
 		}
 
 		private void fillAllFlags()
         {
-			allCollectibles.Clear();
+			undoneCollectibles.Clear();
 			list_flags.Items.Clear();
+			list_allitems.Items.Clear();
 
-			allCollectibles = File.ReadAllLines("flags.txt").ToList<string>();
-			
-			foreach (string key in theData.flags.Keys)
+			foreach (string line in allCollectibles)
 			{
-				string[] key_parts = key.Split('.');
-				string line = string.Format
-					(
-					"({0})'{1}': {2}",
-					(Maps)Convert.ToInt64(key_parts[0]),
-					key,
-					theData.flags[key]
-					);
-				list_flags.Items.Add(line);
+				if (!doneCollectibles.Contains(line))
+					undoneCollectibles.Add(line);
 			}
-			bool update = false;
-			foreach (string line in list_flags.Items)
+			foreach (string line in undoneCollectibles)
+            {
+				if (checkFilter(line) && checkMap(line))
+					list_allitems.Items.Add(line);
+            }
+			foreach (string line in doneCollectibles)
 			{
-				if (!allCollectibles.Contains(line))
-                {
-					update = true;
-					allCollectibles.Add(line);
-                }
+				if (checkFilter(line) && checkMap(line))
+					list_flags.Items.Add(line);
 			}
-			if (update)
-				File.WriteAllLines("flags.txt", (List<string>)allCollectibles.Cast<string>().ToList());
-			foreach (string line in list_flags.Items)
-			{
-				allCollectibles.Remove(line);
-			}
-			list_allitems.DataSource = allCollectibles;
 		}
 
+		private bool checkFilter(string coord)
+        {
+			string item = coord.Split(")")[1].Split(":")[0].Trim('\'');
+			if (DataUtils.mapFeatures.ContainsKey(item))
+			{
+				if (
+					(DataUtils.mapFeatures[item] == "Gold Door" && chk_feature_gdoor.Checked) ||
+					(DataUtils.mapFeatures[item] == "Gem" && chk_feature_Gems.Checked) ||
+					(DataUtils.mapFeatures[item] == "Gold Key" && chk_feature_gkey.Checked) ||
+					(DataUtils.mapFeatures[item] == "Heart" && chk_feature_hearts.Checked) ||
+					(DataUtils.mapFeatures[item] == "Portal Stone" && chk_feature_portals.Checked) ||
+					(DataUtils.mapFeatures[item] == "Silver Door" && chk_feature_sdoor.Checked) ||
+					(DataUtils.mapFeatures[item] == "Silver Key" && chk_feature_skey.Checked) ||
+					(DataUtils.mapFeatures[item] == "Swords" && chk_feature_swords.Checked) ||
+					(DataUtils.mapFeatures[item] == "Treasure" && chk_feature_treasures.Checked)
+					)
+				{
+					return true;
+				}
+				else if (chk_feature_keyItems.Checked)
+                {
+					return true;
+                }
+			}
+			else if (chk_feature_unknown.Checked)
+				return true;
+			return false;
+		}
+		private bool checkMap(string coord)
+		{
+			Maps mapID = (Maps)Convert.ToInt32(coord.Split(")")[1].Split(":")[0].Trim('\'').Split(".")[0]);
+			if (
+				(mapID == Maps.CASTLE_GROUNDS && chk_feature_CG.Checked) ||
+				(mapID == Maps.THE_TUNDRA && chk_feature_Tun.Checked) ||
+				(mapID == Maps.NORTH_MUNDEMAN && chk_feature_NM.Checked)
+				)
+			{
+				return true;
+			}
+			else if (chk_feature_unknown.Checked &&
+				(mapID != Maps.CASTLE_GROUNDS && mapID != Maps.THE_TUNDRA && mapID != Maps.NORTH_MUNDEMAN)
+				)
+				return true;
+			return false;
+		}
 		private void fillForm(HSJsonData data)
         {
 			list_flags.Items.Clear();
 			list_values.Items.Clear();
 
             theData = data;
-            box_hearts.Value = (decimal)DataUtils.Get(data.values[(int)Vars.HEARTS]);
+
+			load_doneCollectibles();
+
+
+			box_hearts.Value = (decimal)DataUtils.Get(data.values[(int)Vars.HEARTS]);
 			box_steps.Text = DataUtils.TotalSteps.ToString();
             box_swords.Value = (decimal)DataUtils.Get(data.values[(int)Vars.SWORDS]);
             string time =
@@ -132,8 +298,12 @@ namespace HS_Save_Editor
 
 
 			fillAllValues();
+			fillMissedPercent();
+			fillExtraPercent();
+
+
 			fillAllFlags();
-			
+			txt_percent.Text = CompletionCalculator.Calculate(data.values).ToString();
 
 			/*
 		SECRET_TOKENS = 36,
@@ -255,7 +425,7 @@ namespace HS_Save_Editor
         }
 
 		private string GetCollectibleValues(Vars total, Vars current)
-        {
+		{
 			string collectible = "";
 			if (theData != null)
 			{
@@ -274,6 +444,18 @@ namespace HS_Save_Editor
 			return collectible;
 		}
 
+		private void SetCollectibleValues(string collectible, Vars total, Vars current)
+        {
+			if (theData != null)
+			{
+				string[] collectible_split = collectible.Split('/');
+				byte col_total = Convert.ToByte(collectible_split[2]);
+				byte col_current = Convert.ToByte(collectible_split[0]);
+				DataUtils.Set(ref theData, total, col_total);
+				DataUtils.Set(ref theData, current, col_current);
+			}
+		}
+
 		private void btn_save_Click(object sender, EventArgs e)
         {
 			update_data();
@@ -289,6 +471,12 @@ namespace HS_Save_Editor
 			var splitTime = box_time.Text.Split(':');
 			theData.playtime = (Convert.ToInt64(splitTime[0]) * 3600) + (Convert.ToInt64(splitTime[1]) * 60) + Convert.ToInt64(splitTime[2]);
 			theData.deaths = (int)box_deaths.Value;
+			theData.position = String.Format("{0}.{1}.{2}.{3}",
+				(int)Enum.Parse(typeof(Maps), combo_SaveLocation.Text),
+				txt_SaveLocationX.Text,
+				txt_SaveLocationY.Text,
+				txt_SaveLocationD.Text
+			);
 			DataUtils.Set(ref theData, Vars.GEM_HEART, chk_bHeart.Checked ? (byte)1 : (byte)0);
 			DataUtils.Set(ref theData, Vars.GEM_BOOTS, chk_bobs.Checked ? (byte)1 : (byte)0);
 			DataUtils.Set(ref theData, Vars.BOOTS, chk_boots.Checked ? (byte)1 : (byte)0);
@@ -307,10 +495,16 @@ namespace HS_Save_Editor
 			DataUtils.Set(ref theData, Vars.MIRROR, chk_mirror.Checked ? (byte)1 : (byte)0);
 			DataUtils.Set(ref theData, Vars.SAVE_CRYSTAL, chk_saveCrystals.Checked ? (byte)1 : (byte)0);
 			DataUtils.Set(ref theData, Vars.GREEN_SWORD, chk_greenSword.Checked ? (byte)1 : (byte)0);
-			theData.flags.Clear();
-			foreach (string item in list_flags.Items)
-			{
+			SetCollectibleValues(txt_portalStones.Text, Vars.TOTAL_PORTAL_STONES, Vars.PORTAL_STONES);
+			SetCollectibleValues(txt_Gems.Text, Vars.TOTAL_GEMS, Vars.GEMS);
+			SetCollectibleValues(txt_goldKey.Text, Vars.TOTAL_GOLD_KEYS, Vars.GOLD_KEYS);
+			SetCollectibleValues(txt_possum.Text, Vars.TOTAL_POSSUM_COINS, Vars.POSSUM_COINS);
+			SetCollectibleValues(txt_silverKey.Text, Vars.TOTAL_SILVER_KEYS, Vars.SILVER_KEYS);
+			SetCollectibleValues(txt_treasure.Text, Vars.TOTAL_TREASURES, Vars.TREASURES);
 
+			theData.flags.Clear();
+			foreach (string item in doneCollectibles)
+			{
 				string[] temp = item.Split(')')[1].Replace("\'","").Split(':');
 				string key = temp[0];
 				bool val = Convert.ToBoolean(temp[1]);
@@ -318,17 +512,39 @@ namespace HS_Save_Editor
 			}
 		}
 
-        private void btn_itemsLeft_Click(object sender, EventArgs e)
-        {
-			list_flags.Items.Add(list_allitems.SelectedItem);
-			allCollectibles.RemoveAt(list_allitems.SelectedIndex);
-        }
+		private void btn_itemsLeft_Click(object sender, EventArgs e)
+		{
+			if (list_allitems.SelectedItem != null)
+			{
+				list_flags.Items.Add(list_allitems.SelectedItem);
+				allCollectibles.RemoveAt(list_allitems.SelectedIndex);
+			}
+		}
 
         private void btn_itemsRight_Click(object sender, EventArgs e)
         {
-			allCollectibles.Add((string)list_flags.SelectedItem);
-			list_flags.Items.RemoveAt(list_flags.SelectedIndex);
-
+			if (list_flags.SelectedItem != null)
+			{
+				allCollectibles.Add((string)list_flags.SelectedItem);
+				list_flags.Items.RemoveAt(list_flags.SelectedIndex);
+			}
 		}
-	}
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+			string stuff = "";
+			foreach (var heart in theData.hearts)
+            {
+				stuff += string.Format("\"{0}\"\n", heart);
+            }
+			MessageBox.Show(stuff);
+        }
+
+        private void chk_feature_filter_CheckedChanged(object sender, EventArgs e)
+        {
+			fillAllFlags();
+        }
+
+    }
 }

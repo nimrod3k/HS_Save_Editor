@@ -31,6 +31,8 @@
             this.btn_loadSaveFile = new System.Windows.Forms.Button();
             this.tab_saveData = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txt_percent = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.txt_SaveLocationD = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -82,15 +84,35 @@
             this.chk_lavaCharm = new System.Windows.Forms.CheckBox();
             this.chk_hammer = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label20 = new System.Windows.Forms.Label();
+            this.list_missedPercent = new System.Windows.Forms.ListBox();
+            this.list_xtraPercent = new System.Windows.Forms.ListBox();
             this.list_values = new System.Windows.Forms.ListBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chk_feature_CG = new System.Windows.Forms.CheckBox();
+            this.chk_feature_NM = new System.Windows.Forms.CheckBox();
+            this.chk_feature_Tun = new System.Windows.Forms.CheckBox();
+            this.chk_feature_otherMaps = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chk_feature_keyItems = new System.Windows.Forms.CheckBox();
+            this.chk_feature_swords = new System.Windows.Forms.CheckBox();
+            this.chk_feature_portals = new System.Windows.Forms.CheckBox();
+            this.chk_feature_hearts = new System.Windows.Forms.CheckBox();
+            this.chk_feature_Gems = new System.Windows.Forms.CheckBox();
+            this.chk_feature_unknown = new System.Windows.Forms.CheckBox();
+            this.chk_feature_treasures = new System.Windows.Forms.CheckBox();
+            this.chk_feature_gkey = new System.Windows.Forms.CheckBox();
+            this.chk_feature_sdoor = new System.Windows.Forms.CheckBox();
+            this.chk_feature_skey = new System.Windows.Forms.CheckBox();
+            this.chk_feature_gdoor = new System.Windows.Forms.CheckBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.btn_itemsRight = new System.Windows.Forms.Button();
             this.btn_itemsLeft = new System.Windows.Forms.Button();
             this.list_allitems = new System.Windows.Forms.ListBox();
             this.list_flags = new System.Windows.Forms.ListBox();
             this.btn_save = new System.Windows.Forms.Button();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
             this.tab_saveData.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.box_deaths)).BeginInit();
@@ -99,6 +121,8 @@
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_loadSaveFile
@@ -125,6 +149,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.txt_percent);
+            this.tabPage1.Controls.Add(this.label19);
             this.tabPage1.Controls.Add(this.label9);
             this.tabPage1.Controls.Add(this.txt_SaveLocationD);
             this.tabPage1.Controls.Add(this.label8);
@@ -156,6 +182,23 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic Info";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // txt_percent
+            // 
+            this.txt_percent.Location = new System.Drawing.Point(179, 332);
+            this.txt_percent.Name = "txt_percent";
+            this.txt_percent.ReadOnly = true;
+            this.txt_percent.Size = new System.Drawing.Size(120, 23);
+            this.txt_percent.TabIndex = 28;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(33, 332);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(132, 15);
+            this.label19.TabIndex = 3;
+            this.label19.Text = "Completion Percentage";
             // 
             // label9
             // 
@@ -625,6 +668,9 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label20);
+            this.tabPage3.Controls.Add(this.list_missedPercent);
+            this.tabPage3.Controls.Add(this.list_xtraPercent);
             this.tabPage3.Controls.Add(this.list_values);
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
@@ -633,17 +679,46 @@
             this.tabPage3.Text = "All Values";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(341, 11);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(95, 15);
+            this.label20.TabIndex = 3;
+            this.label20.Text = "Missed Percents:";
+            // 
+            // list_missedPercent
+            // 
+            this.list_missedPercent.FormattingEnabled = true;
+            this.list_missedPercent.ItemHeight = 15;
+            this.list_missedPercent.Location = new System.Drawing.Point(341, 29);
+            this.list_missedPercent.Name = "list_missedPercent";
+            this.list_missedPercent.Size = new System.Drawing.Size(406, 169);
+            this.list_missedPercent.TabIndex = 2;
+            // 
+            // list_xtraPercent
+            // 
+            this.list_xtraPercent.FormattingEnabled = true;
+            this.list_xtraPercent.ItemHeight = 15;
+            this.list_xtraPercent.Location = new System.Drawing.Point(9, 213);
+            this.list_xtraPercent.Name = "list_xtraPercent";
+            this.list_xtraPercent.Size = new System.Drawing.Size(738, 154);
+            this.list_xtraPercent.TabIndex = 1;
+            // 
             // list_values
             // 
             this.list_values.FormattingEnabled = true;
             this.list_values.ItemHeight = 15;
             this.list_values.Location = new System.Drawing.Point(9, 14);
             this.list_values.Name = "list_values";
-            this.list_values.Size = new System.Drawing.Size(361, 334);
+            this.list_values.Size = new System.Drawing.Size(326, 184);
             this.list_values.TabIndex = 0;
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.groupBox2);
+            this.tabPage4.Controls.Add(this.groupBox1);
             this.tabPage4.Controls.Add(this.label18);
             this.tabPage4.Controls.Add(this.label17);
             this.tabPage4.Controls.Add(this.btn_itemsRight);
@@ -658,9 +733,254 @@
             this.tabPage4.Text = "Items";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.chk_feature_CG);
+            this.groupBox2.Controls.Add(this.chk_feature_NM);
+            this.groupBox2.Controls.Add(this.chk_feature_Tun);
+            this.groupBox2.Controls.Add(this.chk_feature_otherMaps);
+            this.groupBox2.Location = new System.Drawing.Point(13, 254);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(357, 110);
+            this.groupBox2.TabIndex = 17;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Areas";
+            // 
+            // chk_feature_CG
+            // 
+            this.chk_feature_CG.AutoSize = true;
+            this.chk_feature_CG.Checked = true;
+            this.chk_feature_CG.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_feature_CG.Location = new System.Drawing.Point(6, 22);
+            this.chk_feature_CG.Name = "chk_feature_CG";
+            this.chk_feature_CG.Size = new System.Drawing.Size(106, 19);
+            this.chk_feature_CG.TabIndex = 8;
+            this.chk_feature_CG.Text = "Castle Grounds";
+            this.chk_feature_CG.UseVisualStyleBackColor = true;
+            this.chk_feature_CG.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
+            // 
+            // chk_feature_NM
+            // 
+            this.chk_feature_NM.AutoSize = true;
+            this.chk_feature_NM.Checked = true;
+            this.chk_feature_NM.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_feature_NM.Location = new System.Drawing.Point(6, 47);
+            this.chk_feature_NM.Name = "chk_feature_NM";
+            this.chk_feature_NM.Size = new System.Drawing.Size(140, 19);
+            this.chk_feature_NM.TabIndex = 9;
+            this.chk_feature_NM.Text = "NORTH_MUNDEMAN";
+            this.chk_feature_NM.UseVisualStyleBackColor = true;
+            this.chk_feature_NM.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
+            // 
+            // chk_feature_Tun
+            // 
+            this.chk_feature_Tun.AutoSize = true;
+            this.chk_feature_Tun.Checked = true;
+            this.chk_feature_Tun.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_feature_Tun.Location = new System.Drawing.Point(152, 22);
+            this.chk_feature_Tun.Name = "chk_feature_Tun";
+            this.chk_feature_Tun.Size = new System.Drawing.Size(98, 19);
+            this.chk_feature_Tun.TabIndex = 10;
+            this.chk_feature_Tun.Text = "THE_TUNDRA";
+            this.chk_feature_Tun.UseVisualStyleBackColor = true;
+            this.chk_feature_Tun.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
+            // 
+            // chk_feature_otherMaps
+            // 
+            this.chk_feature_otherMaps.AutoSize = true;
+            this.chk_feature_otherMaps.Checked = true;
+            this.chk_feature_otherMaps.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_feature_otherMaps.Location = new System.Drawing.Point(152, 47);
+            this.chk_feature_otherMaps.Name = "chk_feature_otherMaps";
+            this.chk_feature_otherMaps.Size = new System.Drawing.Size(61, 19);
+            this.chk_feature_otherMaps.TabIndex = 12;
+            this.chk_feature_otherMaps.Text = "Others";
+            this.chk_feature_otherMaps.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.chk_feature_keyItems);
+            this.groupBox1.Controls.Add(this.chk_feature_swords);
+            this.groupBox1.Controls.Add(this.chk_feature_portals);
+            this.groupBox1.Controls.Add(this.chk_feature_hearts);
+            this.groupBox1.Controls.Add(this.chk_feature_Gems);
+            this.groupBox1.Controls.Add(this.chk_feature_unknown);
+            this.groupBox1.Controls.Add(this.chk_feature_treasures);
+            this.groupBox1.Controls.Add(this.chk_feature_gkey);
+            this.groupBox1.Controls.Add(this.chk_feature_sdoor);
+            this.groupBox1.Controls.Add(this.chk_feature_skey);
+            this.groupBox1.Controls.Add(this.chk_feature_gdoor);
+            this.groupBox1.Location = new System.Drawing.Point(393, 254);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(369, 110);
+            this.groupBox1.TabIndex = 16;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Collectables";
+            // 
+            // chk_feature_keyItems
+            // 
+            this.chk_feature_keyItems.AutoSize = true;
+            this.chk_feature_keyItems.Checked = true;
+            this.chk_feature_keyItems.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_feature_keyItems.Location = new System.Drawing.Point(101, 72);
+            this.chk_feature_keyItems.Name = "chk_feature_keyItems";
+            this.chk_feature_keyItems.Size = new System.Drawing.Size(77, 19);
+            this.chk_feature_keyItems.TabIndex = 18;
+            this.chk_feature_keyItems.Text = "Key Items";
+            this.chk_feature_keyItems.UseVisualStyleBackColor = true;
+            this.chk_feature_keyItems.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
+            // 
+            // chk_feature_swords
+            // 
+            this.chk_feature_swords.AutoSize = true;
+            this.chk_feature_swords.Checked = true;
+            this.chk_feature_swords.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_feature_swords.Location = new System.Drawing.Point(6, 72);
+            this.chk_feature_swords.Name = "chk_feature_swords";
+            this.chk_feature_swords.Size = new System.Drawing.Size(64, 19);
+            this.chk_feature_swords.TabIndex = 17;
+            this.chk_feature_swords.Text = "Swords";
+            this.chk_feature_swords.UseVisualStyleBackColor = true;
+            this.chk_feature_swords.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
+            // 
+            // chk_feature_portals
+            // 
+            this.chk_feature_portals.AutoSize = true;
+            this.chk_feature_portals.Checked = true;
+            this.chk_feature_portals.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_feature_portals.Location = new System.Drawing.Point(6, 47);
+            this.chk_feature_portals.Name = "chk_feature_portals";
+            this.chk_feature_portals.Size = new System.Drawing.Size(95, 19);
+            this.chk_feature_portals.TabIndex = 16;
+            this.chk_feature_portals.Text = "Portal Stones";
+            this.chk_feature_portals.UseVisualStyleBackColor = true;
+            this.chk_feature_portals.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
+            // 
+            // chk_feature_hearts
+            // 
+            this.chk_feature_hearts.AutoSize = true;
+            this.chk_feature_hearts.Checked = true;
+            this.chk_feature_hearts.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_feature_hearts.Location = new System.Drawing.Point(6, 22);
+            this.chk_feature_hearts.Name = "chk_feature_hearts";
+            this.chk_feature_hearts.Size = new System.Drawing.Size(60, 19);
+            this.chk_feature_hearts.TabIndex = 8;
+            this.chk_feature_hearts.Text = "Hearts";
+            this.chk_feature_hearts.UseVisualStyleBackColor = true;
+            this.chk_feature_hearts.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
+            // 
+            // chk_feature_Gems
+            // 
+            this.chk_feature_Gems.AutoSize = true;
+            this.chk_feature_Gems.Checked = true;
+            this.chk_feature_Gems.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_feature_Gems.Location = new System.Drawing.Point(282, 47);
+            this.chk_feature_Gems.Name = "chk_feature_Gems";
+            this.chk_feature_Gems.Size = new System.Drawing.Size(56, 19);
+            this.chk_feature_Gems.TabIndex = 15;
+            this.chk_feature_Gems.Text = "Gems";
+            this.chk_feature_Gems.UseVisualStyleBackColor = true;
+            this.chk_feature_Gems.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
+            // 
+            // chk_feature_unknown
+            // 
+            this.chk_feature_unknown.AutoSize = true;
+            this.chk_feature_unknown.Checked = true;
+            this.chk_feature_unknown.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_feature_unknown.Location = new System.Drawing.Point(281, 72);
+            this.chk_feature_unknown.Name = "chk_feature_unknown";
+            this.chk_feature_unknown.Size = new System.Drawing.Size(77, 19);
+            this.chk_feature_unknown.TabIndex = 9;
+            this.chk_feature_unknown.Text = "Unknown";
+            this.chk_feature_unknown.UseVisualStyleBackColor = true;
+            this.chk_feature_unknown.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
+            // 
+            // chk_feature_treasures
+            // 
+            this.chk_feature_treasures.AutoSize = true;
+            this.chk_feature_treasures.Checked = true;
+            this.chk_feature_treasures.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_feature_treasures.Location = new System.Drawing.Point(282, 22);
+            this.chk_feature_treasures.Name = "chk_feature_treasures";
+            this.chk_feature_treasures.Size = new System.Drawing.Size(74, 19);
+            this.chk_feature_treasures.TabIndex = 14;
+            this.chk_feature_treasures.Text = "Treasures";
+            this.chk_feature_treasures.UseVisualStyleBackColor = true;
+            this.chk_feature_treasures.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
+            // 
+            // chk_feature_gkey
+            // 
+            this.chk_feature_gkey.AutoSize = true;
+            this.chk_feature_gkey.Checked = true;
+            this.chk_feature_gkey.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_feature_gkey.Location = new System.Drawing.Point(101, 22);
+            this.chk_feature_gkey.Name = "chk_feature_gkey";
+            this.chk_feature_gkey.Size = new System.Drawing.Size(78, 19);
+            this.chk_feature_gkey.TabIndex = 10;
+            this.chk_feature_gkey.Text = "Gold Keys";
+            this.chk_feature_gkey.UseVisualStyleBackColor = true;
+            this.chk_feature_gkey.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
+            // 
+            // chk_feature_sdoor
+            // 
+            this.chk_feature_sdoor.AutoSize = true;
+            this.chk_feature_sdoor.Checked = true;
+            this.chk_feature_sdoor.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_feature_sdoor.Location = new System.Drawing.Point(188, 47);
+            this.chk_feature_sdoor.Name = "chk_feature_sdoor";
+            this.chk_feature_sdoor.Size = new System.Drawing.Size(88, 19);
+            this.chk_feature_sdoor.TabIndex = 13;
+            this.chk_feature_sdoor.Text = "Silver Doors";
+            this.chk_feature_sdoor.UseVisualStyleBackColor = true;
+            this.chk_feature_sdoor.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
+            // 
+            // chk_feature_skey
+            // 
+            this.chk_feature_skey.AutoSize = true;
+            this.chk_feature_skey.Checked = true;
+            this.chk_feature_skey.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_feature_skey.Location = new System.Drawing.Point(188, 22);
+            this.chk_feature_skey.Name = "chk_feature_skey";
+            this.chk_feature_skey.Size = new System.Drawing.Size(81, 19);
+            this.chk_feature_skey.TabIndex = 11;
+            this.chk_feature_skey.Text = "Silver Keys";
+            this.chk_feature_skey.UseVisualStyleBackColor = true;
+            this.chk_feature_skey.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
+            // 
+            // chk_feature_gdoor
+            // 
+            this.chk_feature_gdoor.AutoSize = true;
+            this.chk_feature_gdoor.Checked = true;
+            this.chk_feature_gdoor.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_feature_gdoor.Location = new System.Drawing.Point(101, 47);
+            this.chk_feature_gdoor.Name = "chk_feature_gdoor";
+            this.chk_feature_gdoor.Size = new System.Drawing.Size(85, 19);
+            this.chk_feature_gdoor.TabIndex = 12;
+            this.chk_feature_gdoor.Text = "Gold Doors";
+            this.chk_feature_gdoor.UseVisualStyleBackColor = true;
+            this.chk_feature_gdoor.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(409, 20);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(101, 15);
+            this.label18.TabIndex = 7;
+            this.label18.Text = "Map Features Left";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(25, 20);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(107, 15);
+            this.label17.TabIndex = 6;
+            this.label17.Text = "Map Features Used";
+            // 
             // btn_itemsRight
             // 
-            this.btn_itemsRight.Location = new System.Drawing.Point(361, 177);
+            this.btn_itemsRight.Location = new System.Drawing.Point(361, 144);
             this.btn_itemsRight.Name = "btn_itemsRight";
             this.btn_itemsRight.Size = new System.Drawing.Size(42, 23);
             this.btn_itemsRight.TabIndex = 5;
@@ -670,7 +990,7 @@
             // 
             // btn_itemsLeft
             // 
-            this.btn_itemsLeft.Location = new System.Drawing.Point(361, 148);
+            this.btn_itemsLeft.Location = new System.Drawing.Point(361, 115);
             this.btn_itemsLeft.Name = "btn_itemsLeft";
             this.btn_itemsLeft.Size = new System.Drawing.Size(42, 23);
             this.btn_itemsLeft.TabIndex = 4;
@@ -684,7 +1004,7 @@
             this.list_allitems.ItemHeight = 15;
             this.list_allitems.Location = new System.Drawing.Point(409, 49);
             this.list_allitems.Name = "list_allitems";
-            this.list_allitems.Size = new System.Drawing.Size(330, 304);
+            this.list_allitems.Size = new System.Drawing.Size(330, 184);
             this.list_allitems.TabIndex = 3;
             // 
             // list_flags
@@ -693,7 +1013,7 @@
             this.list_flags.ItemHeight = 15;
             this.list_flags.Location = new System.Drawing.Point(25, 49);
             this.list_flags.Name = "list_flags";
-            this.list_flags.Size = new System.Drawing.Size(330, 304);
+            this.list_flags.Size = new System.Drawing.Size(330, 184);
             this.list_flags.TabIndex = 2;
             // 
             // btn_save
@@ -705,24 +1025,6 @@
             this.btn_save.Text = "Export Save File";
             this.btn_save.UseVisualStyleBackColor = true;
             this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(25, 20);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(73, 15);
-            this.label17.TabIndex = 6;
-            this.label17.Text = "Items Found";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(409, 20);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(59, 15);
-            this.label18.TabIndex = 7;
-            this.label18.Text = "Items Left";
             // 
             // Form1
             // 
@@ -743,8 +1045,13 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -814,5 +1121,27 @@
         private Button btn_itemsLeft;
         private Label label18;
         private Label label17;
+        private CheckBox chk_feature_unknown;
+        private CheckBox chk_feature_hearts;
+        private CheckBox chk_feature_sdoor;
+        private CheckBox chk_feature_gdoor;
+        private CheckBox chk_feature_skey;
+        private CheckBox chk_feature_gkey;
+        private CheckBox chk_feature_Gems;
+        private CheckBox chk_feature_treasures;
+        private GroupBox groupBox1;
+        private GroupBox groupBox2;
+        private CheckBox chk_feature_CG;
+        private CheckBox chk_feature_NM;
+        private CheckBox chk_feature_Tun;
+        private CheckBox chk_feature_otherMaps;
+        private CheckBox chk_feature_portals;
+        private CheckBox chk_feature_swords;
+        private CheckBox chk_feature_keyItems;
+        private Label label19;
+        private TextBox txt_percent;
+        private ListBox list_xtraPercent;
+        private Label label20;
+        private ListBox list_missedPercent;
     }
 }
