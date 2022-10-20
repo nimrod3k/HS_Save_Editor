@@ -16,6 +16,7 @@ namespace HS_Save_Editor
         public Int64 playtime { get; set; }
         public int deaths { get; set; }
         public string? label { get; set; }
+        public int kills { get; set; }
         
 	}
 }

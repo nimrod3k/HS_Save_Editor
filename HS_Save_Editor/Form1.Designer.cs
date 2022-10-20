@@ -31,6 +31,9 @@
             this.btn_loadSaveFile = new System.Windows.Forms.Button();
             this.tab_saveData = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.box_bShieldCharge = new System.Windows.Forms.NumericUpDown();
+            this.box_kills = new System.Windows.Forms.NumericUpDown();
+            this.label21 = new System.Windows.Forms.Label();
             this.txt_percent = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -113,8 +116,13 @@
             this.list_allitems = new System.Windows.Forms.ListBox();
             this.list_flags = new System.Windows.Forms.ListBox();
             this.btn_save = new System.Windows.Forms.Button();
+            this.chk_feature_SM = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tab_saveData.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.box_bShieldCharge)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.box_kills)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.box_deaths)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.box_swords)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.box_hearts)).BeginInit();
@@ -149,6 +157,9 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.box_bShieldCharge);
+            this.tabPage1.Controls.Add(this.box_kills);
+            this.tabPage1.Controls.Add(this.label21);
             this.tabPage1.Controls.Add(this.txt_percent);
             this.tabPage1.Controls.Add(this.label19);
             this.tabPage1.Controls.Add(this.label9);
@@ -182,6 +193,34 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic Info";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // box_bShieldCharge
+            // 
+            this.box_bShieldCharge.Location = new System.Drawing.Point(616, 82);
+            this.box_bShieldCharge.Maximum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.box_bShieldCharge.Name = "box_bShieldCharge";
+            this.box_bShieldCharge.Size = new System.Drawing.Size(47, 23);
+            this.box_bShieldCharge.TabIndex = 31;
+            // 
+            // box_kills
+            // 
+            this.box_kills.Location = new System.Drawing.Point(288, 88);
+            this.box_kills.Name = "box_kills";
+            this.box_kills.Size = new System.Drawing.Size(120, 23);
+            this.box_kills.TabIndex = 30;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(246, 90);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(28, 15);
+            this.label21.TabIndex = 29;
+            this.label21.Text = "Kills";
             // 
             // txt_percent
             // 
@@ -268,7 +307,7 @@
             // chk_greenSword
             // 
             this.chk_greenSword.AutoSize = true;
-            this.chk_greenSword.Location = new System.Drawing.Point(506, 190);
+            this.chk_greenSword.Location = new System.Drawing.Point(435, 137);
             this.chk_greenSword.Name = "chk_greenSword";
             this.chk_greenSword.Size = new System.Drawing.Size(93, 19);
             this.chk_greenSword.TabIndex = 20;
@@ -278,7 +317,7 @@
             // chk_rShield
             // 
             this.chk_rShield.AutoSize = true;
-            this.chk_rShield.Location = new System.Drawing.Point(622, 118);
+            this.chk_rShield.Location = new System.Drawing.Point(526, 111);
             this.chk_rShield.Name = "chk_rShield";
             this.chk_rShield.Size = new System.Drawing.Size(81, 19);
             this.chk_rShield.TabIndex = 19;
@@ -288,7 +327,7 @@
             // chk_rSword
             // 
             this.chk_rSword.AutoSize = true;
-            this.chk_rSword.Location = new System.Drawing.Point(622, 82);
+            this.chk_rSword.Location = new System.Drawing.Point(435, 111);
             this.chk_rSword.Name = "chk_rSword";
             this.chk_rSword.Size = new System.Drawing.Size(82, 19);
             this.chk_rSword.TabIndex = 18;
@@ -298,7 +337,7 @@
             // chk_bHeart
             // 
             this.chk_bHeart.AutoSize = true;
-            this.chk_bHeart.Location = new System.Drawing.Point(506, 156);
+            this.chk_bHeart.Location = new System.Drawing.Point(646, 50);
             this.chk_bHeart.Name = "chk_bHeart";
             this.chk_bHeart.Size = new System.Drawing.Size(81, 19);
             this.chk_bHeart.TabIndex = 17;
@@ -308,7 +347,7 @@
             // chk_bShield
             // 
             this.chk_bShield.AutoSize = true;
-            this.chk_bShield.Location = new System.Drawing.Point(506, 118);
+            this.chk_bShield.Location = new System.Drawing.Point(526, 86);
             this.chk_bShield.Name = "chk_bShield";
             this.chk_bShield.Size = new System.Drawing.Size(84, 19);
             this.chk_bShield.TabIndex = 16;
@@ -318,7 +357,7 @@
             // chk_bSword
             // 
             this.chk_bSword.AutoSize = true;
-            this.chk_bSword.Location = new System.Drawing.Point(506, 82);
+            this.chk_bSword.Location = new System.Drawing.Point(435, 86);
             this.chk_bSword.Name = "chk_bSword";
             this.chk_bSword.Size = new System.Drawing.Size(85, 19);
             this.chk_bSword.TabIndex = 15;
@@ -350,14 +389,14 @@
             // 
             // box_swords
             // 
-            this.box_swords.Location = new System.Drawing.Point(573, 9);
+            this.box_swords.Location = new System.Drawing.Point(506, 14);
             this.box_swords.Name = "box_swords";
             this.box_swords.Size = new System.Drawing.Size(120, 23);
             this.box_swords.TabIndex = 7;
             // 
             // box_hearts
             // 
-            this.box_hearts.Location = new System.Drawing.Point(573, 44);
+            this.box_hearts.Location = new System.Drawing.Point(506, 49);
             this.box_hearts.Name = "box_hearts";
             this.box_hearts.Size = new System.Drawing.Size(120, 23);
             this.box_hearts.TabIndex = 6;
@@ -365,7 +404,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(502, 12);
+            this.label4.Location = new System.Drawing.Point(435, 17);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 15);
             this.label4.TabIndex = 4;
@@ -374,7 +413,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(506, 52);
+            this.label3.Location = new System.Drawing.Point(439, 57);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 15);
             this.label3.TabIndex = 3;
@@ -735,6 +774,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.checkBox1);
+            this.groupBox2.Controls.Add(this.chk_feature_SM);
+            this.groupBox2.Controls.Add(this.checkBox2);
             this.groupBox2.Controls.Add(this.chk_feature_CG);
             this.groupBox2.Controls.Add(this.chk_feature_NM);
             this.groupBox2.Controls.Add(this.chk_feature_Tun);
@@ -766,9 +808,9 @@
             this.chk_feature_NM.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_feature_NM.Location = new System.Drawing.Point(6, 47);
             this.chk_feature_NM.Name = "chk_feature_NM";
-            this.chk_feature_NM.Size = new System.Drawing.Size(140, 19);
+            this.chk_feature_NM.Size = new System.Drawing.Size(122, 19);
             this.chk_feature_NM.TabIndex = 9;
-            this.chk_feature_NM.Text = "NORTH_MUNDEMAN";
+            this.chk_feature_NM.Text = "North Mundeman";
             this.chk_feature_NM.UseVisualStyleBackColor = true;
             this.chk_feature_NM.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
             // 
@@ -779,9 +821,9 @@
             this.chk_feature_Tun.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_feature_Tun.Location = new System.Drawing.Point(152, 22);
             this.chk_feature_Tun.Name = "chk_feature_Tun";
-            this.chk_feature_Tun.Size = new System.Drawing.Size(98, 19);
+            this.chk_feature_Tun.Size = new System.Drawing.Size(85, 19);
             this.chk_feature_Tun.TabIndex = 10;
-            this.chk_feature_Tun.Text = "THE_TUNDRA";
+            this.chk_feature_Tun.Text = "The Tundra";
             this.chk_feature_Tun.UseVisualStyleBackColor = true;
             this.chk_feature_Tun.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
             // 
@@ -790,7 +832,7 @@
             this.chk_feature_otherMaps.AutoSize = true;
             this.chk_feature_otherMaps.Checked = true;
             this.chk_feature_otherMaps.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_feature_otherMaps.Location = new System.Drawing.Point(152, 47);
+            this.chk_feature_otherMaps.Location = new System.Drawing.Point(290, 72);
             this.chk_feature_otherMaps.Name = "chk_feature_otherMaps";
             this.chk_feature_otherMaps.Size = new System.Drawing.Size(61, 19);
             this.chk_feature_otherMaps.TabIndex = 12;
@@ -1026,6 +1068,42 @@
             this.btn_save.UseVisualStyleBackColor = true;
             this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
             // 
+            // chk_feature_SM
+            // 
+            this.chk_feature_SM.AutoSize = true;
+            this.chk_feature_SM.Checked = true;
+            this.chk_feature_SM.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_feature_SM.Location = new System.Drawing.Point(6, 72);
+            this.chk_feature_SM.Name = "chk_feature_SM";
+            this.chk_feature_SM.Size = new System.Drawing.Size(122, 19);
+            this.chk_feature_SM.TabIndex = 13;
+            this.chk_feature_SM.Text = "South Mundeman";
+            this.chk_feature_SM.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Checked = true;
+            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox2.Location = new System.Drawing.Point(152, 47);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(116, 19);
+            this.checkBox2.TabIndex = 14;
+            this.checkBox2.Text = "Southern Swamp";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(152, 72);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(104, 19);
+            this.checkBox1.TabIndex = 15;
+            this.checkBox1.Text = "Molten Cavern";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1039,6 +1117,8 @@
             this.tab_saveData.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.box_bShieldCharge)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.box_kills)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.box_deaths)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.box_swords)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.box_hearts)).EndInit();
@@ -1143,5 +1223,11 @@
         private ListBox list_xtraPercent;
         private Label label20;
         private ListBox list_missedPercent;
+        private NumericUpDown box_kills;
+        private Label label21;
+        private NumericUpDown box_bShieldCharge;
+        private CheckBox checkBox1;
+        private CheckBox chk_feature_SM;
+        private CheckBox checkBox2;
     }
 }

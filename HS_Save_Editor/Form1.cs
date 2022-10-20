@@ -6,11 +6,11 @@ namespace HS_Save_Editor
 {
     public partial class Form1 : Form
     {
-        HSJsonData? theData = null;
+        public static HSJsonData HSData = new HSJsonData();
+		HSJsonData? theData = null;
 		List<string> allCollectibles = new List<string>();
 		List<string> doneCollectibles = new List<string>();
 		List<string> undoneCollectibles = new List<string>();
-
 		public Form1()
         {
             InitializeComponent();
@@ -96,7 +96,7 @@ namespace HS_Save_Editor
 		private void btn_loadSaveFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog picker = new OpenFileDialog();
-            picker.InitialDirectory = @"C:\Users\nimro\source\repos\HS_Save_Editor\HS_Save_Editor"; // Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location),@"..\..\");
+			picker.InitialDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"Hero's Spirit");// @"C:\Users\nimro\source\repos\HS_Save_Editor\HS_Save_Editor"; // Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location),@"..\..\");
 
             if (picker.ShowDialog() == DialogResult.OK)
             {
@@ -111,6 +111,7 @@ namespace HS_Save_Editor
 
 		private void fillAllValues()
         {
+			list_values.Items.Clear();
 			foreach (Vars id in Enum.GetValues(typeof(Vars)))
 			{
 				if ((int)id < theData.values.Length)
@@ -131,6 +132,7 @@ namespace HS_Save_Editor
 
 		private void fillMissedPercent()
         {
+			list_missedPercent.Items.Clear();
 			List<Percent> percents = CompletionCalculator.calculateMissedpercent(theData.values);
 			foreach (var percent in percents)
 			{
@@ -265,12 +267,14 @@ namespace HS_Save_Editor
                 (data.playtime % 3600) / 60,
                 (data.playtime % 3600) % 60
                 );
-            box_deaths.Value = data.deaths;
-            chk_bHeart.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.GEM_HEART]);
+			box_deaths.Value = data.deaths;
+			box_kills.Value = data.kills;
+			chk_bHeart.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.GEM_HEART]);
             chk_bobs.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.GEM_BOOTS]);
             chk_boots.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.BOOTS]);
-            chk_bShield.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.GEM_SHIELD]);
-            chk_bSword.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.GEM_SWORD]);
+			chk_bShield.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.GEM_SHIELD]);
+			box_bShieldCharge.Value = DataUtils.Get(data.values[(int)Vars.GEM_SHIELD]);
+			chk_bSword.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.GEM_SWORD]);
             chk_hammer.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.HAMMERS]);
             chk_lavaCharm.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.LAVA_CHARMS]);
             chk_rShield.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.RED_SHIELD]);
@@ -471,6 +475,7 @@ namespace HS_Save_Editor
 			var splitTime = box_time.Text.Split(':');
 			theData.playtime = (Convert.ToInt64(splitTime[0]) * 3600) + (Convert.ToInt64(splitTime[1]) * 60) + Convert.ToInt64(splitTime[2]);
 			theData.deaths = (int)box_deaths.Value;
+			theData.kills = (int)box_kills.Value;
 			theData.position = String.Format("{0}.{1}.{2}.{3}",
 				(int)Enum.Parse(typeof(Maps), combo_SaveLocation.Text),
 				txt_SaveLocationX.Text,
@@ -480,7 +485,7 @@ namespace HS_Save_Editor
 			DataUtils.Set(ref theData, Vars.GEM_HEART, chk_bHeart.Checked ? (byte)1 : (byte)0);
 			DataUtils.Set(ref theData, Vars.GEM_BOOTS, chk_bobs.Checked ? (byte)1 : (byte)0);
 			DataUtils.Set(ref theData, Vars.BOOTS, chk_boots.Checked ? (byte)1 : (byte)0);
-			DataUtils.Set(ref theData, Vars.GEM_SHIELD, chk_bShield.Checked ? (byte)0x01 : (byte)0x00);
+			DataUtils.Set(ref theData, Vars.GEM_SHIELD, chk_bShield.Checked ? (byte)box_bShieldCharge.Value : (byte)0x00);
 			DataUtils.Set(ref theData, Vars.GEM_SWORD, chk_bSword.Checked ? (byte)1 : (byte)0);
 			DataUtils.Set(ref theData, Vars.HAMMERS, chk_hammer.Checked ? (byte)1 : (byte)0);
 			DataUtils.Set(ref theData, Vars.LAVA_CHARMS, chk_lavaCharm.Checked ? (byte)1 : (byte)0);
