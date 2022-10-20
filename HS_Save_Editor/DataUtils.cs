@@ -138,6 +138,11 @@ namespace HS_Save_Editor
 				data.values[(int)item] = HS_Save_Tools.ObfuscateValue(val);
 		}
 
+		internal static void Set(ref HSJsonData data, int item, byte val)
+		{
+			Set(ref data, (Vars)item, (byte)val);
+		}
+
 		internal static int TotalSteps = 0;
 		internal static string filename = "";
 
