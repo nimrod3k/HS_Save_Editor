@@ -4,7 +4,6 @@ using HS_Tools;
 
 namespace HS_Save_Editor
 {
-	// Token: 0x02000011 RID: 17
 	public static class CompletionCalculator
 	{
 		static byte[] _values = new byte[0];
