@@ -6,11 +6,11 @@ namespace HS_Save_Editor
 {
     public partial class Form1 : Form
     {
-        public static HSJsonData HSData = new HSJsonData();
 		HSJsonData? theData = null;
 		List<string> allCollectibles = new List<string>();
 		List<string> doneCollectibles = new List<string>();
 		List<string> undoneCollectibles = new List<string>();
+		MapWindow imageForm = null;
 		public Form1()
         {
             InitializeComponent();
@@ -92,7 +92,23 @@ namespace HS_Save_Editor
 				File.WriteAllLines("flags.txt", (List<string>)allCollectibles.Cast<string>().ToList());
 
 		}
+		private GameType getGameType()
+        {
+			if (DataUtils.GetBoolValue(theData.values[(int)Vars.NGPPP]))
+            {
+				return GameType.NGPPP;
+			}
+			if (DataUtils.GetBoolValue(theData.values[(int)Vars.NGPP]))
+			{
+				return GameType.NGPP;
+			}
+			if (DataUtils.GetBoolValue(theData.values[(int)Vars.NGP]))
+			{
+				return GameType.NGP;
+			}
 
+			return GameType.NG;
+        }
 		private void btn_loadSaveFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog picker = new OpenFileDialog();
@@ -100,12 +116,22 @@ namespace HS_Save_Editor
 
             if (picker.ShowDialog() == DialogResult.OK)
             {
-                string file = picker.FileName;
+				if (imageForm != null)
+				{
+					imageForm.Close();
+					imageForm.Dispose();
+					imageForm = null;
+				}
+
+				string file = picker.FileName;
                 DataUtils.Initialize(file);
 
                 HSJsonData theData = DataUtils.Load();
-
                 fillForm(theData);
+				if (imageForm == null)
+                {
+					imageForm = new MapWindow(getGameType());
+                }
             }
         }
 
@@ -136,10 +162,14 @@ namespace HS_Save_Editor
 			List<Percent> percents = CompletionCalculator.calculateMissedpercent(theData.values);
 			foreach (var percent in percents)
 			{
-				if (percent.vars == Vars.NGPPP)
+				if (percent.vars == Vars.NGPPP || percent.vars == Vars.NGP || percent.vars == Vars.NGPP)
                 {
 					continue;
                 }
+				else if (percent.vars == Vars.TOTAL_NGP_TOKENS && DataUtils.Get(theData.values[(int)Vars.NGP]) <= 0)
+                {
+					continue;
+				}
 				if (percent.multiplier >= 0)
 				{
 					string mult = (percent.multiplier * CompletionCalculator.scale).ToString();
@@ -309,121 +339,6 @@ namespace HS_Save_Editor
 			fillAllFlags();
 			txt_percent.Text = CompletionCalculator.Calculate(data.values).ToString();
 
-			/*
-		SECRET_TOKENS = 36,
-		NGP_TOKENS = 145,
-		RED_KEYS,
-		BLUE_KEYS,
-		GREEN_KEYS,
-		PURPLE_KEYS = 85,
-		TEAL_KEYS,
-		TOTAL_SWORDS = 7,
-		TOTAL_RED_KEYS,
-		TOTAL_BLUE_KEYS,
-		TOTAL_GREEN_KEYS,
-		TOTAL_GOLD_DOORS = 113,
-		TOTAL_SILVER_DOORS,
-		TOTAL_TEAL_DOORS,
-		TOTAL_PURPLE_DOORS,
-		TOTAL_RED_DOORS,
-		TOTAL_BLUE_DOORS,
-		TOTAL_GREEN_DOORS,
-		TOTAL_TOKENS,
-		TOTAL_TEAL_KEYS,
-		TOTAL_PURPLE_KEYS,
-		TOTAL_NGP_TOKENS = 151,
-		COMPLETION_SWAMP,
-		COMPLETION_MAZE,
-		COMPLETION_BOOTS,
-		COMPLETION_CLOAK,
-		BLOODMOON_EFFECT = 25,
-		BLOODMOON_COUNT,
-		BLOODMOON_ORB_HIDE,
-		CASTLE_PUZZLE = 22,
-		CASTLE_ENTERED,
-		GREEN_KEY,
-		DRAGON_TREASURE = 34,
-		CASTLE_SKIP_PRIMED = 37,
-		CASTLE_PUZZLE_SOLVED,
-		GHOST_SHIP_ENTERED = 49,
-		HERMIT_SWORD_ACQUIRED,
-		TOTAL_STEPS = 53,
-		SAVE_COUNT = 74,
-		DRAGON_KILLED,
-		BUNNY_CRIME_SCENE,
-		NGP = 144,
-		RED_GEAR_SKIP = 148,
-		NGPP,
-		RDRAGON_KILLED,
-		PREVENTED_NIGHT = 152,
-		BOSS_REACHED = 28,
-		CASTLE_LABYRINTH_OPEN,
-		SWAMP_SECRET,
-		BACK_DOOR_LOCK_1,
-		BACK_DOOR_LOCK_2,
-		VICTORY_ROAD_SOLVED,
-		SECRET_SOCKETS = 35,
-		GOLD_SWORD_DOOR = 56,
-		SNAKE_BOSS_DEFEATED = 63,
-		WARP_PORTAL_01 = 39,
-		WARP_PORTAL_02,
-		WARP_PORTAL_03,
-		WARP_PORTAL_04,
-		WARP_PORTAL_05,
-		WARP_PORTAL_06,
-		WARP_PORTAL_07,
-		WARP_PORTAL_08,
-		WARP_PORTAL_09,
-		WARP_PORTAL_10,
-		FAIRYLAND_LOCK_1 = 64,
-		FAIRYLAND_LOCK_2,
-		FAIRYLAND_LOCK_3,
-		FAIRYLAND_LOCK_4,
-		FAIRYLAND_LOCK_5,
-		FAIRYLAND_LOCK_6,
-		FAIRYLAND_LOCK_7,
-		FAIRYLAND_LOCK_8,
-		FAIRYLAND_LOCKS,
-		GREENFIGHT_LOCK_1 = 91,
-		GREENFIGHT_LOCK_2,
-		GREENFIGHT_LOCK_3,
-		GREENFIGHT_LOCK_4,
-		GREENFIGHT_LOCK_5,
-		GREENFIGHT_LOCK_6,
-		GREENFIGHT_LOCK_7,
-		GREENFIGHT_LOCK_8,
-		OVERKILL = 128,
-		BACKDOOR_BANDITRY,
-		DRAGONSLAIN,
-		CONVERGENCE_KEY = 153,
-		DRAGON_EGG,
-		CARROT,
-		GREEN_SWORD,
-		GREEN_SHIELD,
-		BUNNY_LOVE,
-		BUNNY_LEVEL,
-		HERO_FORM_OVERRIDE,
-		HERO_COLOR_OVERRIDE,
-		BUNNY_COLOR_OVERRIDE,
-		EVIL_BUNNY_TAMED,
-		BACKUP_NGP_TOKENS,
-		BACKUP_SECRET_TOKENS,
-		BACKUP_T_NGP_TOKENS,
-		BACKUP_T_SECRET_TOKENS,
-		FISHING_POLE,
-		FISH,
-		NGPPP,
-		RAWR1_MAP,
-		RAWR1_X,
-		RAWR1_Y,
-		RAWR2_MAP,
-		RAWR2_X,
-		RAWR2_Y,
-		RAWR3_MAP,
-		RAWR3_X,
-		RAWR3_Y,
-		RAWR
-			*/
 			var save_location = data.label;
             var savePosition = data.position;
         }
@@ -551,5 +466,19 @@ namespace HS_Save_Editor
 			fillAllFlags();
         }
 
+        private void list_allitems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+			string flag = (string)list_allitems.SelectedItem;
+
+			imageForm.UpdateMap(flag.Split("\'")[1]);
+			imageForm.Show();
+			imageForm.TopMost = true;
+        }
+
+        private void tab_saveData_SelectedIndexChanged(object sender, EventArgs e)
+        {
+			if (imageForm != null)
+				imageForm.Hide();
+        }
     }
 }

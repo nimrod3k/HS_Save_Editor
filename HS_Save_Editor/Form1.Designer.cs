@@ -93,6 +93,9 @@
             this.list_values = new System.Windows.Forms.ListBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chk_feature_SM = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.chk_feature_CG = new System.Windows.Forms.CheckBox();
             this.chk_feature_NM = new System.Windows.Forms.CheckBox();
             this.chk_feature_Tun = new System.Windows.Forms.CheckBox();
@@ -116,9 +119,6 @@
             this.list_allitems = new System.Windows.Forms.ListBox();
             this.list_flags = new System.Windows.Forms.ListBox();
             this.btn_save = new System.Windows.Forms.Button();
-            this.chk_feature_SM = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tab_saveData.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.box_bShieldCharge)).BeginInit();
@@ -154,6 +154,7 @@
             this.tab_saveData.SelectedIndex = 0;
             this.tab_saveData.Size = new System.Drawing.Size(776, 398);
             this.tab_saveData.TabIndex = 1;
+            this.tab_saveData.SelectedIndexChanged += new System.EventHandler(this.tab_saveData_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -788,6 +789,42 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Areas";
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(152, 72);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(104, 19);
+            this.checkBox1.TabIndex = 15;
+            this.checkBox1.Text = "Molten Cavern";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // chk_feature_SM
+            // 
+            this.chk_feature_SM.AutoSize = true;
+            this.chk_feature_SM.Checked = true;
+            this.chk_feature_SM.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_feature_SM.Location = new System.Drawing.Point(6, 72);
+            this.chk_feature_SM.Name = "chk_feature_SM";
+            this.chk_feature_SM.Size = new System.Drawing.Size(122, 19);
+            this.chk_feature_SM.TabIndex = 13;
+            this.chk_feature_SM.Text = "South Mundeman";
+            this.chk_feature_SM.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Checked = true;
+            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox2.Location = new System.Drawing.Point(152, 47);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(116, 19);
+            this.checkBox2.TabIndex = 14;
+            this.checkBox2.Text = "Southern Swamp";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
             // chk_feature_CG
             // 
             this.chk_feature_CG.AutoSize = true;
@@ -1048,6 +1085,7 @@
             this.list_allitems.Name = "list_allitems";
             this.list_allitems.Size = new System.Drawing.Size(330, 184);
             this.list_allitems.TabIndex = 3;
+            this.list_allitems.SelectedIndexChanged += new System.EventHandler(this.list_allitems_SelectedIndexChanged);
             // 
             // list_flags
             // 
@@ -1067,42 +1105,6 @@
             this.btn_save.Text = "Export Save File";
             this.btn_save.UseVisualStyleBackColor = true;
             this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
-            // 
-            // chk_feature_SM
-            // 
-            this.chk_feature_SM.AutoSize = true;
-            this.chk_feature_SM.Checked = true;
-            this.chk_feature_SM.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_feature_SM.Location = new System.Drawing.Point(6, 72);
-            this.chk_feature_SM.Name = "chk_feature_SM";
-            this.chk_feature_SM.Size = new System.Drawing.Size(122, 19);
-            this.chk_feature_SM.TabIndex = 13;
-            this.chk_feature_SM.Text = "South Mundeman";
-            this.chk_feature_SM.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Checked = true;
-            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Location = new System.Drawing.Point(152, 47);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(116, 19);
-            this.checkBox2.TabIndex = 14;
-            this.checkBox2.Text = "Southern Swamp";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(152, 72);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(104, 19);
-            this.checkBox1.TabIndex = 15;
-            this.checkBox1.Text = "Molten Cavern";
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
