@@ -42,7 +42,7 @@ namespace HS_Save_Editor
 		THE_MOONWELL = 36,
 		SMUGGLERS_ROAD = 40,
 		SMUGGLERS_RUIN = 41,
-		UNKNOWN = 80
+		MAX_VAL
     }
 
 

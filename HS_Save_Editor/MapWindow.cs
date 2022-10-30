@@ -44,26 +44,8 @@ namespace HS_Save_Editor
             theMap.Render(ref viewMap);
 
 
-            pictureBox1.Image = ResizeImage(viewMap.bitmap, new Size(pictureBox1.Width,pictureBox1.Height));
+            pictureBox1.Image = ViewMap.ResizeImage(viewMap.bitmap, new Size(pictureBox1.Width,pictureBox1.Height));
         }
 
-        public static Bitmap ResizeImage(Bitmap imgToResize, Size size)
-        {
-            try
-            {
-                Bitmap b = new Bitmap(size.Width, size.Height);
-                using (Graphics g = Graphics.FromImage((Image)b))
-                {
-                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                    g.DrawImage(imgToResize, 0, 0, size.Width, size.Height);
-                }
-                return b;
-            }
-            catch
-            {
-                Console.WriteLine("Bitmap could not be resized");
-                return imgToResize;
-            }
-        }
     }
 }

@@ -11,11 +11,14 @@ namespace HS_Save_Editor
 		List<string> doneCollectibles = new List<string>();
 		List<string> undoneCollectibles = new List<string>();
 		MapWindow imageForm = null;
+		FullMap theMap = null;
+
 		public Form1()
         {
             InitializeComponent();
 			combo_SaveLocation.DataSource = Enum.GetValues(typeof(Maps));
 			load_allCollectibles();
+			HSInit.InitializeDrawCode();
         }
 
 		private void load_allCollectibles()
@@ -187,19 +190,17 @@ namespace HS_Save_Editor
 					list_missedPercent.Items.Add(line);
 				}
 			}
-			if (!(DataUtils.Get(89) > 0 || DataUtils.Get(127) > 0))
-				list_missedPercent.Items.Add(string.Format("{0}({2}) or {1}({3}): {4}%", (Vars)89, (Vars)127, DataUtils.Get(89), DataUtils.Get(127), 25f * CompletionCalculator.scale));
-			if (!(DataUtils.Get(25) > 0 && DataUtils.Get(26) <= 0))
+			if (!(DataUtils.Get(theData.values[89]) > 0 || DataUtils.Get(theData.values[127]) > 0))
+				list_missedPercent.Items.Add(string.Format("{0}({2}) or {1}({3}): {4}%", (Vars)89, (Vars)127, DataUtils.Get(theData.values[89]), DataUtils.Get(theData.values[127]), 25f * CompletionCalculator.scale));
+			if (!(DataUtils.Get(theData.values[25]) > 0 && DataUtils.Get(theData.values[26]) <= 0))
 				list_missedPercent.Items.Add(string.Format("Bloodmoon Finished: {0}%", 25f * CompletionCalculator.scale));
-			if (DataUtils.Get(144) != 0 && DataUtils.Get(149) != 0 && !(DataUtils.Get(54) > 0))
+			if (DataUtils.Get(theData.values[144]) != 0 && DataUtils.Get(theData.values[149]) != 0 && !(DataUtils.Get(theData.values[54]) > 0))
 				list_missedPercent.Items.Add(
 					string.Format("{0}({1}) (not NGP or NGPP): {2}%",
 					(Vars)54,
-					DataUtils.Get(54),
+					DataUtils.Get(theData.values[54]),
 					CompletionCalculator.num2 * CompletionCalculator.scale)
 					);
-
-
 		}
 
 		private void fillExtraPercent()
@@ -318,6 +319,11 @@ namespace HS_Save_Editor
 			chk_mirror.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.MIRROR]);
 			chk_saveCrystals.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.SAVE_CRYSTAL]);
 			chk_greenSword.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.GREEN_SWORD]);
+			chk_greenShield.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.GREEN_SHIELD]);
+			chk_witchEnding.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.WITCH_GEM_SWORD_3]) ||
+									DataUtils.GetBoolValue(data.values[(int)Vars.WITCH_HAMMER]) || 
+									DataUtils.GetBoolValue(data.values[(int)Vars.WITCH_WATER_RING]) ||
+									DataUtils.GetBoolValue(data.values[(int)Vars.WITCH_PHASE2]);
 			string[] position = data.position.Split('.');
 			combo_SaveLocation.SelectedItem = (Maps)Convert.ToInt64(position[0]);
 			txt_SaveLocationX.Text = position[1];
@@ -338,6 +344,9 @@ namespace HS_Save_Editor
 
 			fillAllFlags();
 			txt_percent.Text = CompletionCalculator.Calculate(data.values).ToString();
+			txt_convergePercent.Text = CompletionCalculator.Calculate(data.values, true, false).ToString();
+			txt_witchBasic.Text = CompletionCalculator.Calculate(data.values, false, false, false).ToString();
+			txt_witchPerfect.Text = CompletionCalculator.Calculate(data.values, false, false, true).ToString();
 
 			var save_location = data.label;
             var savePosition = data.position;
@@ -415,6 +424,22 @@ namespace HS_Save_Editor
 			DataUtils.Set(ref theData, Vars.MIRROR, chk_mirror.Checked ? (byte)1 : (byte)0);
 			DataUtils.Set(ref theData, Vars.SAVE_CRYSTAL, chk_saveCrystals.Checked ? (byte)1 : (byte)0);
 			DataUtils.Set(ref theData, Vars.GREEN_SWORD, chk_greenSword.Checked ? (byte)1 : (byte)0);
+			DataUtils.Set(ref theData, Vars.GREEN_SHIELD, chk_greenSword.Checked ? (byte)1 : (byte)0);
+			if (chk_witchEnding.Checked)
+			{
+				DataUtils.Set(ref theData, Vars.WITCH_GEM_SWORD_3, 1);
+				DataUtils.Set(ref theData, Vars.WITCH_HAMMER, 1);
+				DataUtils.Set(ref theData, Vars.WITCH_WATER_RING, 1);
+				DataUtils.Set(ref theData, Vars.WITCH_PHASE2, 1);
+			}
+			else
+            {
+				DataUtils.Set(ref theData, Vars.WITCH_GEM_SWORD_3, 0);
+				DataUtils.Set(ref theData, Vars.WITCH_HAMMER, 0);
+				DataUtils.Set(ref theData, Vars.WITCH_WATER_RING, 0);
+				DataUtils.Set(ref theData, Vars.WITCH_PHASE2, 0);
+			}
+
 			SetCollectibleValues(txt_portalStones.Text, Vars.TOTAL_PORTAL_STONES, Vars.PORTAL_STONES);
 			SetCollectibleValues(txt_Gems.Text, Vars.TOTAL_GEMS, Vars.GEMS);
 			SetCollectibleValues(txt_goldKey.Text, Vars.TOTAL_GOLD_KEYS, Vars.GOLD_KEYS);
@@ -480,5 +505,14 @@ namespace HS_Save_Editor
 			if (imageForm != null)
 				imageForm.Hide();
         }
-    }
+
+		private void btn_OpenMap_Click(object sender, EventArgs e)
+		{
+			if (theMap == null)
+			{
+				theMap = new FullMap();
+			}
+			theMap.Show();
+		}
+	}
 }

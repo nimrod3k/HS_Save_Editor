@@ -31,6 +31,15 @@
             this.btn_loadSaveFile = new System.Windows.Forms.Button();
             this.tab_saveData = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txt_witchBasic = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.txt_witchPerfect = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.txt_convergePercent = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.chk_witchEnding = new System.Windows.Forms.CheckBox();
+            this.chk_greenShield = new System.Windows.Forms.CheckBox();
             this.box_bShieldCharge = new System.Windows.Forms.NumericUpDown();
             this.box_kills = new System.Windows.Forms.NumericUpDown();
             this.label21 = new System.Windows.Forms.Label();
@@ -119,6 +128,7 @@
             this.list_allitems = new System.Windows.Forms.ListBox();
             this.list_flags = new System.Windows.Forms.ListBox();
             this.btn_save = new System.Windows.Forms.Button();
+            this.btn_OpenMap = new System.Windows.Forms.Button();
             this.tab_saveData.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.box_bShieldCharge)).BeginInit();
@@ -158,6 +168,15 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.txt_witchBasic);
+            this.tabPage1.Controls.Add(this.label25);
+            this.tabPage1.Controls.Add(this.txt_witchPerfect);
+            this.tabPage1.Controls.Add(this.label24);
+            this.tabPage1.Controls.Add(this.txt_convergePercent);
+            this.tabPage1.Controls.Add(this.label23);
+            this.tabPage1.Controls.Add(this.label22);
+            this.tabPage1.Controls.Add(this.chk_witchEnding);
+            this.tabPage1.Controls.Add(this.chk_greenShield);
             this.tabPage1.Controls.Add(this.box_bShieldCharge);
             this.tabPage1.Controls.Add(this.box_kills);
             this.tabPage1.Controls.Add(this.label21);
@@ -194,6 +213,86 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic Info";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // txt_witchBasic
+            // 
+            this.txt_witchBasic.Location = new System.Drawing.Point(586, 332);
+            this.txt_witchBasic.Name = "txt_witchBasic";
+            this.txt_witchBasic.ReadOnly = true;
+            this.txt_witchBasic.Size = new System.Drawing.Size(120, 23);
+            this.txt_witchBasic.TabIndex = 40;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(586, 304);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(68, 15);
+            this.label25.TabIndex = 39;
+            this.label25.Text = "Witch Basic";
+            // 
+            // txt_witchPerfect
+            // 
+            this.txt_witchPerfect.Location = new System.Drawing.Point(455, 332);
+            this.txt_witchPerfect.Name = "txt_witchPerfect";
+            this.txt_witchPerfect.ReadOnly = true;
+            this.txt_witchPerfect.Size = new System.Drawing.Size(120, 23);
+            this.txt_witchPerfect.TabIndex = 38;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(455, 304);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(78, 15);
+            this.label24.TabIndex = 37;
+            this.label24.Text = "Witch Perfect";
+            // 
+            // txt_convergePercent
+            // 
+            this.txt_convergePercent.Location = new System.Drawing.Point(317, 332);
+            this.txt_convergePercent.Name = "txt_convergePercent";
+            this.txt_convergePercent.ReadOnly = true;
+            this.txt_convergePercent.Size = new System.Drawing.Size(120, 23);
+            this.txt_convergePercent.TabIndex = 36;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(317, 304);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(101, 15);
+            this.label23.TabIndex = 35;
+            this.label23.Text = "Convergence part";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(179, 304);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(67, 15);
+            this.label22.TabIndex = 34;
+            this.label22.Text = "Green/NPC";
+            // 
+            // chk_witchEnding
+            // 
+            this.chk_witchEnding.AutoSize = true;
+            this.chk_witchEnding.Location = new System.Drawing.Point(435, 162);
+            this.chk_witchEnding.Name = "chk_witchEnding";
+            this.chk_witchEnding.Size = new System.Drawing.Size(97, 19);
+            this.chk_witchEnding.TabIndex = 33;
+            this.chk_witchEnding.Text = "Witch Ending";
+            this.chk_witchEnding.UseVisualStyleBackColor = true;
+            // 
+            // chk_greenShield
+            // 
+            this.chk_greenShield.AutoSize = true;
+            this.chk_greenShield.Location = new System.Drawing.Point(526, 136);
+            this.chk_greenShield.Name = "chk_greenShield";
+            this.chk_greenShield.Size = new System.Drawing.Size(92, 19);
+            this.chk_greenShield.TabIndex = 32;
+            this.chk_greenShield.Text = "Green Shield";
+            this.chk_greenShield.UseVisualStyleBackColor = true;
             // 
             // box_bShieldCharge
             // 
@@ -1106,11 +1205,22 @@
             this.btn_save.UseVisualStyleBackColor = true;
             this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
             // 
+            // btn_OpenMap
+            // 
+            this.btn_OpenMap.Location = new System.Drawing.Point(290, 11);
+            this.btn_OpenMap.Name = "btn_OpenMap";
+            this.btn_OpenMap.Size = new System.Drawing.Size(120, 23);
+            this.btn_OpenMap.TabIndex = 3;
+            this.btn_OpenMap.Text = "Open Map Viewer";
+            this.btn_OpenMap.UseVisualStyleBackColor = true;
+            this.btn_OpenMap.Click += new System.EventHandler(this.btn_OpenMap_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btn_OpenMap);
             this.Controls.Add(this.btn_save);
             this.Controls.Add(this.tab_saveData);
             this.Controls.Add(this.btn_loadSaveFile);
@@ -1231,5 +1341,15 @@
         private CheckBox checkBox1;
         private CheckBox chk_feature_SM;
         private CheckBox checkBox2;
+        private Button btn_OpenMap;
+        private CheckBox chk_greenShield;
+        private CheckBox chk_witchEnding;
+        private Label label22;
+        private TextBox txt_convergePercent;
+        private Label label23;
+        private TextBox txt_witchBasic;
+        private Label label25;
+        private TextBox txt_witchPerfect;
+        private Label label24;
     }
 }
