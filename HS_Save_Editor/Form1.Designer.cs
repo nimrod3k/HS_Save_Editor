@@ -312,6 +312,7 @@
             this.box_kills.Name = "box_kills";
             this.box_kills.Size = new System.Drawing.Size(120, 23);
             this.box_kills.TabIndex = 30;
+            this.box_kills.Maximum = int.MaxValue;
             // 
             // label21
             // 
@@ -470,6 +471,7 @@
             this.box_deaths.Name = "box_deaths";
             this.box_deaths.Size = new System.Drawing.Size(120, 23);
             this.box_deaths.TabIndex = 10;
+            this.box_deaths.Maximum = int.MaxValue;
             // 
             // label5
             // 
