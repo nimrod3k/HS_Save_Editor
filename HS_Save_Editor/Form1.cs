@@ -461,8 +461,9 @@ namespace HS_Save_Editor
 		{
 			if (list_allitems.SelectedItem != null)
 			{
-				list_flags.Items.Add(list_allitems.SelectedItem);
+				doneCollectibles.Add((string)list_allitems.SelectedItem);
 				allCollectibles.RemoveAt(list_allitems.SelectedIndex);
+				fillAllFlags();
 			}
 		}
 
@@ -471,7 +472,8 @@ namespace HS_Save_Editor
 			if (list_flags.SelectedItem != null)
 			{
 				allCollectibles.Add((string)list_flags.SelectedItem);
-				list_flags.Items.RemoveAt(list_flags.SelectedIndex);
+				doneCollectibles.Remove((string)list_flags.SelectedItem);
+				fillAllFlags();
 			}
 		}
 
