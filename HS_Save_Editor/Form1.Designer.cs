@@ -1196,6 +1196,7 @@
             this.list_flags.Name = "list_flags";
             this.list_flags.Size = new System.Drawing.Size(330, 184);
             this.list_flags.TabIndex = 2;
+            this.list_flags.SelectedIndexChanged += new System.EventHandler(this.list_flags_SelectedIndexChanged);
             // 
             // btn_save
             // 

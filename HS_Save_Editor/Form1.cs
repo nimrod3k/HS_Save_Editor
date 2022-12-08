@@ -462,8 +462,9 @@ namespace HS_Save_Editor
 			if (list_allitems.SelectedItem != null)
 			{
 				doneCollectibles.Add((string)list_allitems.SelectedItem);
-				allCollectibles.RemoveAt(list_allitems.SelectedIndex);
-				fillAllFlags();
+				list_flags.Items.Add((string)list_allitems.SelectedItem);
+				allCollectibles.Remove((string)list_allitems.SelectedItem);
+				list_allitems.Items.Remove(list_allitems.SelectedItem);
 			}
 		}
 
@@ -472,8 +473,9 @@ namespace HS_Save_Editor
 			if (list_flags.SelectedItem != null)
 			{
 				allCollectibles.Add((string)list_flags.SelectedItem);
+				list_allitems.Items.Add((string)list_flags.SelectedItem);
 				doneCollectibles.Remove((string)list_flags.SelectedItem);
-				fillAllFlags();
+				list_flags.Items.Remove(list_flags.SelectedItem);
 			}
 		}
 
@@ -493,14 +495,29 @@ namespace HS_Save_Editor
 			fillAllFlags();
         }
 
-        private void list_allitems_SelectedIndexChanged(object sender, EventArgs e)
-        {
-			string flag = (string)list_allitems.SelectedItem;
+		private void list_flags_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (list_flags.SelectedItem != null)
+			{
+				string flag = (string)list_flags.SelectedItem;
 
-			imageForm.UpdateMap(flag.Split("\'")[1]);
-			imageForm.Show();
-			imageForm.TopMost = true;
-        }
+				imageForm.UpdateMap(flag.Split("\'")[1]);
+				imageForm.Show();
+				imageForm.TopMost = true;
+			}
+		}
+
+		private void list_allitems_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (list_allitems.SelectedItem != null)
+			{
+				string flag = (string)list_allitems.SelectedItem;
+
+				imageForm.UpdateMap(flag.Split("\'")[1]);
+				imageForm.Show();
+				imageForm.TopMost = true;
+			}
+		}
 
         private void tab_saveData_SelectedIndexChanged(object sender, EventArgs e)
         {
