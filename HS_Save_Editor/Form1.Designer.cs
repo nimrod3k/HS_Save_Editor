@@ -129,6 +129,7 @@
             this.list_flags = new System.Windows.Forms.ListBox();
             this.btn_save = new System.Windows.Forms.Button();
             this.btn_OpenMap = new System.Windows.Forms.Button();
+            this.chk_preventNight = new System.Windows.Forms.CheckBox();
             this.tab_saveData.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.box_bShieldCharge)).BeginInit();
@@ -168,6 +169,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.chk_preventNight);
             this.tabPage1.Controls.Add(this.txt_witchBasic);
             this.tabPage1.Controls.Add(this.label25);
             this.tabPage1.Controls.Add(this.txt_witchPerfect);
@@ -309,10 +311,14 @@
             // box_kills
             // 
             this.box_kills.Location = new System.Drawing.Point(288, 88);
+            this.box_kills.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
             this.box_kills.Name = "box_kills";
             this.box_kills.Size = new System.Drawing.Size(120, 23);
             this.box_kills.TabIndex = 30;
-            this.box_kills.Maximum = int.MaxValue;
             // 
             // label21
             // 
@@ -468,10 +474,14 @@
             // box_deaths
             // 
             this.box_deaths.Location = new System.Drawing.Point(104, 88);
+            this.box_deaths.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
             this.box_deaths.Name = "box_deaths";
             this.box_deaths.Size = new System.Drawing.Size(120, 23);
             this.box_deaths.TabIndex = 10;
-            this.box_deaths.Maximum = int.MaxValue;
             // 
             // label5
             // 
@@ -1218,6 +1228,16 @@
             this.btn_OpenMap.UseVisualStyleBackColor = true;
             this.btn_OpenMap.Click += new System.EventHandler(this.btn_OpenMap_Click);
             // 
+            // chk_preventNight
+            // 
+            this.chk_preventNight.AutoSize = true;
+            this.chk_preventNight.Location = new System.Drawing.Point(526, 162);
+            this.chk_preventNight.Name = "chk_preventNight";
+            this.chk_preventNight.Size = new System.Drawing.Size(99, 19);
+            this.chk_preventNight.TabIndex = 41;
+            this.chk_preventNight.Text = "Prevent Night";
+            this.chk_preventNight.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1354,5 +1374,6 @@
         private Label label25;
         private TextBox txt_witchPerfect;
         private Label label24;
+        private CheckBox chk_preventNight;
     }
 }

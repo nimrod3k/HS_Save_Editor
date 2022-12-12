@@ -290,6 +290,7 @@ namespace HS_Save_Editor
 			box_hearts.Value = (decimal)DataUtils.Get(data.values[(int)Vars.HEARTS]);
 			box_steps.Text = DataUtils.TotalSteps.ToString();
             box_swords.Value = (decimal)DataUtils.Get(data.values[(int)Vars.SWORDS]);
+			chk_preventNight.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.PREVENTED_NIGHT]);
             string time =
             box_time.Text = string.Format
                 (
@@ -396,6 +397,9 @@ namespace HS_Save_Editor
 		{
 			DataUtils.TotalSteps = int.Parse(box_steps.Text);
 			DataUtils.Set(ref theData, Vars.SWORDS, (byte)box_swords.Value);
+			DataUtils.Set(ref theData, Vars.TOTAL_SWORDS, (byte)box_swords.Value);
+			DataUtils.Set(ref theData, Vars.PREVENTED_NIGHT, chk_preventNight.Checked ? (byte)1 : (byte)0);
+			
 			var splitTime = box_time.Text.Split(':');
 			theData.playtime = (Convert.ToInt64(splitTime[0]) * 3600) + (Convert.ToInt64(splitTime[1]) * 60) + Convert.ToInt64(splitTime[2]);
 			theData.deaths = (int)box_deaths.Value;
