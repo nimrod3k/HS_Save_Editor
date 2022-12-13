@@ -1,5 +1,5 @@
 # HS_Save_Editor
-Will need .NET6 runtimes and framework listed as .NET Desktop Runtime on this page:
+You will need .NET6 runtimes and framework listed as .NET Desktop Runtime on this page:
 
 https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 
