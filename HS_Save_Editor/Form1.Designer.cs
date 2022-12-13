@@ -103,7 +103,10 @@
             this.list_values = new System.Windows.Forms.ListBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.combo_map = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chk_feature_pcoin = new System.Windows.Forms.CheckBox();
+            this.chk_feature_other = new System.Windows.Forms.CheckBox();
             this.chk_feature_keyItems = new System.Windows.Forms.CheckBox();
             this.chk_feature_swords = new System.Windows.Forms.CheckBox();
             this.chk_feature_portals = new System.Windows.Forms.CheckBox();
@@ -123,7 +126,6 @@
             this.list_flags = new System.Windows.Forms.ListBox();
             this.btn_save = new System.Windows.Forms.Button();
             this.btn_OpenMap = new System.Windows.Forms.Button();
-            this.combo_map = new System.Windows.Forms.ComboBox();
             this.tab_saveData.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.box_bShieldCharge)).BeginInit();
@@ -891,15 +893,26 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.combo_map);
-            this.groupBox2.Location = new System.Drawing.Point(13, 290);
+            this.groupBox2.Location = new System.Drawing.Point(3, 290);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(156, 74);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Areas";
             // 
+            // combo_map
+            // 
+            this.combo_map.FormattingEnabled = true;
+            this.combo_map.Location = new System.Drawing.Point(6, 22);
+            this.combo_map.Name = "combo_map";
+            this.combo_map.Size = new System.Drawing.Size(144, 23);
+            this.combo_map.TabIndex = 18;
+            this.combo_map.SelectedIndexChanged += new System.EventHandler(this.combo_map_SelectedIndexChanged);
+            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chk_feature_pcoin);
+            this.groupBox1.Controls.Add(this.chk_feature_other);
             this.groupBox1.Controls.Add(this.chk_feature_keyItems);
             this.groupBox1.Controls.Add(this.chk_feature_swords);
             this.groupBox1.Controls.Add(this.chk_feature_portals);
@@ -911,12 +924,39 @@
             this.groupBox1.Controls.Add(this.chk_feature_sdoor);
             this.groupBox1.Controls.Add(this.chk_feature_skey);
             this.groupBox1.Controls.Add(this.chk_feature_gdoor);
-            this.groupBox1.Location = new System.Drawing.Point(175, 290);
+            this.groupBox1.Location = new System.Drawing.Point(165, 290);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(587, 74);
+            this.groupBox1.Size = new System.Drawing.Size(597, 74);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Collectables";
+            // 
+            // chk_feature_pcoin
+            // 
+            this.chk_feature_pcoin.AutoSize = true;
+            this.chk_feature_pcoin.Checked = true;
+            this.chk_feature_pcoin.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_feature_pcoin.Location = new System.Drawing.Point(432, 22);
+            this.chk_feature_pcoin.Name = "chk_feature_pcoin";
+            this.chk_feature_pcoin.Size = new System.Drawing.Size(68, 19);
+            this.chk_feature_pcoin.TabIndex = 20;
+            this.chk_feature_pcoin.Text = "P-Coins";
+            this.chk_feature_pcoin.UseVisualStyleBackColor = true;
+            this.chk_feature_pcoin.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
+
+            // 
+            // chk_feature_other
+            // 
+            this.chk_feature_other.AutoSize = true;
+            this.chk_feature_other.Checked = true;
+            this.chk_feature_other.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_feature_other.Location = new System.Drawing.Point(514, 22);
+            this.chk_feature_other.Name = "chk_feature_other";
+            this.chk_feature_other.Size = new System.Drawing.Size(56, 19);
+            this.chk_feature_other.TabIndex = 19;
+            this.chk_feature_other.Text = "Other";
+            this.chk_feature_other.UseVisualStyleBackColor = true;
+            this.chk_feature_other.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
             // 
             // chk_feature_keyItems
             // 
@@ -988,7 +1028,7 @@
             this.chk_feature_unknown.AutoSize = true;
             this.chk_feature_unknown.Checked = true;
             this.chk_feature_unknown.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_feature_unknown.Location = new System.Drawing.Point(445, 47);
+            this.chk_feature_unknown.Location = new System.Drawing.Point(514, 49);
             this.chk_feature_unknown.Name = "chk_feature_unknown";
             this.chk_feature_unknown.Size = new System.Drawing.Size(77, 19);
             this.chk_feature_unknown.TabIndex = 9;
@@ -1139,15 +1179,6 @@
             this.btn_OpenMap.UseVisualStyleBackColor = true;
             this.btn_OpenMap.Click += new System.EventHandler(this.btn_OpenMap_Click);
             // 
-            // combo_map
-            // 
-            this.combo_map.FormattingEnabled = true;
-            this.combo_map.Location = new System.Drawing.Point(6, 22);
-            this.combo_map.Name = "combo_map";
-            this.combo_map.Size = new System.Drawing.Size(144, 23);
-            this.combo_map.TabIndex = 18;
-            this.combo_map.SelectedIndexChanged += new System.EventHandler(this.combo_map_SelectedIndexChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1278,5 +1309,7 @@
         private Label label24;
         private CheckBox chk_preventNight;
         private ComboBox combo_map;
+        private CheckBox chk_feature_other;
+        private CheckBox chk_feature_pcoin;
     }
 }

@@ -417,6 +417,8 @@ namespace HS_Save_Editor
 			theCollectibles.filters[CollectName.sword] = chk_feature_swords.Checked;
 			theCollectibles.filters[CollectName.gem] = chk_feature_Gems.Checked;
 			theCollectibles.filters[CollectName.treasure] = chk_feature_treasures.Checked;
+			theCollectibles.filters[CollectName.pcoin] = chk_feature_pcoin.Checked;
+			theCollectibles.otherFilter = chk_feature_other.Checked;
 			theCollectibles.keyItemsFilter = chk_feature_keyItems.Checked;
 			fillAllFlags();
         }
@@ -468,5 +470,6 @@ namespace HS_Save_Editor
 				theCollectibles.mapFilter = (int)Enum.Parse(typeof(Maps), (string)combo_map.SelectedItem);
 			fillAllFlags();
         }
-	}
+
+    }
 }

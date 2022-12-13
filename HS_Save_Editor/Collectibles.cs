@@ -15,8 +15,9 @@ namespace HS_Save_Editor
         List<string> _uncollected = new List<string>();
         public Dictionary<CollectName, bool> filters = new Dictionary<CollectName, bool>();
         public int mapFilter = 0; // 0 means all
+        public bool otherFilter = true;
         public bool keyItemsFilter = true;
-        public static void Initialize(string filename = "flags.txt")
+        public static void Initialize(string filename = @"..\..\..\flags.txt")
         {
             _flagFile = filename;
             List<string> collectibles = File.ReadAllLines(filename).ToList<string>();
@@ -69,6 +70,7 @@ namespace HS_Save_Editor
             filters.Add(CollectName.sword, true);
             filters.Add(CollectName.gem, true);
             filters.Add(CollectName.treasure, true);
+            filters.Add(CollectName.pcoin, true);
         }
 
         public void addDoneCollectibles(Dictionary<string, bool> dones)
@@ -91,17 +93,13 @@ namespace HS_Save_Editor
         {
             int map = Convert.ToInt32(key.Split('.')[0]);
             if (mapFilter != 0 && map != mapFilter)
-            {
                 return false;
-            }
             if (keyItemsFilter && _allCollectibles[key] >= CollectName.keyitem && _allCollectibles[key] < CollectName.keyitem_end)
-            {
                 return true;
-            }
+            else if (otherFilter && _allCollectibles[key] >= CollectName.other && _allCollectibles[key] < CollectName.other_end)
+                return true;
             else if (filters.ContainsKey(_allCollectibles[key]) && filters[_allCollectibles[key]])
-            {
                 return true;
-            }
             return false;
         }
 
@@ -188,6 +186,13 @@ namespace HS_Save_Editor
         sword,
         gem,
         treasure,
+        pcoin,
+        other,
+        tealkey,
+        purplekey,
+        tealdoor,
+        purpledoor,
+        other_end,
         keyitem,
         bluekey,
         redkey,
@@ -200,6 +205,7 @@ namespace HS_Save_Editor
         hammer,
         wind_ring,
         lava_charm,
+        compass,
         boots,
         BoBS,
         red_boots,
