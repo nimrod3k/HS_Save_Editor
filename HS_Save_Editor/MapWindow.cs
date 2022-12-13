@@ -16,18 +16,22 @@ namespace HS_Save_Editor
         ViewMap viewMap;
         GameType type;
         Map? theMap = null;
-
+        CollectName theCollectible = CollectName.unknown;
+        string key = "";
         public MapWindow(GameType type)
         {
             HSGlobal.gameType = type;
             viewMap = new ViewMap(type, 5);
             InitializeComponent();
+            box_itemtype.DataSource = Enum.GetNames(typeof(CollectName));
         }
 
 
-
-        public void UpdateMap(string flag)
+        public void UpdateMap(string flag, CollectName collectType)
         {
+            theCollectible = collectType;
+            key = flag;
+            box_itemtype.SelectedItem = collectType.ToString();
             viewMap.updateMap(flag);
             if (theMap != null && viewMap.mapID != Map.MapId)
             {
@@ -47,5 +51,11 @@ namespace HS_Save_Editor
             pictureBox1.Image = ViewMap.ResizeImage(viewMap.bitmap, new Size(pictureBox1.Width,pictureBox1.Height));
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            theCollectible = (CollectName)Enum.Parse(typeof(CollectName), (string)box_itemtype.SelectedItem);
+            Collectibles.setCollectibleType(key, theCollectible);
+            MessageBox.Show("Change Saved");
+        }
     }
 }

@@ -7,94 +7,25 @@ namespace HS_Save_Editor
     public partial class Form1 : Form
     {
 		HSJsonData? theData = null;
-		List<string> allCollectibles = new List<string>();
-		List<string> doneCollectibles = new List<string>();
-		List<string> undoneCollectibles = new List<string>();
 		MapWindow imageForm = null;
 		FullMap theMap = null;
+		Collectibles theCollectibles = null;
+		List<string> collected = new List<string>();
+		List<string> uncollected = new List<string>();
 
 		public Form1()
         {
             InitializeComponent();
 			combo_SaveLocation.DataSource = Enum.GetValues(typeof(Maps));
-			load_allCollectibles();
+			Collectibles.Initialize();
+
+			theCollectibles = new Collectibles();
 			HSInit.InitializeDrawCode();
-        }
-
-		private void load_allCollectibles()
-        {
-			allCollectibles.Clear();
-			allCollectibles = File.ReadAllLines("flags.txt").ToList<string>();
-
-			foreach (string line in DataUtils.gdoor_coords)
-            {
-				DataUtils.mapFeatures.Add(line,"Gold Door");
-			}
-			foreach (string line in DataUtils.gem_coords)
-			{
-				DataUtils.mapFeatures.Add(line, "Gem");
-			}
-			foreach (string line in DataUtils.gkey_coords)
-			{
-				DataUtils.mapFeatures.Add(line, "Gold Key");
-			}
-			foreach (string line in DataUtils.heart_coords)
-			{
-				DataUtils.mapFeatures.Add(line, "Heart");
-			}
-			foreach (string line in DataUtils.portal_st_coords)
-			{
-				DataUtils.mapFeatures.Add(line, "Portal Stone");
-			}
-			foreach (string line in DataUtils.sdoor_coords)
-			{
-				DataUtils.mapFeatures.Add(line, "Silver Door");
-			}
-			foreach (string line in DataUtils.skey_coords)
-			{
-				DataUtils.mapFeatures.Add(line, "Silver Key");
-			}
-			foreach (string line in DataUtils.sword_coords)
-			{
-				DataUtils.mapFeatures.Add(line, "Sword");
-			}
-			foreach (string line in DataUtils.treasure_coords)
-			{
-				DataUtils.mapFeatures.Add(line, "Treasure");
-			}
-
+			combo_map.Items.Add("All");
+			combo_map.Items.AddRange(Enum.GetNames(typeof(Maps)));
+			combo_map.SelectedIndex = 0;
 		}
 
-		private void load_doneCollectibles()
-		{
-			doneCollectibles.Clear();
-			foreach (string key in theData.flags.Keys)
-			{
-
-				string[] key_parts = key.Split('.');
-
-				string line = string.Format
-					(
-					"({0})'{1}': {2}",
-					(Maps)Convert.ToInt64(key_parts[0]),
-					key,
-					theData.flags[key]
-					);
-				doneCollectibles.Add(line);
-			}
-			bool update = false;
-			foreach (string line in doneCollectibles)
-			{
-				if (!allCollectibles.Contains(line))
-				{
-					update = true;
-					allCollectibles.Add(line);
-				}
-			}
-			if (update)
-				File.WriteAllLines("flags.txt", (List<string>)allCollectibles.Cast<string>().ToList());
-
-		}
 		private GameType getGameType()
         {
 			if (DataUtils.GetBoolValue(theData.values[(int)Vars.NGPPP]))
@@ -211,80 +142,63 @@ namespace HS_Save_Editor
 
 		private void fillAllFlags()
         {
-			undoneCollectibles.Clear();
 			list_flags.Items.Clear();
 			list_allitems.Items.Clear();
-
-			foreach (string line in allCollectibles)
-			{
-				if (!doneCollectibles.Contains(line))
-					undoneCollectibles.Add(line);
-			}
-			foreach (string line in undoneCollectibles)
-            {
-				if (checkFilter(line) && checkMap(line))
-					list_allitems.Items.Add(line);
-            }
-			foreach (string line in doneCollectibles)
-			{
-				if (checkFilter(line) && checkMap(line))
-					list_flags.Items.Add(line);
-			}
+			collected = theCollectibles.getCollected();
+			uncollected = theCollectibles.getUncollected();
+			list_flags.Items.AddRange(collected.ToArray());
+			list_allitems.Items.AddRange(uncollected.ToArray());
+			//foreach (string line in allCollectibles)
+			//{
+			//	if (!doneCollectibles.Contains(line))
+			//		undoneCollectibles.Add(line);
+			//}
+			//foreach (string line in undoneCollectibles)
+   //         {
+			//	if (checkFilter(line) && checkMap(line))
+			//		list_allitems.Items.Add(line);
+   //         }
+			//foreach (string line in doneCollectibles)
+			//{
+			//	if (checkFilter(line) && checkMap(line))
+			//		list_flags.Items.Add(line);
+			//}
 		}
 
 		private bool checkFilter(string coord)
         {
 			string item = coord.Split(")")[1].Split(":")[0].Trim('\'');
-			if (DataUtils.mapFeatures.ContainsKey(item))
-			{
-				if (
-					(DataUtils.mapFeatures[item] == "Gold Door" && chk_feature_gdoor.Checked) ||
-					(DataUtils.mapFeatures[item] == "Gem" && chk_feature_Gems.Checked) ||
-					(DataUtils.mapFeatures[item] == "Gold Key" && chk_feature_gkey.Checked) ||
-					(DataUtils.mapFeatures[item] == "Heart" && chk_feature_hearts.Checked) ||
-					(DataUtils.mapFeatures[item] == "Portal Stone" && chk_feature_portals.Checked) ||
-					(DataUtils.mapFeatures[item] == "Silver Door" && chk_feature_sdoor.Checked) ||
-					(DataUtils.mapFeatures[item] == "Silver Key" && chk_feature_skey.Checked) ||
-					(DataUtils.mapFeatures[item] == "Swords" && chk_feature_swords.Checked) ||
-					(DataUtils.mapFeatures[item] == "Treasure" && chk_feature_treasures.Checked)
-					)
-				{
-					return true;
-				}
-				else if (chk_feature_keyItems.Checked)
+			//if (DataUtils.mapFeatures.ContainsKey(item))
+			//{
+			//	if (
+			//		(DataUtils.mapFeatures[item] == "Gold Door" && chk_feature_gdoor.Checked) ||
+			//		(DataUtils.mapFeatures[item] == "Gem" && chk_feature_Gems.Checked) ||
+			//		(DataUtils.mapFeatures[item] == "Gold Key" && chk_feature_gkey.Checked) ||
+			//		(DataUtils.mapFeatures[item] == "Heart" && chk_feature_hearts.Checked) ||
+			//		(DataUtils.mapFeatures[item] == "Portal Stone" && chk_feature_portals.Checked) ||
+			//		(DataUtils.mapFeatures[item] == "Silver Door" && chk_feature_sdoor.Checked) ||
+			//		(DataUtils.mapFeatures[item] == "Silver Key" && chk_feature_skey.Checked) ||
+			//		(DataUtils.mapFeatures[item] == "Swords" && chk_feature_swords.Checked) ||
+			//		(DataUtils.mapFeatures[item] == "Treasure" && chk_feature_treasures.Checked)
+			//		)
+			//	{
+			//		return true;
+			//	}
+				if (chk_feature_keyItems.Checked)
                 {
 					return true;
                 }
-			}
-			else if (chk_feature_unknown.Checked)
-				return true;
+			//}
+			//else if (chk_feature_unknown.Checked)
+			//	return true;
 			return false;
 		}
-		private bool checkMap(string coord)
-		{
-			Maps mapID = (Maps)Convert.ToInt32(coord.Split(")")[1].Split(":")[0].Trim('\'').Split(".")[0]);
-			if (
-				(mapID == Maps.CASTLE_GROUNDS && chk_feature_CG.Checked) ||
-				(mapID == Maps.THE_TUNDRA && chk_feature_Tun.Checked) ||
-				(mapID == Maps.NORTH_MUNDEMAN && chk_feature_NM.Checked)
-				)
-			{
-				return true;
-			}
-			else if (chk_feature_unknown.Checked &&
-				(mapID != Maps.CASTLE_GROUNDS && mapID != Maps.THE_TUNDRA && mapID != Maps.NORTH_MUNDEMAN)
-				)
-				return true;
-			return false;
-		}
+
 		private void fillForm(HSJsonData data)
         {
-			list_flags.Items.Clear();
-			list_values.Items.Clear();
-
             theData = data;
 
-			load_doneCollectibles();
+			theCollectibles.addDoneCollectibles(theData.flags);
 
 
 			box_hearts.Value = (decimal)DataUtils.Get(data.values[(int)Vars.HEARTS]);
@@ -452,11 +366,10 @@ namespace HS_Save_Editor
 			SetCollectibleValues(txt_treasure.Text, Vars.TOTAL_TREASURES, Vars.TREASURES);
 
 			theData.flags.Clear();
-			foreach (string item in doneCollectibles)
+			var collected = theCollectibles.getCollectedForSave();
+			foreach (string key in collected.Keys)
 			{
-				string[] temp = item.Split(')')[1].Replace("\'","").Split(':');
-				string key = temp[0];
-				bool val = Convert.ToBoolean(temp[1]);
+				bool val = collected[key];
 				theData.flags.Add(key, val);
 			}
 		}
@@ -465,9 +378,8 @@ namespace HS_Save_Editor
 		{
 			if (list_allitems.SelectedItem != null)
 			{
-				doneCollectibles.Add((string)list_allitems.SelectedItem);
+				theCollectibles.collect((string)list_allitems.SelectedItem);
 				list_flags.Items.Add((string)list_allitems.SelectedItem);
-				allCollectibles.Remove((string)list_allitems.SelectedItem);
 				list_allitems.Items.Remove(list_allitems.SelectedItem);
 			}
 		}
@@ -476,9 +388,8 @@ namespace HS_Save_Editor
         {
 			if (list_flags.SelectedItem != null)
 			{
-				allCollectibles.Add((string)list_flags.SelectedItem);
+				theCollectibles.uncollect((string)list_flags.SelectedItem);
 				list_allitems.Items.Add((string)list_flags.SelectedItem);
-				doneCollectibles.Remove((string)list_flags.SelectedItem);
 				list_flags.Items.Remove(list_flags.SelectedItem);
 			}
 		}
@@ -496,6 +407,17 @@ namespace HS_Save_Editor
 
         private void chk_feature_filter_CheckedChanged(object sender, EventArgs e)
         {
+			theCollectibles.filters[CollectName.gdoor] = chk_feature_gdoor.Checked;
+			theCollectibles.filters[CollectName.unknown] = chk_feature_unknown.Checked;
+			theCollectibles.filters[CollectName.heart] = chk_feature_hearts.Checked;
+			theCollectibles.filters[CollectName.sdoor] = chk_feature_sdoor.Checked;
+			theCollectibles.filters[CollectName.gkey] = chk_feature_gkey.Checked;
+			theCollectibles.filters[CollectName.skey] = chk_feature_skey.Checked;
+			theCollectibles.filters[CollectName.pstone] = chk_feature_portals.Checked;
+			theCollectibles.filters[CollectName.sword] = chk_feature_swords.Checked;
+			theCollectibles.filters[CollectName.gem] = chk_feature_Gems.Checked;
+			theCollectibles.filters[CollectName.treasure] = chk_feature_treasures.Checked;
+			theCollectibles.keyItemsFilter = chk_feature_keyItems.Checked;
 			fillAllFlags();
         }
 
@@ -504,8 +426,8 @@ namespace HS_Save_Editor
 			if (list_flags.SelectedItem != null)
 			{
 				string flag = (string)list_flags.SelectedItem;
-
-				imageForm.UpdateMap(flag.Split("\'")[1]);
+				string key = flag.Split("\'")[1];
+				imageForm.UpdateMap(key, Collectibles.getCollectibleType(key));
 				imageForm.Show();
 				imageForm.TopMost = true;
 			}
@@ -516,8 +438,8 @@ namespace HS_Save_Editor
 			if (list_allitems.SelectedItem != null)
 			{
 				string flag = (string)list_allitems.SelectedItem;
-
-				imageForm.UpdateMap(flag.Split("\'")[1]);
+				string key = flag.Split("\'")[1];
+				imageForm.UpdateMap(key, Collectibles.getCollectibleType(key));
 				imageForm.Show();
 				imageForm.TopMost = true;
 			}
@@ -537,5 +459,14 @@ namespace HS_Save_Editor
 			}
 			theMap.Show();
 		}
+
+		private void combo_map_SelectedIndexChanged(object sender, EventArgs e)
+        {
+			if (combo_map.SelectedIndex == 0)
+				theCollectibles.mapFilter = 0;
+			else
+				theCollectibles.mapFilter = (int)Enum.Parse(typeof(Maps), (string)combo_map.SelectedItem);
+			fillAllFlags();
+        }
 	}
 }

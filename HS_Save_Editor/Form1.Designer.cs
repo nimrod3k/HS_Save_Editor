@@ -31,6 +31,7 @@
             this.btn_loadSaveFile = new System.Windows.Forms.Button();
             this.tab_saveData = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chk_preventNight = new System.Windows.Forms.CheckBox();
             this.txt_witchBasic = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
             this.txt_witchPerfect = new System.Windows.Forms.TextBox();
@@ -102,13 +103,6 @@
             this.list_values = new System.Windows.Forms.ListBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.chk_feature_SM = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.chk_feature_CG = new System.Windows.Forms.CheckBox();
-            this.chk_feature_NM = new System.Windows.Forms.CheckBox();
-            this.chk_feature_Tun = new System.Windows.Forms.CheckBox();
-            this.chk_feature_otherMaps = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chk_feature_keyItems = new System.Windows.Forms.CheckBox();
             this.chk_feature_swords = new System.Windows.Forms.CheckBox();
@@ -129,7 +123,7 @@
             this.list_flags = new System.Windows.Forms.ListBox();
             this.btn_save = new System.Windows.Forms.Button();
             this.btn_OpenMap = new System.Windows.Forms.Button();
-            this.chk_preventNight = new System.Windows.Forms.CheckBox();
+            this.combo_map = new System.Windows.Forms.ComboBox();
             this.tab_saveData.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.box_bShieldCharge)).BeginInit();
@@ -215,6 +209,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic Info";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // chk_preventNight
+            // 
+            this.chk_preventNight.AutoSize = true;
+            this.chk_preventNight.Location = new System.Drawing.Point(526, 162);
+            this.chk_preventNight.Name = "chk_preventNight";
+            this.chk_preventNight.Size = new System.Drawing.Size(99, 19);
+            this.chk_preventNight.TabIndex = 41;
+            this.chk_preventNight.Text = "Prevent Night";
+            this.chk_preventNight.UseVisualStyleBackColor = true;
             // 
             // txt_witchBasic
             // 
@@ -886,106 +890,13 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.checkBox1);
-            this.groupBox2.Controls.Add(this.chk_feature_SM);
-            this.groupBox2.Controls.Add(this.checkBox2);
-            this.groupBox2.Controls.Add(this.chk_feature_CG);
-            this.groupBox2.Controls.Add(this.chk_feature_NM);
-            this.groupBox2.Controls.Add(this.chk_feature_Tun);
-            this.groupBox2.Controls.Add(this.chk_feature_otherMaps);
-            this.groupBox2.Location = new System.Drawing.Point(13, 254);
+            this.groupBox2.Controls.Add(this.combo_map);
+            this.groupBox2.Location = new System.Drawing.Point(13, 290);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(357, 110);
+            this.groupBox2.Size = new System.Drawing.Size(156, 74);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Areas";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(152, 72);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(104, 19);
-            this.checkBox1.TabIndex = 15;
-            this.checkBox1.Text = "Molten Cavern";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // chk_feature_SM
-            // 
-            this.chk_feature_SM.AutoSize = true;
-            this.chk_feature_SM.Checked = true;
-            this.chk_feature_SM.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_feature_SM.Location = new System.Drawing.Point(6, 72);
-            this.chk_feature_SM.Name = "chk_feature_SM";
-            this.chk_feature_SM.Size = new System.Drawing.Size(122, 19);
-            this.chk_feature_SM.TabIndex = 13;
-            this.chk_feature_SM.Text = "South Mundeman";
-            this.chk_feature_SM.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Checked = true;
-            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Location = new System.Drawing.Point(152, 47);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(116, 19);
-            this.checkBox2.TabIndex = 14;
-            this.checkBox2.Text = "Southern Swamp";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // chk_feature_CG
-            // 
-            this.chk_feature_CG.AutoSize = true;
-            this.chk_feature_CG.Checked = true;
-            this.chk_feature_CG.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_feature_CG.Location = new System.Drawing.Point(6, 22);
-            this.chk_feature_CG.Name = "chk_feature_CG";
-            this.chk_feature_CG.Size = new System.Drawing.Size(106, 19);
-            this.chk_feature_CG.TabIndex = 8;
-            this.chk_feature_CG.Text = "Castle Grounds";
-            this.chk_feature_CG.UseVisualStyleBackColor = true;
-            this.chk_feature_CG.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
-            // 
-            // chk_feature_NM
-            // 
-            this.chk_feature_NM.AutoSize = true;
-            this.chk_feature_NM.Checked = true;
-            this.chk_feature_NM.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_feature_NM.Location = new System.Drawing.Point(6, 47);
-            this.chk_feature_NM.Name = "chk_feature_NM";
-            this.chk_feature_NM.Size = new System.Drawing.Size(122, 19);
-            this.chk_feature_NM.TabIndex = 9;
-            this.chk_feature_NM.Text = "North Mundeman";
-            this.chk_feature_NM.UseVisualStyleBackColor = true;
-            this.chk_feature_NM.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
-            // 
-            // chk_feature_Tun
-            // 
-            this.chk_feature_Tun.AutoSize = true;
-            this.chk_feature_Tun.Checked = true;
-            this.chk_feature_Tun.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_feature_Tun.Location = new System.Drawing.Point(152, 22);
-            this.chk_feature_Tun.Name = "chk_feature_Tun";
-            this.chk_feature_Tun.Size = new System.Drawing.Size(85, 19);
-            this.chk_feature_Tun.TabIndex = 10;
-            this.chk_feature_Tun.Text = "The Tundra";
-            this.chk_feature_Tun.UseVisualStyleBackColor = true;
-            this.chk_feature_Tun.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
-            // 
-            // chk_feature_otherMaps
-            // 
-            this.chk_feature_otherMaps.AutoSize = true;
-            this.chk_feature_otherMaps.Checked = true;
-            this.chk_feature_otherMaps.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_feature_otherMaps.Location = new System.Drawing.Point(290, 72);
-            this.chk_feature_otherMaps.Name = "chk_feature_otherMaps";
-            this.chk_feature_otherMaps.Size = new System.Drawing.Size(61, 19);
-            this.chk_feature_otherMaps.TabIndex = 12;
-            this.chk_feature_otherMaps.Text = "Others";
-            this.chk_feature_otherMaps.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -1000,9 +911,9 @@
             this.groupBox1.Controls.Add(this.chk_feature_sdoor);
             this.groupBox1.Controls.Add(this.chk_feature_skey);
             this.groupBox1.Controls.Add(this.chk_feature_gdoor);
-            this.groupBox1.Location = new System.Drawing.Point(393, 254);
+            this.groupBox1.Location = new System.Drawing.Point(175, 290);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(369, 110);
+            this.groupBox1.Size = new System.Drawing.Size(587, 74);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Collectables";
@@ -1012,7 +923,7 @@
             this.chk_feature_keyItems.AutoSize = true;
             this.chk_feature_keyItems.Checked = true;
             this.chk_feature_keyItems.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_feature_keyItems.Location = new System.Drawing.Point(101, 72);
+            this.chk_feature_keyItems.Location = new System.Drawing.Point(362, 47);
             this.chk_feature_keyItems.Name = "chk_feature_keyItems";
             this.chk_feature_keyItems.Size = new System.Drawing.Size(77, 19);
             this.chk_feature_keyItems.TabIndex = 18;
@@ -1025,7 +936,7 @@
             this.chk_feature_swords.AutoSize = true;
             this.chk_feature_swords.Checked = true;
             this.chk_feature_swords.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_feature_swords.Location = new System.Drawing.Point(6, 72);
+            this.chk_feature_swords.Location = new System.Drawing.Point(362, 22);
             this.chk_feature_swords.Name = "chk_feature_swords";
             this.chk_feature_swords.Size = new System.Drawing.Size(64, 19);
             this.chk_feature_swords.TabIndex = 17;
@@ -1077,7 +988,7 @@
             this.chk_feature_unknown.AutoSize = true;
             this.chk_feature_unknown.Checked = true;
             this.chk_feature_unknown.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_feature_unknown.Location = new System.Drawing.Point(281, 72);
+            this.chk_feature_unknown.Location = new System.Drawing.Point(445, 47);
             this.chk_feature_unknown.Name = "chk_feature_unknown";
             this.chk_feature_unknown.Size = new System.Drawing.Size(77, 19);
             this.chk_feature_unknown.TabIndex = 9;
@@ -1170,7 +1081,7 @@
             // 
             // btn_itemsRight
             // 
-            this.btn_itemsRight.Location = new System.Drawing.Point(361, 144);
+            this.btn_itemsRight.Location = new System.Drawing.Point(361, 185);
             this.btn_itemsRight.Name = "btn_itemsRight";
             this.btn_itemsRight.Size = new System.Drawing.Size(42, 23);
             this.btn_itemsRight.TabIndex = 5;
@@ -1180,7 +1091,7 @@
             // 
             // btn_itemsLeft
             // 
-            this.btn_itemsLeft.Location = new System.Drawing.Point(361, 115);
+            this.btn_itemsLeft.Location = new System.Drawing.Point(361, 147);
             this.btn_itemsLeft.Name = "btn_itemsLeft";
             this.btn_itemsLeft.Size = new System.Drawing.Size(42, 23);
             this.btn_itemsLeft.TabIndex = 4;
@@ -1194,7 +1105,7 @@
             this.list_allitems.ItemHeight = 15;
             this.list_allitems.Location = new System.Drawing.Point(409, 49);
             this.list_allitems.Name = "list_allitems";
-            this.list_allitems.Size = new System.Drawing.Size(330, 184);
+            this.list_allitems.Size = new System.Drawing.Size(330, 229);
             this.list_allitems.TabIndex = 3;
             this.list_allitems.SelectedIndexChanged += new System.EventHandler(this.list_allitems_SelectedIndexChanged);
             // 
@@ -1204,7 +1115,7 @@
             this.list_flags.ItemHeight = 15;
             this.list_flags.Location = new System.Drawing.Point(25, 49);
             this.list_flags.Name = "list_flags";
-            this.list_flags.Size = new System.Drawing.Size(330, 184);
+            this.list_flags.Size = new System.Drawing.Size(330, 229);
             this.list_flags.TabIndex = 2;
             this.list_flags.SelectedIndexChanged += new System.EventHandler(this.list_flags_SelectedIndexChanged);
             // 
@@ -1228,15 +1139,14 @@
             this.btn_OpenMap.UseVisualStyleBackColor = true;
             this.btn_OpenMap.Click += new System.EventHandler(this.btn_OpenMap_Click);
             // 
-            // chk_preventNight
+            // combo_map
             // 
-            this.chk_preventNight.AutoSize = true;
-            this.chk_preventNight.Location = new System.Drawing.Point(526, 162);
-            this.chk_preventNight.Name = "chk_preventNight";
-            this.chk_preventNight.Size = new System.Drawing.Size(99, 19);
-            this.chk_preventNight.TabIndex = 41;
-            this.chk_preventNight.Text = "Prevent Night";
-            this.chk_preventNight.UseVisualStyleBackColor = true;
+            this.combo_map.FormattingEnabled = true;
+            this.combo_map.Location = new System.Drawing.Point(6, 22);
+            this.combo_map.Name = "combo_map";
+            this.combo_map.Size = new System.Drawing.Size(144, 23);
+            this.combo_map.TabIndex = 18;
+            this.combo_map.SelectedIndexChanged += new System.EventHandler(this.combo_map_SelectedIndexChanged);
             // 
             // Form1
             // 
@@ -1264,7 +1174,6 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -1346,10 +1255,6 @@
         private CheckBox chk_feature_treasures;
         private GroupBox groupBox1;
         private GroupBox groupBox2;
-        private CheckBox chk_feature_CG;
-        private CheckBox chk_feature_NM;
-        private CheckBox chk_feature_Tun;
-        private CheckBox chk_feature_otherMaps;
         private CheckBox chk_feature_portals;
         private CheckBox chk_feature_swords;
         private CheckBox chk_feature_keyItems;
@@ -1361,9 +1266,6 @@
         private NumericUpDown box_kills;
         private Label label21;
         private NumericUpDown box_bShieldCharge;
-        private CheckBox checkBox1;
-        private CheckBox chk_feature_SM;
-        private CheckBox checkBox2;
         private Button btn_OpenMap;
         private CheckBox chk_greenShield;
         private CheckBox chk_witchEnding;
@@ -1375,5 +1277,6 @@
         private TextBox txt_witchPerfect;
         private Label label24;
         private CheckBox chk_preventNight;
+        private ComboBox combo_map;
     }
 }
