@@ -61,6 +61,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Name = "FullMap";
             this.Text = "Full Map";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FullMap_FormClosing);
             this.Resize += new System.EventHandler(this.FullMap_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

@@ -65,5 +65,11 @@ namespace HS_Save_Editor
                 UpdateMap(_mapID);
             }
         }
+
+        private void FullMap_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+        }
     }
 }
