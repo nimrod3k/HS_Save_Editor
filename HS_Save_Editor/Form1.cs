@@ -304,7 +304,15 @@ namespace HS_Save_Editor
 			update_data();
 			var positions = theData.position.Split('.');
 			if (positions != null && positions.Length > 3)
-				DataUtils.Save(theData, int.Parse(positions[0]), int.Parse(positions[1]), int.Parse(positions[2]), int.Parse(positions[3]));
+			{
+				SaveFileDialog save = new SaveFileDialog();
+				save.FileName = String.Format("{0}_new", DataUtils.filename);
+				save.ShowDialog();
+				string savefile = DataUtils.Save(theData, int.Parse(positions[0]), int.Parse(positions[1]), int.Parse(positions[2]), int.Parse(positions[3]), save.FileName);
+			}
+			else
+				MessageBox.Show("Failed to export due to bad position");
+
 		}
 
 		private void update_data()

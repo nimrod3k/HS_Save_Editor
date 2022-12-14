@@ -80,7 +80,7 @@ namespace HS_Save_Editor
 			return text3;
 		}
 
-		internal static void Save(HSJsonData data, int mapId, int x, int y, int d)
+		internal static string Save(HSJsonData data, int mapId, int x, int y, int d, string file = null)
 		{
 			string text = "";
 			string text2 = "";
@@ -116,10 +116,12 @@ namespace HS_Save_Editor
 				string s2 = text2.Substring(Math.Min(text2.Length - 1, j * 8 + 4), Math.Min(8, text2.Length - (j * 8 + 4)));
 				text += HS_Save_Tools.Encode(s2, DataUtils.TotalSteps + j);
 			}
-
+			
 			string saveFile = filename + "_new";
+			if (!string.IsNullOrEmpty(file))
+				saveFile = file;
 			File.WriteAllText(saveFile, text);
-
+			return saveFile;
 		}
 
 		internal static byte Get(byte value)
@@ -144,7 +146,7 @@ namespace HS_Save_Editor
 		}
 
 		internal static int TotalSteps = 0;
-		internal static string filename = "";
+		internal static string filename { get; private set; }
 
 	}
 }
