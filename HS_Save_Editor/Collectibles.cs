@@ -135,6 +135,7 @@ namespace HS_Save_Editor
             }
             return collected;
         }
+
         public List<string> getUncollected()
         {
             List<string> uncollected = new List<string>();
@@ -174,9 +175,10 @@ namespace HS_Save_Editor
             _collected.Add(splitstring[1],true);
             _uncollected.Remove(splitstring[1]);
         }
+
         internal Dictionary<string, bool> getCollectedForSave()
         {
-            throw new NotImplementedException();
+            return _collected;
         }
 
     }
