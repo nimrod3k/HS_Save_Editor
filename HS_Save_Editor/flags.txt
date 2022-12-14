@@ -470,7 +470,7 @@
 21.20.43:unknown
 21.16.39:unknown
 21.33.64:unknown
-21.37.54:unknown
+21.37.54:sword
 21.35.59:unknown
 21.41.63:unknown
 21.42.64:unknown

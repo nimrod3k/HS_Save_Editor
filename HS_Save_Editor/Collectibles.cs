@@ -17,7 +17,7 @@ namespace HS_Save_Editor
         public int mapFilter = 0; // 0 means all
         public bool otherFilter = true;
         public bool keyItemsFilter = true;
-        public static void Initialize(string filename = @"..\..\..\flags.txt")
+        public static void Initialize(string filename = @"flags.txt")
         {
             _flagFile = filename;
             List<string> collectibles = File.ReadAllLines(filename).ToList<string>();

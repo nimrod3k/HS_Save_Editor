@@ -57,5 +57,10 @@ namespace HS_Save_Editor
             Collectibles.setCollectibleType(key, theCollectible);
             MessageBox.Show("Change Saved");
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
     }
 }
