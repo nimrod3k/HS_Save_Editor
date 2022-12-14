@@ -19,18 +19,25 @@ namespace HS_Save_Editor
         public bool keyItemsFilter = true;
         public static void Initialize(string filename = @"flags.txt")
         {
-            _flagFile = filename;
-            List<string> collectibles = File.ReadAllLines(filename).ToList<string>();
-            foreach (var collectible in collectibles)
+            try
             {
-                string[] collect_split = collectible.Split(':');
-                string address = collect_split[0];
-                CollectName name = CollectName.unknown;
-                if (collect_split.Length > 1)
+                _flagFile = filename;
+                List<string> collectibles = File.ReadAllLines(filename).ToList<string>();
+                foreach (var collectible in collectibles)
                 {
-                    name = (CollectName)Enum.Parse(typeof(CollectName), collect_split[1]);
+                    string[] collect_split = collectible.Split(':');
+                    string address = collect_split[0];
+                    CollectName name = CollectName.unknown;
+                    if (collect_split.Length > 1)
+                    {
+                        name = (CollectName)Enum.Parse(typeof(CollectName), collect_split[1]);
+                    }
+                    _allCollectibles.Add(address, name);
                 }
-                _allCollectibles.Add(address, name);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(String.Format("Failed to initialize collectibles: \n\n{0}",ex.Message));
             }
         }
 
