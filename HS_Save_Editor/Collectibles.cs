@@ -199,6 +199,8 @@ namespace HS_Save_Editor
         other,
         goldsword,
         shield,
+        greengem,
+        greengemlock,
         trianglekey,
         tealkey,
         purplekey,
@@ -227,6 +229,12 @@ namespace HS_Save_Editor
         red_shield,
         green_sword,
         green_shield,
+        save_crystals,
+        carrot,
+        mirror,
+        broom,
+        fishingrod,
+        fish,
         keyitem_end
     }
 }
