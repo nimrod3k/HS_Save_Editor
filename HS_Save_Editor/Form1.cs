@@ -7,11 +7,11 @@ namespace HS_Save_Editor
     public partial class Form1 : Form
     {
 		HSJsonData? theData = null;
-		MapWindow imageForm = null;
-		FullMap theMap = null;
-		Collectibles theCollectibles = null;
-		List<string> collected = new List<string>();
-		List<string> uncollected = new List<string>();
+		MapWindow? imageForm = null;
+		FullMap? theMap = null;
+		Collectibles theCollectibles;
+		List<string> collected = new();
+		List<string> uncollected = new();
 
 		public Form1()
         {
@@ -42,31 +42,6 @@ namespace HS_Save_Editor
 			}
 
 			return GameType.NG;
-        }
-		private void btn_loadSaveFile_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog picker = new OpenFileDialog();
-			picker.InitialDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"Hero's Spirit");// @"C:\Users\nimro\source\repos\HS_Save_Editor\HS_Save_Editor"; // Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location),@"..\..\");
-
-            if (picker.ShowDialog() == DialogResult.OK)
-            {
-				if (imageForm != null)
-				{
-					imageForm.Close();
-					imageForm.Dispose();
-					imageForm = null;
-				}
-
-				string file = picker.FileName;
-                DataUtils.Initialize(file);
-
-                HSJsonData theData = DataUtils.Load();
-                fillForm(theData);
-				if (imageForm == null)
-                {
-					imageForm = new MapWindow(getGameType());
-                }
-            }
         }
 
 		private void fillAllValues()
@@ -163,35 +138,6 @@ namespace HS_Save_Editor
 			//	if (checkFilter(line) && checkMap(line))
 			//		list_flags.Items.Add(line);
 			//}
-		}
-
-		private bool checkFilter(string coord)
-        {
-			string item = coord.Split(")")[1].Split(":")[0].Trim('\'');
-			//if (DataUtils.mapFeatures.ContainsKey(item))
-			//{
-			//	if (
-			//		(DataUtils.mapFeatures[item] == "Gold Door" && chk_feature_gdoor.Checked) ||
-			//		(DataUtils.mapFeatures[item] == "Gem" && chk_feature_Gems.Checked) ||
-			//		(DataUtils.mapFeatures[item] == "Gold Key" && chk_feature_gkey.Checked) ||
-			//		(DataUtils.mapFeatures[item] == "Heart" && chk_feature_hearts.Checked) ||
-			//		(DataUtils.mapFeatures[item] == "Portal Stone" && chk_feature_portals.Checked) ||
-			//		(DataUtils.mapFeatures[item] == "Silver Door" && chk_feature_sdoor.Checked) ||
-			//		(DataUtils.mapFeatures[item] == "Silver Key" && chk_feature_skey.Checked) ||
-			//		(DataUtils.mapFeatures[item] == "Swords" && chk_feature_swords.Checked) ||
-			//		(DataUtils.mapFeatures[item] == "Treasure" && chk_feature_treasures.Checked)
-			//		)
-			//	{
-			//		return true;
-			//	}
-				if (chk_feature_keyItems.Checked)
-                {
-					return true;
-                }
-			//}
-			//else if (chk_feature_unknown.Checked)
-			//	return true;
-			return false;
 		}
 
 		private void fillForm(HSJsonData data)
@@ -299,21 +245,6 @@ namespace HS_Save_Editor
 			}
 		}
 
-		private void btn_save_Click(object sender, EventArgs e)
-        {
-			update_data();
-			var positions = theData.position.Split('.');
-			if (positions != null && positions.Length > 3)
-			{
-				SaveFileDialog save = new SaveFileDialog();
-				save.FileName = String.Format("{0}_new", DataUtils.filename);
-				save.ShowDialog();
-				string savefile = DataUtils.Save(theData, int.Parse(positions[0]), int.Parse(positions[1]), int.Parse(positions[2]), int.Parse(positions[3]), save.FileName);
-			}
-			else
-				MessageBox.Show("Failed to export due to bad position");
-
-		}
 
 		private void update_data()
 		{
@@ -382,38 +313,65 @@ namespace HS_Save_Editor
 			}
 		}
 
-		private void btn_itemsLeft_Click(object sender, EventArgs e)
+
+
+
+
+		/****     General Events     ****/
+		private void btn_loadSaveFile_Click(object sender, EventArgs e)
 		{
-			if (list_allitems.SelectedItem != null)
+			OpenFileDialog picker = new OpenFileDialog();
+			picker.InitialDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Hero's Spirit");// @"C:\Users\nimro\source\repos\HS_Save_Editor\HS_Save_Editor"; // Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location),@"..\..\");
+
+			if (picker.ShowDialog() == DialogResult.OK)
 			{
-				theCollectibles.collect((string)list_allitems.SelectedItem);
-				list_flags.Items.Add((string)list_allitems.SelectedItem);
-				list_allitems.Items.Remove(list_allitems.SelectedItem);
+				if (imageForm != null)
+				{
+					imageForm.Close();
+					imageForm.Dispose();
+					imageForm = null;
+				}
+
+				string file = picker.FileName;
+				DataUtils.Initialize(file);
+
+				HSJsonData theData = DataUtils.Load();
+				fillForm(theData);
+				if (imageForm == null)
+				{
+					imageForm = new MapWindow(getGameType());
+				}
 			}
 		}
 
-        private void btn_itemsRight_Click(object sender, EventArgs e)
-        {
-			if (list_flags.SelectedItem != null)
+		private void btn_save_Click(object sender, EventArgs e)
+		{
+			update_data();
+			var positions = theData.position.Split('.');
+			if (positions != null && positions.Length > 3)
 			{
-				theCollectibles.uncollect((string)list_flags.SelectedItem);
-				list_allitems.Items.Add((string)list_flags.SelectedItem);
-				list_flags.Items.Remove(list_flags.SelectedItem);
+				SaveFileDialog save = new SaveFileDialog();
+				save.FileName = String.Format("{0}_new", DataUtils.filename);
+				save.ShowDialog();
+				string savefile = DataUtils.Save(theData, int.Parse(positions[0]), int.Parse(positions[1]), int.Parse(positions[2]), int.Parse(positions[3]), save.FileName);
 			}
+			else
+				MessageBox.Show("Failed to export due to bad position");
+
+		}
+		
+		private void btn_OpenMap_Click(object sender, EventArgs e)
+		{
+			if (theMap == null)
+			{
+				theMap = new FullMap();
+			}
+			theMap.Show();
 		}
 
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-			string stuff = "";
-			foreach (var heart in theData.hearts)
-            {
-				stuff += string.Format("\"{0}\"\n", heart);
-            }
-			MessageBox.Show(stuff);
-        }
-
-        private void chk_feature_filter_CheckedChanged(object sender, EventArgs e)
+		/****     Item Flag Events  ****/
+		private void chk_feature_filter_CheckedChanged(object sender, EventArgs e)
         {
 			theCollectibles.filters[CollectName.gdoor] = chk_feature_gdoor.Checked;
 			theCollectibles.filters[CollectName.unknown] = chk_feature_unknown.Checked;
@@ -455,29 +413,40 @@ namespace HS_Save_Editor
 			}
 		}
 
-        private void tab_saveData_SelectedIndexChanged(object sender, EventArgs e)
-        {
+		private void tab_saveData_SelectedIndexChanged(object sender, EventArgs e)
+		{
 			if (imageForm != null)
 				imageForm.Hide();
-        }
-
-		private void btn_OpenMap_Click(object sender, EventArgs e)
-		{
-			if (theMap == null)
-			{
-				theMap = new FullMap();
-			}
-			theMap.Show();
 		}
 
 		private void combo_map_SelectedIndexChanged(object sender, EventArgs e)
-        {
+		{
 			if (combo_map.SelectedIndex == 0)
 				theCollectibles.mapFilter = 0;
 			else
 				theCollectibles.mapFilter = (int)Enum.Parse(typeof(Maps), (string)combo_map.SelectedItem);
 			fillAllFlags();
-        }
+		}
 
-    }
+		private void btn_itemsLeft_Click(object sender, EventArgs e)
+		{
+			if (list_allitems.SelectedItem != null)
+			{
+				theCollectibles.collect((string)list_allitems.SelectedItem);
+				list_flags.Items.Add((string)list_allitems.SelectedItem);
+				list_allitems.Items.Remove(list_allitems.SelectedItem);
+			}
+		}
+
+		private void btn_itemsRight_Click(object sender, EventArgs e)
+		{
+			if (list_flags.SelectedItem != null)
+			{
+				theCollectibles.uncollect((string)list_flags.SelectedItem);
+				list_allitems.Items.Add((string)list_flags.SelectedItem);
+				list_flags.Items.Remove(list_flags.SelectedItem);
+			}
+		}
+
+	}
 }
