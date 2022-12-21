@@ -44,7 +44,7 @@ namespace HS_Save_Editor
                 theMap = new Map((int)MapID);
                 theMap.Update();
             }
-            Bitmap bmp = null;
+            Bitmap bmp;
             theMap.Render(out bmp);
 
 
