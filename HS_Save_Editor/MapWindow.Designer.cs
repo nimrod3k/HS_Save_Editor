@@ -32,6 +32,8 @@
             this.box_itemtype = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lbl_gameMode = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,12 +74,32 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(220, 537);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(75, 15);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Game Mode:";
+            // 
+            // lbl_gameMode
+            // 
+            this.lbl_gameMode.AutoSize = true;
+            this.lbl_gameMode.Location = new System.Drawing.Point(292, 538);
+            this.lbl_gameMode.Name = "lbl_gameMode";
+            this.lbl_gameMode.Size = new System.Drawing.Size(24, 15);
+            this.lbl_gameMode.TabIndex = 5;
+            this.lbl_gameMode.Text = "NG";
+            // 
             // MapWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(540, 566);
             this.ControlBox = false;
+            this.Controls.Add(this.lbl_gameMode);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.box_itemtype);
@@ -88,6 +110,7 @@
             this.Text = "Item Map Viewer";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -97,5 +120,7 @@
         private ComboBox box_itemtype;
         private Button button1;
         private Button button2;
+        private Label label1;
+        private Label lbl_gameMode;
     }
 }

@@ -14,21 +14,23 @@ namespace HS_Save_Editor
     public partial class MapWindow : Form
     {
         ViewMap viewMap;
-        GameType type;
         Map? theMap = null;
         CollectName theCollectible = CollectName.unknown;
         string key = "";
+
         public MapWindow(GameType type)
         {
             HSGlobal.gameType = type;
             viewMap = new ViewMap(type, 5);
             InitializeComponent();
             box_itemtype.DataSource = Enum.GetNames(typeof(CollectName));
+            lbl_gameMode.Text = type.ToString();
         }
 
 
         public void UpdateMap(string flag, CollectName collectType)
         {
+
             theCollectible = collectType;
             key = flag;
             box_itemtype.SelectedItem = collectType.ToString();

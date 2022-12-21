@@ -9,7 +9,7 @@ namespace HS_Save_Editor
 		HSJsonData? theData = null;
 		MapWindow? imageForm = null;
 		FullMap? theMap = null;
-		Collectibles theCollectibles;
+		Collectibles theCollectibles = new Collectibles();
 		List<string> collected = new();
 		List<string> uncollected = new();
 
@@ -19,7 +19,6 @@ namespace HS_Save_Editor
 			combo_SaveLocation.DataSource = Enum.GetValues(typeof(Maps));
 			Collectibles.Initialize();
 
-			theCollectibles = new Collectibles();
 			HSInit.InitializeDrawCode();
 			combo_map.Items.Add("All");
 			combo_map.Items.AddRange(Enum.GetNames(typeof(Maps)));
@@ -315,8 +314,6 @@ namespace HS_Save_Editor
 
 
 
-
-
 		/****     General Events     ****/
 		private void btn_loadSaveFile_Click(object sender, EventArgs e)
 		{
@@ -336,11 +333,30 @@ namespace HS_Save_Editor
 				DataUtils.Initialize(file);
 
 				HSJsonData theData = DataUtils.Load();
-				fillForm(theData);
-				if (imageForm == null)
+				try
 				{
-					imageForm = new MapWindow(getGameType());
+					if (DataUtils.GetBoolValue(theData.values[(int)Vars.NGPP]))
+					{
+						Collectibles.gameMode = GameMode.NGPP;
+					}
+					else if (DataUtils.GetBoolValue(theData.values[(int)Vars.NGP]))
+					{
+						Collectibles.gameMode = GameMode.NGP;
+					}
+					else
+					{
+						Collectibles.gameMode = GameMode.NG;
+					}
+					fillForm(theData);
+					if (imageForm == null)
+					{
+						imageForm = new MapWindow(getGameType());
+					}
 				}
+				catch (Exception ex)
+                {
+					MessageBox.Show(ex.Message);
+                }
 			}
 		}
 
@@ -397,7 +413,6 @@ namespace HS_Save_Editor
 				string key = flag.Split("\'")[1];
 				imageForm.UpdateMap(key, Collectibles.getCollectibleType(key));
 				imageForm.Show();
-				imageForm.TopMost = true;
 			}
 		}
 

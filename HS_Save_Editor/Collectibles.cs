@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace HS_Save_Editor
 {
-
     internal class Collectibles
     {
-        static Dictionary<string, CollectName> _allCollectibles = new Dictionary<string, CollectName>();
+        static Dictionary<string, CollectName[]> _allCollectibles = new Dictionary<string, CollectName[]>();
         static string _flagFile;
         Dictionary<string, bool> _collected = new Dictionary<string, bool>();
         List<string> _uncollected = new List<string>();
@@ -17,6 +16,9 @@ namespace HS_Save_Editor
         public int mapFilter = 0; // 0 means all
         public bool otherFilter = true;
         public bool keyItemsFilter = true;
+        public static GameMode gameMode = GameMode.NG;
+
+
         public static void Initialize(string filename = @"flags.txt")
         {
             try
@@ -27,12 +29,40 @@ namespace HS_Save_Editor
                 {
                     string[] collect_split = collectible.Split(':');
                     string address = collect_split[0];
-                    CollectName name = CollectName.unknown;
+                    CollectName[] names = new CollectName[(int)GameMode.size];
                     if (collect_split.Length > 1)
                     {
-                        name = (CollectName)Enum.Parse(typeof(CollectName), collect_split[1]);
+                        string[] collect_names = collect_split[1].Split('-');
+                        if (collect_names.Length == 1)
+                        {
+                            names[(int)GameMode.NG] = (CollectName)Enum.Parse(typeof(CollectName), collect_names[0]);
+                            names[(int)GameMode.NGP] = names[(int)GameMode.NG];
+                            names[(int)GameMode.NGPP] = names[(int)GameMode.NG];
+                        }
+                        else
+                        {
+                            for (int i = 0; i < collect_names.Length; ++i)
+                            {
+                                if (string.IsNullOrEmpty(collect_names[i]))
+                                {
+                                    names[i] = CollectName.DoesNotExist;
+                                }
+                                else
+                                {
+                                    names[i] = (CollectName)Enum.Parse(typeof(CollectName),collect_names[i]);
+                                }
+                            }
+                            if (collect_names.Length < names.Length)
+                            {
+                                for (int i = collect_names.Length; i < names.Length; ++i)
+                                {
+                                    names[i] = names[collect_names.Length-1];
+                                }
+                            }
+                        }
+                        
                     }
-                    _allCollectibles.Add(address, name);
+                    _allCollectibles.Add(address, names);
                 }
             }
             catch (Exception ex)
@@ -46,7 +76,17 @@ namespace HS_Save_Editor
             List<string> updateList = new List<string>();
             foreach (var key in _allCollectibles.Keys)
             {
-                updateList.Add(string.Format("{0}:{1}", key, _allCollectibles[key].ToString()));
+                string modesText = _allCollectibles[key][0].ToString();
+                if (getMap(key) == Maps.THE_UNDERWORLD)
+                    modesText = CollectName.DoesNotExist.ToString();
+                if (!_allCollectibles[key].All(x => x == CollectName.unknown))
+                {
+                    for (int i = 1; i < _allCollectibles[key].Length; ++i)
+                    {
+                        modesText += string.Format("-{0}", _allCollectibles[key][i]);
+                    }
+                }
+                updateList.Add(string.Format("{0}:{1}", key, modesText));
             }
             File.WriteAllLines(_flagFile, updateList);
         }
@@ -54,14 +94,25 @@ namespace HS_Save_Editor
         internal static CollectName getCollectibleType(string key)
         {
             if (_allCollectibles.ContainsKey(key))
-                return _allCollectibles[key];
+                return getModeCollectible(key);
             else
                 return CollectName.unknown;
         }
 
         internal static void setCollectibleType(string key, CollectName type)
         {
-            _allCollectibles[key] = type;
+            if (_allCollectibles[key][(int)gameMode] == CollectName.unknown)
+            {
+                if (gameMode == GameMode.NGP && _allCollectibles[key][(int)GameMode.NGPP] == CollectName.unknown)
+                {
+                    _allCollectibles[key][(int)GameMode.NGPP] = type;
+                }
+                if (gameMode == GameMode.NGPP && _allCollectibles[key][(int)GameMode.NGP] == CollectName.unknown)
+                {
+                    _allCollectibles[key][(int)GameMode.NGP] = type;
+                }
+            }
+            _allCollectibles[key][(int)gameMode] = type;
             saveCollectibles();
         }
 
@@ -87,7 +138,12 @@ namespace HS_Save_Editor
             
             foreach (var item in updateValues)
             {
-                _allCollectibles.Add(item,CollectName.unknown);
+                CollectName[] collectNames = new CollectName[(int)GameMode.size];
+                for (int i = 0; i < collectNames.Length; ++i)
+                {
+                    collectNames[i] = CollectName.unknown;
+                }
+                _allCollectibles.Add(item, collectNames);
             }
             _uncollected = _allCollectibles.Keys.Where(x => !_collected.ContainsKey(x)).ToList();
             if (updateValues.Count > 0)
@@ -96,17 +152,41 @@ namespace HS_Save_Editor
             }
         }
 
+        private static CollectName getModeCollectible(string key)
+        {
+            CollectName modeItem = CollectName.DoesNotExist;
+            if (_allCollectibles.ContainsKey(key))
+            {
+                modeItem = _allCollectibles[key][(int)gameMode];
+            }
+            else
+            {
+                throw new Exception("Key not found. Check for key before calling getModeCollectible.");
+            }
+            return modeItem;
+        }
+        
+        private static Maps getMap(string key)
+        {
+            return (Maps)Convert.ToInt32(key.Split('.')[0]);
+        }
+
         private bool isInSet(string key)
         {
-            int map = Convert.ToInt32(key.Split('.')[0]);
-            if (mapFilter != 0 && map != mapFilter)
+            CollectName name = getModeCollectible(key);
+            if (name != CollectName.DoesNotExist)
+            {
+                int map = Convert.ToInt32(key.Split('.')[0]);
+                if (mapFilter != 0 && map != mapFilter)
+                    return false;
+                if (keyItemsFilter && name >= CollectName.keyitem && name <= CollectName.keyitem_end)
+                    return true;
+                else if (otherFilter && name >= CollectName.other && name <= CollectName.other_end)
+                    return true;
+                else if (filters.ContainsKey(name) && filters[name])
+                    return true;
                 return false;
-            if (keyItemsFilter && _allCollectibles[key] >= CollectName.keyitem && _allCollectibles[key] < CollectName.keyitem_end)
-                return true;
-            else if (otherFilter && _allCollectibles[key] >= CollectName.other && _allCollectibles[key] < CollectName.other_end)
-                return true;
-            else if (filters.ContainsKey(_allCollectibles[key]) && filters[_allCollectibles[key]])
-                return true;
+            }
             return false;
         }
 
@@ -121,7 +201,7 @@ namespace HS_Save_Editor
                     string item = "Unknown";
                     if (_allCollectibles.ContainsKey(key))
                     {
-                        item = _allCollectibles[key].ToString();
+                        item = _allCollectibles[key][(int)gameMode].ToString();
                     }
                     string line = string.Format
                         (
@@ -147,7 +227,7 @@ namespace HS_Save_Editor
                     string item = "Unknown";
                     if (_allCollectibles.ContainsKey(key))
                     {
-                        item = _allCollectibles[key].ToString();
+                        item = _allCollectibles[key][(int)gameMode].ToString();
                     }
                     string line = string.Format
                         (
@@ -183,8 +263,17 @@ namespace HS_Save_Editor
 
     }
 
+    enum GameMode
+    {
+        NG,
+        NGP,
+        NGPP,
+        size
+    }
+
     public enum CollectName
     {
+        DoesNotExist,
         unknown,
         heart,
         gdoor,
@@ -202,6 +291,8 @@ namespace HS_Save_Editor
         greengem,
         greengemlock,
         trianglekey,
+        trianglelock,
+        triangledoor,
         tealkey,
         purplekey,
         tealdoor,
@@ -225,6 +316,7 @@ namespace HS_Save_Editor
         red_boots,
         blue_sword,
         blue_shield,
+        blue_heart,
         red_sword,
         red_shield,
         green_sword,
