@@ -126,6 +126,11 @@
             this.list_flags = new System.Windows.Forms.ListBox();
             this.btn_save = new System.Windows.Forms.Button();
             this.btn_OpenMap = new System.Windows.Forms.Button();
+            this.chk_carrot = new System.Windows.Forms.CheckBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.txt_triangle = new System.Windows.Forms.TextBox();
+            this.txt_greenGem = new System.Windows.Forms.TextBox();
             this.tab_saveData.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.box_bShieldCharge)).BeginInit();
@@ -564,6 +569,11 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.txt_greenGem);
+            this.tabPage2.Controls.Add(this.txt_triangle);
+            this.tabPage2.Controls.Add(this.label27);
+            this.tabPage2.Controls.Add(this.label26);
+            this.tabPage2.Controls.Add(this.chk_carrot);
             this.tabPage2.Controls.Add(this.txt_silverKey);
             this.tabPage2.Controls.Add(this.txt_treasure);
             this.tabPage2.Controls.Add(this.txt_possum);
@@ -599,7 +609,7 @@
             // 
             // txt_silverKey
             // 
-            this.txt_silverKey.Location = new System.Drawing.Point(589, 124);
+            this.txt_silverKey.Location = new System.Drawing.Point(589, 119);
             this.txt_silverKey.Name = "txt_silverKey";
             this.txt_silverKey.Size = new System.Drawing.Size(60, 23);
             this.txt_silverKey.TabIndex = 50;
@@ -613,21 +623,21 @@
             // 
             // txt_possum
             // 
-            this.txt_possum.Location = new System.Drawing.Point(421, 91);
+            this.txt_possum.Location = new System.Drawing.Point(421, 86);
             this.txt_possum.Name = "txt_possum";
             this.txt_possum.Size = new System.Drawing.Size(60, 23);
             this.txt_possum.TabIndex = 48;
             // 
             // txt_goldKey
             // 
-            this.txt_goldKey.Location = new System.Drawing.Point(589, 91);
+            this.txt_goldKey.Location = new System.Drawing.Point(589, 86);
             this.txt_goldKey.Name = "txt_goldKey";
             this.txt_goldKey.Size = new System.Drawing.Size(60, 23);
             this.txt_goldKey.TabIndex = 47;
             // 
             // txt_Gems
             // 
-            this.txt_Gems.Location = new System.Drawing.Point(421, 124);
+            this.txt_Gems.Location = new System.Drawing.Point(421, 119);
             this.txt_Gems.Name = "txt_Gems";
             this.txt_Gems.Size = new System.Drawing.Size(60, 23);
             this.txt_Gems.TabIndex = 46;
@@ -652,7 +662,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(329, 94);
+            this.label15.Location = new System.Drawing.Point(327, 89);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(82, 15);
             this.label15.TabIndex = 43;
@@ -661,7 +671,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(374, 127);
+            this.label14.Location = new System.Drawing.Point(374, 122);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(37, 15);
             this.label14.TabIndex = 42;
@@ -679,7 +689,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(524, 94);
+            this.label12.Location = new System.Drawing.Point(524, 89);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(59, 15);
             this.label12.TabIndex = 40;
@@ -688,7 +698,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(521, 127);
+            this.label11.Location = new System.Drawing.Point(521, 122);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(62, 15);
             this.label11.TabIndex = 39;
@@ -943,7 +953,6 @@
             this.chk_feature_pcoin.Text = "P-Coins";
             this.chk_feature_pcoin.UseVisualStyleBackColor = true;
             this.chk_feature_pcoin.CheckedChanged += new System.EventHandler(this.chk_feature_filter_CheckedChanged);
-
             // 
             // chk_feature_other
             // 
@@ -1179,6 +1188,48 @@
             this.btn_OpenMap.UseVisualStyleBackColor = true;
             this.btn_OpenMap.Click += new System.EventHandler(this.btn_OpenMap_Click);
             // 
+            // chk_carrot
+            // 
+            this.chk_carrot.AutoSize = true;
+            this.chk_carrot.Location = new System.Drawing.Point(6, 209);
+            this.chk_carrot.Name = "chk_carrot";
+            this.chk_carrot.Size = new System.Drawing.Size(59, 19);
+            this.chk_carrot.TabIndex = 51;
+            this.chk_carrot.Text = "Carrot";
+            this.chk_carrot.UseVisualStyleBackColor = true;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(315, 155);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(96, 15);
+            this.label26.TabIndex = 52;
+            this.label26.Text = "Blue Triangle Key";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(512, 155);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(71, 15);
+            this.label27.TabIndex = 53;
+            this.label27.Text = "Green Gems";
+            // 
+            // txt_triangle
+            // 
+            this.txt_triangle.Location = new System.Drawing.Point(421, 149);
+            this.txt_triangle.Name = "txt_triangle";
+            this.txt_triangle.Size = new System.Drawing.Size(60, 23);
+            this.txt_triangle.TabIndex = 54;
+            // 
+            // txt_greenGem
+            // 
+            this.txt_greenGem.Location = new System.Drawing.Point(589, 149);
+            this.txt_greenGem.Name = "txt_greenGem";
+            this.txt_greenGem.Size = new System.Drawing.Size(60, 23);
+            this.txt_greenGem.TabIndex = 55;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1311,5 +1362,10 @@
         private ComboBox combo_map;
         private CheckBox chk_feature_other;
         private CheckBox chk_feature_pcoin;
+        private CheckBox chk_carrot;
+        private Label label27;
+        private Label label26;
+        private TextBox txt_triangle;
+        private TextBox txt_greenGem;
     }
 }

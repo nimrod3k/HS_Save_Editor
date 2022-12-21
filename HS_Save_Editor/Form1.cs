@@ -176,6 +176,7 @@ namespace HS_Save_Editor
 			chk_skeletonKey.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.SKELETON_KEY]);
 			chk_smugglersEye.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.COLLECTOR_EYE]);
 			chk_broom.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.BROOM]);
+			chk_carrot.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.CARROT]);
 			chk_mirror.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.MIRROR]);
 			chk_saveCrystals.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.SAVE_CRYSTAL]);
 			chk_greenSword.Checked = DataUtils.GetBoolValue(data.values[(int)Vars.GREEN_SWORD]);
@@ -192,6 +193,8 @@ namespace HS_Save_Editor
 			txt_portalStones.Text = GetCollectibleValues(Vars.TOTAL_PORTAL_STONES, Vars.PORTAL_STONES);
 			txt_Gems.Text = GetCollectibleValues(Vars.TOTAL_GEMS, Vars.GEMS);
 			txt_goldKey.Text = GetCollectibleValues(Vars.TOTAL_GOLD_KEYS, Vars.GOLD_KEYS);
+			txt_greenGem.Text = String.Format("{0}/{1}", DataUtils.Get(data.values[(int)Vars.SECRET_TOKENS]).ToString(), DataUtils.Get(data.values[(int)Vars.SECRET_SOCKETS]).ToString());
+			txt_triangle.Text = GetCollectibleValues(Vars.TOTAL_NGP_TOKENS, Vars.NGP_TOKENS);
 			txt_possum.Text = GetCollectibleValues(Vars.TOTAL_POSSUM_COINS, Vars.POSSUM_COINS);
 			txt_silverKey.Text = GetCollectibleValues(Vars.TOTAL_SILVER_KEYS, Vars.SILVER_KEYS);
 			txt_treasure.Text = GetCollectibleValues(Vars.TOTAL_TREASURES, Vars.TREASURES);
@@ -277,6 +280,7 @@ namespace HS_Save_Editor
 			DataUtils.Set(ref theData, Vars.SKELETON_KEY, chk_skeletonKey.Checked ? (byte)1 : (byte)0);
 			DataUtils.Set(ref theData, Vars.COLLECTOR_EYE, chk_smugglersEye.Checked ? (byte)1 : (byte)0);
 			DataUtils.Set(ref theData, Vars.BROOM, chk_broom.Checked ? (byte)1 : (byte)0);
+			DataUtils.Set(ref theData, Vars.CARROT, chk_carrot.Checked ? (byte)1 : (byte)0);
 			DataUtils.Set(ref theData, Vars.MIRROR, chk_mirror.Checked ? (byte)1 : (byte)0);
 			DataUtils.Set(ref theData, Vars.SAVE_CRYSTAL, chk_saveCrystals.Checked ? (byte)1 : (byte)0);
 			DataUtils.Set(ref theData, Vars.GREEN_SWORD, chk_greenSword.Checked ? (byte)1 : (byte)0);
@@ -299,6 +303,12 @@ namespace HS_Save_Editor
 			SetCollectibleValues(txt_portalStones.Text, Vars.TOTAL_PORTAL_STONES, Vars.PORTAL_STONES);
 			SetCollectibleValues(txt_Gems.Text, Vars.TOTAL_GEMS, Vars.GEMS);
 			SetCollectibleValues(txt_goldKey.Text, Vars.TOTAL_GOLD_KEYS, Vars.GOLD_KEYS);
+			var got_used = txt_greenGem.Text.Split('/');
+			DataUtils.Set(ref theData, Vars.SECRET_TOKENS, (byte)Convert.ToInt16(got_used[0]));
+			DataUtils.Set(ref theData, Vars.SECRET_SOCKETS, (byte)Convert.ToInt16(got_used[1]));
+
+			SetCollectibleValues(txt_triangle.Text, Vars.TOTAL_NGP_TOKENS, Vars.NGP_TOKENS);
+
 			SetCollectibleValues(txt_possum.Text, Vars.TOTAL_POSSUM_COINS, Vars.POSSUM_COINS);
 			SetCollectibleValues(txt_silverKey.Text, Vars.TOTAL_SILVER_KEYS, Vars.SILVER_KEYS);
 			SetCollectibleValues(txt_treasure.Text, Vars.TOTAL_TREASURES, Vars.TREASURES);
