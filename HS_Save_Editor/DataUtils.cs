@@ -12,6 +12,9 @@ namespace HS_Save_Editor
 {
 	internal static class DataUtils
 	{
+		internal static HSJsonData? data = null;
+		internal static bool dataIsLoaded { get { return data != null; } }
+
 		// Initialize the DataUtils Variables
 		internal static void Initialize(string filename)
 		{
@@ -24,19 +27,19 @@ namespace HS_Save_Editor
 		/// Loads Save File
 		/// </summary>
 		/// <returns></returns>
-		internal static HSJsonData Load()
+		internal static void Load()
 		{
-			HSJsonData jsonData = new HSJsonData();
+			data = new HSJsonData();
 			string text = File.ReadAllText(DataUtils.filename);
 			DataUtils.TotalSteps = int.Parse(text.Substring(0, 10));
 			string saveData = Unscramble(text);
 			if (saveData != null)
 			{
 
-				jsonData = (HSJsonData)JsonConvert.DeserializeObject(saveData, typeof(HSJsonData));
-				if (jsonData != null)
+				data = (HSJsonData)JsonConvert.DeserializeObject(saveData, typeof(HSJsonData));
+				if (data != null)
 				{
-					byte[] values = jsonData.values;
+					byte[] values = data.values;
 					bool flag = values.Length < Enum.GetNames(typeof(Vars)).Length;
 					if (flag)
 					{
@@ -44,21 +47,17 @@ namespace HS_Save_Editor
 						Array.Resize<byte>(ref values, Enum.GetNames(typeof(Vars)).Length);
 						while (k < values.Length)
 						{
-							DataUtils.Set(ref jsonData, (Vars)k, 0);
+							DataUtils.Set((Vars)k, 0);
 							k++;
 						}
-						jsonData.values = values;
+						data.values = values;
 					}
-					if (jsonData.label == null)
+					if (data.label == null)
 					{
-						jsonData.label = "";
+						data.label = "";
 					}
-
-					return jsonData;
-
 				}
 			}
-			return new HSJsonData();
 		}
 
 		internal static string Unscramble(string text)
@@ -80,7 +79,7 @@ namespace HS_Save_Editor
 			return text3;
 		}
 
-		internal static string Save(HSJsonData data, int mapId, int x, int y, int d, string file = null)
+		internal static string Save(int mapId, int x, int y, int d, string file = null)
 		{
 			string text = "";
 			string text2 = "";
@@ -124,29 +123,152 @@ namespace HS_Save_Editor
 			return saveFile;
 		}
 
-		internal static byte Get(byte value)
+		internal static byte Get(Vars var)
 		{
-			return HS_Save_Tools.DeobfuscateValue(value);
+			return Get((int)var);
 		}
 
-		internal static bool GetBoolValue(byte value)
+		internal static byte Get(int var)
 		{
-			return DataUtils.Get(value) != 0 ? true : false;
+			return HS_Save_Tools.DeobfuscateValue(data.values[var]);
+		}
+		internal static bool GetBoolValue(Vars var)
+		{
+			return GetBoolValue((int)var);
 		}
 
-		internal static void Set(ref HSJsonData data, Vars item, byte val)
+		internal static bool GetBoolValue(int var)
+		{
+			return DataUtils.Get(var) != 0 ? true : false;
+		}
+
+		internal static void Set(Vars item, byte val)
 		{
 			if ((int)item < data.values.Length)
 				data.values[(int)item] = HS_Save_Tools.ObfuscateValue(val);
 		}
 
-		internal static void Set(ref HSJsonData data, int item, byte val)
+		internal static void Set(int item, byte val)
 		{
-			Set(ref data, (Vars)item, (byte)val);
+			Set((Vars)item, (byte)val);
 		}
 
 		internal static int TotalSteps = 0;
+
 		internal static string filename { get; private set; }
+
+		internal static int GetValueCount()
+        {
+			return data.values.Length;
+        }
+
+		internal static byte[] GetValues()
+        {
+			if (data.values != null)
+				return data.values;
+			else
+				return new byte[0];
+        }
+
+		internal static string GetPlaytime()
+        {
+			return string.Format
+				(
+				"{0}:{1}:{2}",
+				data.playtime / 3600,
+				(data.playtime % 3600) / 60,
+				(data.playtime % 3600) % 60
+				);
+		}
+
+		internal static void SetPlaytime(string timeString)
+		{
+			var splitTime = timeString.Split(':');
+			data.playtime = (Convert.ToInt64(splitTime[0]) * 3600) + (Convert.ToInt64(splitTime[1]) * 60) + Convert.ToInt64(splitTime[2]);
+		}
+		internal static int GetDeaths()
+        {
+			return data.deaths;
+		}
+
+		internal static void SetDeaths(int deaths)
+		{
+			data.deaths = deaths;
+		}
+		internal static int GetKills()
+        {
+			return data.kills;
+        }
+
+		internal static void SetKills(int kills)
+		{
+			data.kills = kills;
+		}
+		internal static Maps GetPositionMap()
+		{
+			return (Maps)Convert.ToInt64(data.position.Split('.')[0]);
+		}
+		internal static string GetPositionX()
+		{
+			return data.position.Split('.')[1];
+		}
+		internal static string GetPositionY()
+		{
+			return data.position.Split('.')[2];
+		}
+
+		internal static string GetPositionDirection()
+		{
+			return data.position.Split('.')[3];
+		}
+
+		internal static string GetPosition()
+		{
+			return data.position;
+		}
+
+		internal static void GetPosition(out Maps mapId, out string x, out string y, out string d)
+		{
+			string[] position = data.position.Split('.');
+			mapId = (Maps)Convert.ToInt64(position[0]);
+			x = position[1];
+			y = position[2];
+			d = position[3];
+		}
+		internal static void GetPosition(out int mapId, out int x, out int y, out int d)
+		{
+			GetPosition(out Maps map, out string xs, out string ys, out string ds);
+			mapId = (int)map;
+			x = Convert.ToInt32(xs);
+			y = Convert.ToInt32(ys);
+			d = Convert.ToInt32(ds);
+		}
+		internal static void SetPosition(int mapId, string x, string y, string d)
+		{
+			data.position = String.Format("{0}.{1}.{2}.{3}",
+				mapId,
+				x,
+				y,
+				d
+			);
+		}
+
+		internal static Dictionary<string, bool> GetFlags()
+        {
+			return data.flags;
+        }
+
+		internal static void SetFlags(Dictionary<string,bool> collected)
+        {
+			data.flags.Clear();
+			foreach (string key in collected.Keys)
+			{
+				bool val = collected[key];
+				data.flags.Add(key, val);
+			}
+
+		}
+
 
 	}
 }

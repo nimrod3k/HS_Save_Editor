@@ -16,7 +16,7 @@ namespace HS_Save_Editor
         }
 		internal static byte getValue(int key)
 		{
-			return DataUtils.Get(_values[key]);
+			return DataUtils.Get(key);
 		}
 		internal static List<Percent> alwaysPercents = new List<Percent>()
 		{
@@ -148,9 +148,9 @@ namespace HS_Save_Editor
 			new Percent { vars=Vars.COLLECTOR_EYE, multiplier =num2 * 3f, condition=Condition.GT },
 		};
 		
-		internal static float calculateIndividualpercent(byte[] values, Vars id)
+		internal static float calculateIndividualpercent(Vars id)
         {
-			var total = Calculate(values);
+			var total = Calculate();
 			float num = 0f;
 			var greenfight = true;
 
@@ -354,7 +354,7 @@ namespace HS_Save_Editor
 			float num = 0f;
 			foreach (var percent in list)
             {
-				var val = getValue(percent.vars);
+				var val = DataUtils.Get(percent.vars);
 				var mult = percent.multiplier;
 				if (convergence)
 				{
@@ -446,8 +446,9 @@ namespace HS_Save_Editor
 			return num;
 		}
 
-		public static int Calculate(byte[] values,  bool convergence = false, bool greenfight = true, bool perfectWitch = false)
+		public static int Calculate(bool convergence = false, bool greenfight = true, bool perfectWitch = false)
 		{
+			byte[] values = DataUtils.GetValues();
 			_values = (byte[])values.Clone();
 
 			float num = 0f;

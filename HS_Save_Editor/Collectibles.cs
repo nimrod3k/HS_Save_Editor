@@ -131,8 +131,9 @@ namespace HS_Save_Editor
             filters.Add(CollectName.pcoin, true);
         }
 
-        public void addDoneCollectibles(Dictionary<string, bool> dones)
+        public void addDoneCollectibles()
         {
+            var dones = DataUtils.GetFlags();
             _collected = dones.ToDictionary(entry => entry.Key, entry => entry.Value);
             List<string> updateValues = _collected.Keys.Where(x => !_allCollectibles.ContainsKey(x)).ToList();
             
@@ -313,6 +314,7 @@ namespace HS_Save_Editor
         compass,
         boots,
         BoBS,
+        spectacles,
         red_boots,
         blue_sword,
         blue_shield,
