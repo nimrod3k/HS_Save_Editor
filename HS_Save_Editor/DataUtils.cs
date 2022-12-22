@@ -268,6 +268,208 @@ namespace HS_Save_Editor
 			}
 
 		}
+		private static void incrementValue(Vars item, int incNum = 1)
+		{
+			int maxval = byte.MaxValue;
+			if (item == Vars.HEARTS)
+				maxval = 64;
+
+			var count = Get(item);
+			if (count + incNum < maxval)
+			{
+				count = Convert.ToByte(count + incNum);
+				Set(item, count);
+			}
+		}
+
+		private static void decrementValue(Vars item, int decNum = 1)
+		{
+			var count = Get(item);
+			if ((count - decNum) >= 0)
+			{
+				count = Convert.ToByte(count - decNum);
+				Set(item, count);
+			}
+		}
+
+		internal static void Collect(CollectName item)
+        {
+			switch (item)
+			{
+				case CollectName.heart:
+					incrementValue(Vars.HEARTS);
+					break;
+				case CollectName.gdoor:
+					incrementValue(Vars.TOTAL_GOLD_DOORS);
+					decrementValue(Vars.GOLD_KEYS);
+					break;
+				case CollectName.sdoor:
+					incrementValue(Vars.TOTAL_SILVER_DOORS);
+					decrementValue(Vars.SILVER_KEYS);
+					break;
+				case CollectName.gkey:
+					incrementValue(Vars.TOTAL_GOLD_KEYS);
+					incrementValue(Vars.GOLD_KEYS);
+					break;
+				case CollectName.skey:
+					incrementValue(Vars.TOTAL_SILVER_KEYS);
+					incrementValue(Vars.SILVER_KEYS);
+					break;
+				case CollectName.pstone:
+					incrementValue(Vars.PORTAL_STONES);
+					break;
+				case CollectName.sword:
+					incrementValue(Vars.TOTAL_SWORDS);
+					incrementValue(Vars.SWORDS);
+					break;
+				case CollectName.gem:
+					incrementValue(Vars.TOTAL_GEMS);
+					incrementValue(Vars.GEMS);
+					break;
+				case CollectName.treasure:
+					incrementValue(Vars.TOTAL_TREASURES);
+					incrementValue(Vars.TREASURES);
+					break;
+				case CollectName.pcoin:
+					incrementValue(Vars.TOTAL_POSSUM_COINS);
+					incrementValue(Vars.POSSUM_COINS);
+					break;
+				case CollectName.goldsword:
+					Set(Vars.GOLD_SWORD, 1);
+					break;
+				case CollectName.shield:
+					Set(Vars.SHIELD, 1);
+					break;
+				case CollectName.greengem:
+					incrementValue(Vars.SECRET_TOKENS);
+					break;
+				case CollectName.greengemlock:
+					incrementValue(Vars.SECRET_SOCKETS);
+					decrementValue(Vars.SECRET_TOKENS);
+					break;
+				case CollectName.trianglekey:
+					incrementValue(Vars.NGP_TOKENS);
+					incrementValue(Vars.TOTAL_NGP_TOKENS);
+					break;
+				case CollectName.trianglelock:
+					decrementValue(Vars.NGP_TOKENS);
+					break;
+				case CollectName.triangledoor:
+					break;
+				case CollectName.tealkey:
+					incrementValue(Vars.TOTAL_TEAL_KEYS);
+					incrementValue(Vars.TEAL_KEYS);
+					break;
+				case CollectName.purplekey:
+					incrementValue(Vars.TOTAL_PURPLE_KEYS);
+					incrementValue(Vars.PURPLE_KEYS);
+					break;
+				case CollectName.tealdoor:
+					incrementValue(Vars.TOTAL_TEAL_DOORS);
+					decrementValue(Vars.TEAL_KEYS);
+					break;
+				case CollectName.purpledoor:
+					incrementValue(Vars.TOTAL_PURPLE_DOORS);
+					decrementValue(Vars.PURPLE_KEYS);
+					break;
+				case CollectName.bluekey:
+					incrementValue(Vars.TOTAL_BLUE_KEYS);
+					incrementValue(Vars.BLUE_KEYS);
+					break;
+				case CollectName.redkey:
+					incrementValue(Vars.TOTAL_RED_KEYS);
+					incrementValue(Vars.RED_KEYS);
+					break;
+				case CollectName.greenkey:
+					incrementValue(Vars.TOTAL_GREEN_KEYS);
+					incrementValue(Vars.GREEN_KEYS);
+					break;
+				case CollectName.bluedoor:
+					incrementValue(Vars.TOTAL_BLUE_DOORS);
+					decrementValue(Vars.BLUE_KEYS);
+					break;
+				case CollectName.reddoor:
+					incrementValue(Vars.TOTAL_RED_DOORS);
+					decrementValue(Vars.RED_KEYS);
+					break;
+				case CollectName.greendoor:
+					incrementValue(Vars.TOTAL_GREEN_DOORS);
+					decrementValue(Vars.GREEN_KEYS);
+					break;
+				case CollectName.smugglers_eye:
+					Set(Vars.COLLECTOR_EYE, 1);
+					break;
+				case CollectName.skeleton_key:
+					Set(Vars.SKELETON_KEY, 1);
+					break;
+				case CollectName.hammer:
+					Set(Vars.HAMMERS, 1);
+					break;
+				case CollectName.wind_ring:
+					Set(Vars.WATER_RING, 1);
+					break;
+				case CollectName.lava_charm:
+					Set(Vars.LAVA_CHARMS, 1);
+					break;
+				case CollectName.compass:
+					Set(Vars.COMPASSES, 1);
+					break;
+				case CollectName.boots:
+					Set(Vars.BOOTS, 1);
+					break;
+				case CollectName.BoBS:
+					Set(Vars.GEM_BOOTS, 1);
+					break;
+				case CollectName.spectacles:
+					Set(Vars.SPECTACLES, 1);
+					break;
+				case CollectName.red_boots:
+					Set(Vars.RED_BOOTS, 1);
+					break;
+				case CollectName.blue_sword:
+					Set(Vars.GEM_SWORD, 1);
+					break;
+				case CollectName.blue_shield:
+					Set(Vars.GEM_SHIELD, 3);
+					break;
+				case CollectName.blue_heart:
+					Set(Vars.GEM_HEART, 1);
+					break;
+				case CollectName.red_sword:
+					Set(Vars.RED_SHIELD, 1);
+					break;
+				case CollectName.red_shield:
+					Set(Vars.RED_SHIELD, 1);
+					break;
+				case CollectName.green_sword:
+					Set(Vars.GREEN_SWORD, 1);
+					break;
+				case CollectName.green_shield:
+					Set(Vars.GREEN_SHIELD, 1);
+					break;
+				case CollectName.save_crystals:
+					Set(Vars.SAVE_CRYSTAL, 1);
+					break;
+				case CollectName.carrot:
+					Set(Vars.CARROT, 1);
+					break;
+				case CollectName.mirror:
+					Set(Vars.MIRROR, 1);
+					break;
+				case CollectName.broom:
+					Set(Vars.BROOM, 1);
+					decrementValue(Vars.POSSUM_COINS,5);
+					break;
+				case CollectName.fishingrod:
+					Set(Vars.FISHING_POLE, 1);
+					break;
+				case CollectName.fish:
+					Set(Vars.FISH, 1);
+					break;
+				default:
+					break;
+			}
+        }
 
 
 	}
