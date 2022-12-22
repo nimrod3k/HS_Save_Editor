@@ -96,7 +96,7 @@
 18.20.38:gkey-gkey-gkey
 18.24.45:pcoin-pcoin-pcoin
 18.16.43:skey-skey-skey
-18.17.39:trianglekey-trianglekey-trianglekey
+18.17.39:DoesNotExist-trianglekey-trianglekey
 18.3.38:pstone-pstone-pstone
 18.19.34:pcoin-pcoin-pcoin
 18.10.27:gdoor-gdoor-gdoor
@@ -664,7 +664,7 @@
 14.50.50:gem-gem-gem
 14.53.50:gem-gem-gem
 14.56.50:gem-gem-gem
-14.58.50:trianglekey-trianglekey-trianglekey
+14.58.50:DoesNotExist-trianglekey-trianglekey
 14.54.52:treasure-treasure-treasure
 14.51.52:treasure-treasure-treasure
 14.48.52:treasure-treasure-treasure
@@ -778,7 +778,7 @@
 16.4.60:skey-skey-skey
 16.3.61:gdoor-gdoor-gdoor
 16.18.60:gem-gem-gem
-16.5.51:trianglekey-trianglekey-trianglekey
+16.5.51:DoesNotExist-trianglekey-trianglekey
 16.2.53:treasure-treasure-treasure
 16.7.55:treasure-treasure-treasure
 16.28.55:gem-gem-gem
@@ -1161,7 +1161,7 @@
 15.91.27:sdoor-sdoor-sdoor
 15.89.33:treasure-treasure-treasure
 15.87.29:gem-gem-gem
-15.85.22:trianglekey-trianglekey-trianglekey
+15.85.22:DoesNotExist-trianglekey-trianglekey
 15.94.23:treasure-treasure-treasure
 15.69.44:sdoor-sdoor-sdoor
 15.67.41:gkey-gkey-gkey
