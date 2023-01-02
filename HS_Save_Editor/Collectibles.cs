@@ -10,7 +10,6 @@ namespace HS_Save_Editor
     {
         static Dictionary<string, CollectName[]> _allCollectibles = new Dictionary<string, CollectName[]>();
         static string _flagFile;
-        Dictionary<string, bool> _collected = new Dictionary<string, bool>();
         List<string> _uncollected = new List<string>();
         public Dictionary<CollectName, bool> filters = new Dictionary<CollectName, bool>();
         public int mapFilter = 0; // 0 means all
@@ -134,8 +133,7 @@ namespace HS_Save_Editor
         public void addDoneCollectibles()
         {
             var dones = DataUtils.GetFlags();
-            _collected = dones.ToDictionary(entry => entry.Key, entry => entry.Value);
-            List<string> updateValues = _collected.Keys.Where(x => !_allCollectibles.ContainsKey(x)).ToList();
+            List<string> updateValues = dones.Keys.Where(x => !_allCollectibles.ContainsKey(x)).ToList();
             
             foreach (var item in updateValues)
             {
@@ -146,7 +144,7 @@ namespace HS_Save_Editor
                 }
                 _allCollectibles.Add(item, collectNames);
             }
-            _uncollected = _allCollectibles.Keys.Where(x => !_collected.ContainsKey(x)).ToList();
+            _uncollected = _allCollectibles.Keys.Where(x => !dones.ContainsKey(x)).ToList();
             if (updateValues.Count > 0)
             {
                 saveCollectibles();
@@ -193,8 +191,10 @@ namespace HS_Save_Editor
 
         public List<string> getCollected()
         {
+            if (!DataUtils.dataIsLoaded)
+                return null;
             List<string> collected = new List<string>();
-            foreach (var key in _collected.Keys)
+            foreach (var key in DataUtils.GetFlags().Keys)
             {
                 if (isInSet(key))
                 {
@@ -246,21 +246,17 @@ namespace HS_Save_Editor
         internal void uncollect(string item)
         {
             string[] splitstring = item.Split('\'');
-            _collected.Remove(splitstring[1]);
+            DataUtils.RemoveFlag(splitstring[1]);
             _uncollected.Add(splitstring[1]);
         }
 
         internal void collect(string item)
         {
             string[] splitstring = item.Split('\'');
-            _collected.Add(splitstring[1],true);
+            DataUtils.AddFlag(splitstring[1],true);
             _uncollected.Remove(splitstring[1]);
         }
 
-        internal Dictionary<string, bool> getCollectedForSave()
-        {
-            return _collected;
-        }
 
     }
 

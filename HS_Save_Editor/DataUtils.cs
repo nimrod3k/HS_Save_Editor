@@ -12,7 +12,7 @@ namespace HS_Save_Editor
 {
 	internal static class DataUtils
 	{
-		internal static HSJsonData? data = null;
+		private static HSJsonData? data = null;
 		internal static bool dataIsLoaded { get { return data != null; } }
 
 		// Initialize the DataUtils Variables
@@ -255,7 +255,9 @@ namespace HS_Save_Editor
 
 		internal static Dictionary<string, bool> GetFlags()
         {
-			return data.flags;
+			if (dataIsLoaded)
+				return data.flags;
+			return null;
         }
 
 		internal static void SetFlags(Dictionary<string,bool> collected)
@@ -471,7 +473,24 @@ namespace HS_Save_Editor
 			}
         }
 
-		internal static void Uncollect(CollectName item)
+        internal static void AddFlag(string key, bool value)
+        {
+			if (!data.flags.ContainsKey(key))
+			{
+				data.flags.Add(key, value);
+			}
+			else
+            {
+				throw new Exception("Key already exists on AddFlag");
+            }
+		}
+
+        internal static void RemoveFlag(string key)
+        {
+            data.flags.Remove(key);
+        }
+
+        internal static void Uncollect(CollectName item)
 		{
 			switch (item)
 			{
