@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HS_Save_Editor", "HS_Save_Editor\HS_Save_Editor.csproj", "{60052C1B-24D8-4BDB-9E69-7446C509AF1C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{81CDD324-916C-4232-B3D8-8D53F355EF3B} = {81CDD324-916C-4232-B3D8-8D53F355EF3B}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EB26F910-875D-4CBA-BA59-3BB00FCAEAD1}"
 	ProjectSection(SolutionItems) = preProject
