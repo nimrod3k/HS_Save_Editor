@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HS_Tools", "..\HS_Tools\HS_Tools.csproj", "{81CDD324-916C-4232-B3D8-8D53F355EF3B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,9 +22,17 @@ Global
 		{60052C1B-24D8-4BDB-9E69-7446C509AF1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60052C1B-24D8-4BDB-9E69-7446C509AF1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60052C1B-24D8-4BDB-9E69-7446C509AF1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81CDD324-916C-4232-B3D8-8D53F355EF3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81CDD324-916C-4232-B3D8-8D53F355EF3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81CDD324-916C-4232-B3D8-8D53F355EF3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81CDD324-916C-4232-B3D8-8D53F355EF3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{60052C1B-24D8-4BDB-9E69-7446C509AF1C} = {EB26F910-875D-4CBA-BA59-3BB00FCAEAD1}
+		{81CDD324-916C-4232-B3D8-8D53F355EF3B} = {EB26F910-875D-4CBA-BA59-3BB00FCAEAD1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {163075BC-6D24-43E9-8F5B-DFA58B294118}
