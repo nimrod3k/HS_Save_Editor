@@ -18,6 +18,14 @@ namespace HS_Save_Editor
 			combo_SaveLocation.DataSource = Enum.GetValues(typeof(Maps));
 			Collectibles.Initialize();
 
+			HSGlobal.Init();
+			if (!File.Exists(HSGlobal.CONFIG.rompath))
+			{
+				MessageBox.Show("ROM file not found, either Hero's Spirit is not installed or it is not installed in the default location please update the location of your Hero's Spirit Rom file");
+				ConfigWindow config = new ConfigWindow();
+				config.ShowDialog();
+			}
+
 			HSInit.InitializeDrawCode();
 			combo_map.Items.Add("All");
 			combo_map.Items.AddRange(Enum.GetNames(typeof(Maps)));
@@ -709,5 +717,12 @@ namespace HS_Save_Editor
 			}
 			fillAllValues();
 		}
-	}
+
+        private void btn_config_Click(object sender, EventArgs e)
+        {
+			ConfigWindow config = new ConfigWindow();
+			config.Show();
+
+        }
+    }
 }

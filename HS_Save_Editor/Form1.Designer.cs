@@ -151,6 +151,7 @@
             this.list_values = new System.Windows.Forms.ListBox();
             this.btn_save = new System.Windows.Forms.Button();
             this.btn_OpenMap = new System.Windows.Forms.Button();
+            this.btn_config = new System.Windows.Forms.Button();
             this.tab_saveData.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.box_bShieldCharge)).BeginInit();
@@ -1485,11 +1486,22 @@
             this.btn_OpenMap.UseVisualStyleBackColor = true;
             this.btn_OpenMap.Click += new System.EventHandler(this.btn_OpenMap_Click);
             // 
+            // btn_config
+            // 
+            this.btn_config.Location = new System.Drawing.Point(692, 11);
+            this.btn_config.Name = "btn_config";
+            this.btn_config.Size = new System.Drawing.Size(92, 23);
+            this.btn_config.TabIndex = 4;
+            this.btn_config.Text = "Configuration";
+            this.btn_config.UseVisualStyleBackColor = true;
+            this.btn_config.Click += new System.EventHandler(this.btn_config_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btn_config);
             this.Controls.Add(this.btn_OpenMap);
             this.Controls.Add(this.btn_save);
             this.Controls.Add(this.tab_saveData);
@@ -1642,5 +1654,6 @@
         private Label label36;
         private TextBox txt_bloodmoonCount;
         private CheckBox chk_bloodmoon;
+        private Button btn_config;
     }
 }
