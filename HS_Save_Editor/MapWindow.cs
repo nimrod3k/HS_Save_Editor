@@ -30,7 +30,6 @@ namespace HS_Save_Editor
 
         public void UpdateMap(string flag, CollectName collectType)
         {
-
             theCollectible = collectType;
             key = flag;
             box_itemtype.SelectedItem = collectType.ToString();

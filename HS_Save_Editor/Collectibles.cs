@@ -9,7 +9,7 @@ namespace HS_Save_Editor
     internal class Collectibles
     {
         static Dictionary<string, CollectName[]> _allCollectibles = new Dictionary<string, CollectName[]>();
-        static string _flagFile;
+        static string? _flagFile;
         List<string> _uncollected = new List<string>();
         public Dictionary<CollectName, bool> filters = new Dictionary<CollectName, bool>();
         public int mapFilter = 0; // 0 means all
@@ -189,7 +189,7 @@ namespace HS_Save_Editor
             return false;
         }
 
-        public List<string> getCollected()
+        public List<string>? getCollected()
         {
             if (!DataUtils.dataIsLoaded)
                 return null;

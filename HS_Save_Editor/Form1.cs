@@ -9,7 +9,7 @@ namespace HS_Save_Editor
 		MapWindow? imageForm = null;
 		FullMap? theMap = null;
 		Collectibles theCollectibles = new Collectibles();
-		List<string> collected = new();
+		List<string>? collected = new();
 		List<string> uncollected = new();
 
 		public Form1()
@@ -209,11 +209,11 @@ namespace HS_Save_Editor
 									DataUtils.GetBoolValue(Vars.WITCH_WATER_RING) ||
 									DataUtils.GetBoolValue(Vars.WITCH_PHASE2);
 			DataUtils.GetPosition(out Maps mapId, out string x, out string y, out string d);
-			combo_SaveLocation.SelectedItem = mapId;
 			txt_SaveLocationX.Text = x;
 			txt_SaveLocationY.Text = y;
 			txt_SaveLocationD.Text = d;
-			chk_bloodmoon.Checked = DataUtils.GetBoolValue(Vars.BLOODMOON_EFFECT);
+            combo_SaveLocation.SelectedItem = mapId;
+            chk_bloodmoon.Checked = DataUtils.GetBoolValue(Vars.BLOODMOON_EFFECT);
 			txt_bloodmoonCount.Text = DataUtils.Get(Vars.BLOODMOON_COUNT).ToString();
 			calculatePercentages();
 		}
@@ -280,8 +280,9 @@ namespace HS_Save_Editor
 			DataUtils.GetPosition(out int mapId, out int x, out int y, out int d );
 			SaveFileDialog save = new SaveFileDialog();
 			save.FileName = String.Format("{0}_new", DataUtils.filename);
-			save.ShowDialog();
-			string savefile = DataUtils.Save(mapId, x, y, d, save.FileName);
+			var result = save.ShowDialog();
+			if (result == DialogResult.OK)
+				DataUtils.Save(mapId, x, y, d, save.FileName);
 		}
 		
 		private void btn_OpenMap_Click(object sender, EventArgs e)

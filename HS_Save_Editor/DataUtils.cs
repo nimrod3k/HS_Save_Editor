@@ -30,14 +30,14 @@ namespace HS_Save_Editor
 		internal static void Load()
 		{
 			data = new HSJsonData();
-			string text = File.ReadAllText(DataUtils.filename);
+			string text = File.ReadAllText(filename);
 			DataUtils.TotalSteps = int.Parse(text.Substring(0, 10));
 			string saveData = Unscramble(text);
 			if (saveData != null)
 			{
 
-				data = (HSJsonData)JsonConvert.DeserializeObject(saveData, typeof(HSJsonData));
-				if (data != null)
+				data = (HSJsonData?)JsonConvert.DeserializeObject(saveData, typeof(HSJsonData));
+				if (data != null && data.values != null)
 				{
 					byte[] values = data.values;
 					bool flag = values.Length < Enum.GetNames(typeof(Vars)).Length;
@@ -79,7 +79,7 @@ namespace HS_Save_Editor
 			return text3;
 		}
 
-		internal static string Save(int mapId, int x, int y, int d, string file = null)
+		internal static string Save(int mapId, int x, int y, int d, string? file = null)
 		{
 			string text = "";
 			string text2 = "";
@@ -155,7 +155,7 @@ namespace HS_Save_Editor
 
 		internal static int TotalSteps = 0;
 
-		internal static string filename { get; private set; }
+		internal static string? filename { get; private set; }
 
 		internal static int GetValueCount()
         {
@@ -222,14 +222,14 @@ namespace HS_Save_Editor
 			return data.position.Split('.')[3];
 		}
 
-		internal static string GetPosition()
+		internal static string? GetPosition()
 		{
 			return data.position;
 		}
 
 		internal static void GetPosition(out Maps mapId, out string x, out string y, out string d)
 		{
-			string[] position = data.position.Split('.');
+			string[] position = ((string)data.position.Clone()).Split('.');
 			mapId = (Maps)Convert.ToInt64(position[0]);
 			x = position[1];
 			y = position[2];
@@ -253,7 +253,7 @@ namespace HS_Save_Editor
 			);
 		}
 
-		internal static Dictionary<string, bool> GetFlags()
+		internal static Dictionary<string, bool>? GetFlags()
         {
 			if (dataIsLoaded)
 				return data.flags;

@@ -39,16 +39,18 @@ namespace HS_Save_Editor
 
         public void UpdateMap(Maps MapID)
         {
+            if (MapID == 0)
+                MapID = Maps.DUST_SHELF;
             if (theMap == null)
             {
                 theMap = new Map((int)MapID);
                 theMap.Update();
             }
-            Bitmap bmp;
+            Bitmap? bmp;
             theMap.Render(out bmp);
 
-
-            pictureBox1.Image = ViewMap.ResizeImage(bmp, new Size(pictureBox1.Width, pictureBox1.Height));
+            if (bmp != null)
+                pictureBox1.Image = ViewMap.ResizeImage(bmp, new Size(pictureBox1.Width, pictureBox1.Height));
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
