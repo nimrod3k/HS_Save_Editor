@@ -7,13 +7,20 @@ using System.Runtime.CompilerServices;
 using Microsoft.CSharp.RuntimeBinder;
 using Newtonsoft.Json;
 using HS_Tools;
+using System.Security.Cryptography;
+using ICSharpCode.SharpZipLib.GZip;
+using Microsoft.VisualBasic.Logging;
+using System.Reflection;
 
 namespace HS_Save_Editor
 {
 	internal static class DataUtils
 	{
-		private static HSJsonData? data = null;
-		internal static bool dataIsLoaded { get { return data != null; } }
+		private static SaveBundle? _SaveBundle = null;
+
+		public static Save? SaveData = null;
+        private static HSJsonData? hsdata = null;
+		internal static bool dataIsLoaded { get { return hsdata != null; } }
 
 		// Initialize the DataUtils Variables
 		internal static void Initialize(string filename)
@@ -23,60 +30,78 @@ namespace HS_Save_Editor
 			HS_Save_Tools.Initialize();
 		}
 
-		/// <summary>
-		/// Loads Save File
-		/// </summary>
-		/// <returns></returns>
-		internal static void Load()
+		internal static string[] GetGameModes()
 		{
-			data = new HSJsonData();
-			string text = File.ReadAllText(filename);
-			DataUtils.TotalSteps = int.Parse(text.Substring(0, 10));
-			string saveData = Unscramble(text);
-			if (saveData != null)
-			{
+            List<string> strings = new List<string>();
+            if (_SaveBundle.OG != null)
+                strings.Add("NG");
+            if (_SaveBundle.Plus != null)
+                strings.Add("NG+");
+            if (_SaveBundle.Plus2 != null)
+                strings.Add("NG++");
+            if (_SaveBundle.Minus != null)
+                strings.Add("NG-");
+            if (_SaveBundle.Bunny != null)
+                strings.Add("Bunny");
 
-				data = (HSJsonData?)JsonConvert.DeserializeObject(saveData, typeof(HSJsonData));
-				if (data != null && data.values != null)
+
+			return strings.ToArray();
+        }
+
+		internal static void SetGameMode(string gameMode)
+		{
+			if (gameMode == "NG")
+				SaveData = _SaveBundle.OG;
+            if (gameMode == "NG+")
+                SaveData = _SaveBundle.Plus;
+            if (gameMode == "NG++")
+                SaveData = _SaveBundle.Plus2;
+            if (gameMode == "NG-")
+                SaveData = _SaveBundle.Minus;
+            if (gameMode == "Bunny")
+                SaveData = _SaveBundle.Bunny;
+
+        }
+
+        /// <summary>
+        /// Loads Save File
+        /// </summary>
+        /// <returns></returns>
+        internal static void Load()
+		{
+			if (filename != null)
+			{
+				byte[] data = File.ReadAllBytes(filename);
+                string value = HS_Save_Tools.DecompressJson(data);
+                _SaveBundle = JsonConvert.DeserializeObject<SaveBundle>(value);
+
+                //DataUtils.TotalSteps = int.Parse(text.Substring(0, 10));
+				if (_SaveBundle != null)
 				{
-					byte[] values = data.values;
-					bool flag = values.Length < Enum.GetNames(typeof(Vars)).Length;
-					if (flag)
+
+					/*hsdata = (HSJsonData?)JsonConvert.DeserializeObject(saveData, typeof(HSJsonData));
+					if (hsdata != null && hsdata.values != null)
 					{
-						int k = values.Length;
-						Array.Resize<byte>(ref values, Enum.GetNames(typeof(Vars)).Length);
-						while (k < values.Length)
+						byte[] values = hsdata.values;
+						bool flag = values.Length < Enum.GetNames(typeof(Vars)).Length;
+						if (flag)
 						{
-							DataUtils.Set((Vars)k, 0);
-							k++;
+							int k = values.Length;
+							Array.Resize<byte>(ref values, Enum.GetNames(typeof(Vars)).Length);
+							while (k < values.Length)
+							{
+								DataUtils.Set((Vars)k, 0);
+								k++;
+							}
+							hsdata.values = values;
 						}
-						data.values = values;
-					}
-					if (data.label == null)
-					{
-						data.label = "";
-					}
+						if (hsdata.label == null)
+						{
+							hsdata.label = "";
+						}
+					}*/
 				}
 			}
-		}
-
-		internal static string Unscramble(string text)
-		{
-			string text2 = text.Substring(10);
-			string text3 = text2.Substring(0, 4);
-			for (int i = 0; i <= (text2.Length - 4) / 8; i++)
-			{
-				string s = text2.Substring(Math.Min(text2.Length - 1, i * 8 + 4), Math.Min(8, text2.Length - (i * 8 + 4)));
-				text3 += HS_Save_Tools.Decode(s, DataUtils.TotalSteps + i);
-			}
-			text2 = text3;
-			text3 = "";
-			for (int j = 0; j <= text2.Length / 8; j++)
-			{
-				string s2 = text2.Substring(j * 8, Math.Min(8, text2.Length - j * 8));
-				text3 += HS_Save_Tools.Decode(s2, DataUtils.TotalSteps + j);
-			}
-			return text3;
 		}
 
 		internal static string Save(int mapId, int x, int y, int d, string? file = null)
@@ -97,12 +122,12 @@ namespace HS_Save_Editor
 				d.ToString(),
 				"\", "
 			});
-			text = text + "\"values\": " + JsonConvert.SerializeObject(data.values);
-			text = text + ", \"hearts\": " + JsonConvert.SerializeObject(data.hearts);
-			text = text + ", \"flags\": " + JsonConvert.SerializeObject(data.flags);
-			text = text + ", \"playtime\": " + data.playtime.ToString();
-			text = text + ", \"deaths\": " + data.deaths.ToString();
-			text = text + ", \"label\": \"" + data.label + "\"}";
+			text = text + "\"values\": " + JsonConvert.SerializeObject(hsdata.values);
+			text = text + ", \"hearts\": " + JsonConvert.SerializeObject(hsdata.hearts);
+			text = text + ", \"flags\": " + JsonConvert.SerializeObject(hsdata.flags);
+			text = text + ", \"playtime\": " + hsdata.playtime.ToString();
+			text = text + ", \"deaths\": " + hsdata.deaths.ToString();
+			text = text + ", \"label\": \"" + hsdata.label + "\"}";
 			for (int i = 0; i <= text.Length / 8; i++)
 			{
 				string s = text.Substring(i * 8, Math.Min(8, text.Length - i * 8));
@@ -130,7 +155,7 @@ namespace HS_Save_Editor
 
 		internal static byte Get(int var)
 		{
-			return HS_Save_Tools.DeobfuscateValue(data.values[var]);
+			return HS_Save_Tools.DeobfuscateValue(hsdata.values[var]);
 		}
 		internal static bool GetBoolValue(Vars var)
 		{
@@ -144,8 +169,8 @@ namespace HS_Save_Editor
 
 		internal static void Set(Vars item, byte val)
 		{
-			if ((int)item < data.values.Length)
-				data.values[(int)item] = HS_Save_Tools.ObfuscateValue(val);
+			if ((int)item < hsdata.values.Length)
+				hsdata.values[(int)item] = HS_Save_Tools.ObfuscateValue(val);
 		}
 
 		internal static void Set(int item, byte val)
@@ -159,13 +184,13 @@ namespace HS_Save_Editor
 
 		internal static int GetValueCount()
         {
-			return data.values.Length;
+			return hsdata.values.Length;
         }
 
 		internal static byte[] GetValues()
         {
-			if (data.values != null)
-				return data.values;
+			if (hsdata.values != null)
+				return hsdata.values;
 			else
 				return new byte[0];
         }
@@ -175,61 +200,61 @@ namespace HS_Save_Editor
 			return string.Format
 				(
 				"{0}:{1}:{2}",
-				data.playtime / 3600,
-				(data.playtime % 3600) / 60,
-				(data.playtime % 3600) % 60
+				hsdata.playtime / 3600,
+				(hsdata.playtime % 3600) / 60,
+				(hsdata.playtime % 3600) % 60
 				);
 		}
 
 		internal static void SetPlaytime(string timeString)
 		{
 			var splitTime = timeString.Split(':');
-			data.playtime = (Convert.ToInt64(splitTime[0]) * 3600) + (Convert.ToInt64(splitTime[1]) * 60) + Convert.ToInt64(splitTime[2]);
+			hsdata.playtime = (Convert.ToInt64(splitTime[0]) * 3600) + (Convert.ToInt64(splitTime[1]) * 60) + Convert.ToInt64(splitTime[2]);
 		}
 		internal static int GetDeaths()
         {
-			return data.deaths;
+			return hsdata.deaths;
 		}
 
 		internal static void SetDeaths(int deaths)
 		{
-			data.deaths = deaths;
+			hsdata.deaths = deaths;
 		}
 		internal static int GetKills()
         {
-			return data.kills;
+			return hsdata.kills;
         }
 
 		internal static void SetKills(int kills)
 		{
-			data.kills = kills;
+			hsdata.kills = kills;
 		}
 		internal static Maps GetPositionMap()
 		{
-			return (Maps)Convert.ToInt64(data.position.Split('.')[0]);
+			return (Maps)Convert.ToInt64(hsdata.position.Split('.')[0]);
 		}
 		internal static string GetPositionX()
 		{
-			return data.position.Split('.')[1];
+			return hsdata.position.Split('.')[1];
 		}
 		internal static string GetPositionY()
 		{
-			return data.position.Split('.')[2];
+			return hsdata.position.Split('.')[2];
 		}
 
 		internal static string GetPositionDirection()
 		{
-			return data.position.Split('.')[3];
+			return hsdata.position.Split('.')[3];
 		}
 
 		internal static string? GetPosition()
 		{
-			return data.position;
+			return hsdata.position;
 		}
 
 		internal static void GetPosition(out Maps mapId, out string x, out string y, out string d)
 		{
-			string[] position = ((string)data.position.Clone()).Split('.');
+			string[] position = ((string)hsdata.position.Clone()).Split('.');
 			mapId = (Maps)Convert.ToInt64(position[0]);
 			x = position[1];
 			y = position[2];
@@ -245,7 +270,7 @@ namespace HS_Save_Editor
 		}
 		internal static void SetPosition(int mapId, string x, string y, string d)
 		{
-			data.position = String.Format("{0}.{1}.{2}.{3}",
+			hsdata.position = String.Format("{0}.{1}.{2}.{3}",
 				mapId,
 				x,
 				y,
@@ -256,17 +281,17 @@ namespace HS_Save_Editor
 		internal static Dictionary<string, bool>? GetFlags()
         {
 			if (dataIsLoaded)
-				return data.flags;
+				return hsdata.flags;
 			return null;
         }
 
 		internal static void SetFlags(Dictionary<string,bool> collected)
         {
-			data.flags.Clear();
+			hsdata.flags.Clear();
 			foreach (string key in collected.Keys)
 			{
 				bool val = collected[key];
-				data.flags.Add(key, val);
+				hsdata.flags.Add(key, val);
 			}
 
 		}
@@ -475,9 +500,9 @@ namespace HS_Save_Editor
 
         internal static void AddFlag(string key, bool value)
         {
-			if (!data.flags.ContainsKey(key))
+			if (!hsdata.flags.ContainsKey(key))
 			{
-				data.flags.Add(key, value);
+				hsdata.flags.Add(key, value);
 			}
 			else
             {
@@ -487,7 +512,7 @@ namespace HS_Save_Editor
 
         internal static void RemoveFlag(string key)
         {
-            data.flags.Remove(key);
+            hsdata.flags.Remove(key);
         }
 
         internal static void Uncollect(CollectName item)

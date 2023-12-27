@@ -1,6 +1,7 @@
 using System.Windows.Forms;
 using System.Reflection;
 using HS_Tools;
+using System.ComponentModel.Design.Serialization;
 
 namespace HS_Save_Editor
 {
@@ -146,41 +147,32 @@ namespace HS_Save_Editor
 			}
 		}
 
-		private void fillTabCollectibles()
+		private void fillTabItemsAndStories()
         {
-			chk_bobs.Checked = DataUtils.GetBoolValue(Vars.GEM_BOOTS);
-			chk_boots.Checked = DataUtils.GetBoolValue(Vars.BOOTS);
-			chk_hammer.Checked = DataUtils.GetBoolValue(Vars.HAMMERS);
-			chk_lavaCharm.Checked = DataUtils.GetBoolValue(Vars.LAVA_CHARMS);
-			chk_windRing.Checked = DataUtils.GetBoolValue(Vars.WATER_RING);
-			chk_compass.Checked = DataUtils.GetBoolValue(Vars.COMPASSES);
-			chk_spectacles.Checked = DataUtils.GetBoolValue(Vars.SPECTACLES);
-			chk_skeletonKey.Checked = DataUtils.GetBoolValue(Vars.SKELETON_KEY);
-			chk_smugglersEye.Checked = DataUtils.GetBoolValue(Vars.COLLECTOR_EYE);
-			chk_broom.Checked = DataUtils.GetBoolValue(Vars.BROOM);
-			chk_carrot.Checked = DataUtils.GetBoolValue(Vars.CARROT);
-			chk_mirror.Checked = DataUtils.GetBoolValue(Vars.MIRROR);
-			chk_saveCrystals.Checked = DataUtils.GetBoolValue(Vars.SAVE_CRYSTAL);
-			txt_portalStones.Text = DataUtils.Get(Vars.PORTAL_STONES).ToString();
-			txt_portalStonesTotal.Text = DataUtils.Get(Vars.TOTAL_PORTAL_STONES).ToString();
-			txt_gems.Text = DataUtils.Get(Vars.GEMS).ToString();
-			txt_gemsTotal.Text = DataUtils.Get(Vars.TOTAL_GEMS).ToString();
-			txt_goldKey.Text = DataUtils.Get(Vars.GOLD_KEYS).ToString();
-			txt_goldKeyTotal.Text = DataUtils.Get(Vars.TOTAL_GOLD_KEYS).ToString();
-			txt_possum.Text = DataUtils.Get(Vars.POSSUM_COINS).ToString();
-			txt_possumTotal.Text = DataUtils.Get(Vars.TOTAL_POSSUM_COINS).ToString();
-			txt_silverKey.Text = DataUtils.Get(Vars.SILVER_KEYS).ToString();
-			txt_silverKeyTotal.Text = DataUtils.Get(Vars.TOTAL_SILVER_KEYS).ToString();
-			txt_treasure.Text = DataUtils.Get(Vars.TREASURES).ToString();
-			txt_treasureTotal.Text = DataUtils.Get(Vars.TOTAL_TREASURES).ToString();
-			txt_greenGem.Text = String.Format(DataUtils.Get(Vars.SECRET_TOKENS).ToString());
-			txt_greenGemUsed.Text = String.Format(DataUtils.Get(Vars.SECRET_SOCKETS).ToString());
-			txt_triangle.Text = DataUtils.Get(Vars.NGP_TOKENS).ToString();
-			txt_triangleTotal.Text = DataUtils.Get(Vars.TOTAL_NGP_TOKENS).ToString();
+            foreach (var item in DataUtils.SaveData.Equipment)
+            {
+                Type what = item.Value.GetType();
 
-		}
+                if ((item.Value is not int) && (item.Value is not Int64))
+                    chk_Equipment.Items.Add(item.Key, (bool)(item.Value));
+                else
+                {
+                    // todo
+                }
+            }
+            foreach (var item in DataUtils.SaveData.Items)
+            {
+                box_item.Items.Add(string.Format("{0}: {1}", item.Key, item.Value));
+            }
+            foreach (var item in DataUtils.SaveData.Story)
+            {
+                if ((item.Value is int) || (item.Value is Int64) || (item.Value is bool))
+                    box_story.Items.Add(string.Format("{0}: {1}", item.Key, item.Value));
+            }
 
-		private void fillTabValues()
+        }
+
+        private void fillTabValues()
         {
 			fillAllValues();
 			fillMissedPercent();
@@ -189,37 +181,35 @@ namespace HS_Save_Editor
 
 		private void fillTabBasic()
         {
-			box_hearts.Value = (decimal)DataUtils.Get(Vars.HEARTS);
-			box_steps.Text = DataUtils.TotalSteps.ToString();
-			box_swords.Value = (decimal)DataUtils.Get(Vars.SWORDS);
-			chk_preventNight.Checked = DataUtils.GetBoolValue(Vars.PREVENTED_NIGHT);
-			box_time.Text = DataUtils.GetPlaytime();
-			box_deaths.Value = DataUtils.GetDeaths();
-			box_kills.Value = DataUtils.GetKills();
-			chk_bHeart.Checked = DataUtils.GetBoolValue(Vars.GEM_HEART);
-			chk_bShield.Checked = DataUtils.GetBoolValue(Vars.GEM_SHIELD);
-			box_bShieldCharge.Value = DataUtils.Get(Vars.GEM_SHIELD);
-			chk_bSword.Checked = DataUtils.GetBoolValue(Vars.GEM_SWORD);
-			chk_rShield.Checked = DataUtils.GetBoolValue(Vars.RED_SHIELD);
-			chk_rSword.Checked = DataUtils.GetBoolValue(Vars.RED_SWORD);
-			chk_greenSword.Checked = DataUtils.GetBoolValue(Vars.GREEN_SWORD);
-			chk_greenShield.Checked = DataUtils.GetBoolValue(Vars.GREEN_SHIELD);
-			chk_witchEnding.Checked = DataUtils.GetBoolValue(Vars.WITCH_GEM_SWORD_3) ||
-									DataUtils.GetBoolValue(Vars.WITCH_HAMMER) ||
-									DataUtils.GetBoolValue(Vars.WITCH_WATER_RING) ||
-									DataUtils.GetBoolValue(Vars.WITCH_PHASE2);
-			DataUtils.GetPosition(out Maps mapId, out string x, out string y, out string d);
-			txt_SaveLocationX.Text = x;
-			txt_SaveLocationY.Text = y;
-			txt_SaveLocationD.Text = d;
-            combo_SaveLocation.SelectedItem = mapId;
-            chk_bloodmoon.Checked = DataUtils.GetBoolValue(Vars.BLOODMOON_EFFECT);
-			txt_bloodmoonCount.Text = DataUtils.Get(Vars.BLOODMOON_COUNT).ToString();
-			calculatePercentages();
+			box_steps.Text = DataUtils.SaveData.Steps.ToString();
+			box_time.Text = DataUtils.SaveData.Playtime.ToString();
+			box_deaths.Value = DataUtils.SaveData.Deaths;
+			box_kills.Value = DataUtils.SaveData.Kills;
+			//chk_bHeart.Checked = DataUtils.GetBoolValue(Vars.GEM_HEART);
+			//chk_bShield.Checked = DataUtils.GetBoolValue(Vars.GEM_SHIELD);
+			//box_bShieldCharge.Value = DataUtils.Get(Vars.GEM_SHIELD);
+			//chk_bSword.Checked = DataUtils.GetBoolValue(Vars.GEM_SWORD);
+			//chk_rShield.Checked = DataUtils.GetBoolValue(Vars.RED_SHIELD);
+			//chk_rSword.Checked = DataUtils.GetBoolValue(Vars.RED_SWORD);
+			//chk_greenSword.Checked = DataUtils.GetBoolValue(Vars.GREEN_SWORD);
+			//chk_greenShield.Checked = DataUtils.GetBoolValue(Vars.GREEN_SHIELD);
+			//chk_witchEnding.Checked = DataUtils.GetBoolValue(Vars.WITCH_GEM_SWORD_3) ||
+			//						DataUtils.GetBoolValue(Vars.WITCH_HAMMER) ||
+			//						DataUtils.GetBoolValue(Vars.WITCH_WATER_RING) ||
+			//						DataUtils.GetBoolValue(Vars.WITCH_PHASE2);
+			//DataUtils.GetPosition(out Maps mapId, out string x, out string y, out string d);
+			//txt_SaveLocationX.Text = x;
+			//txt_SaveLocationY.Text = y;
+			//txt_SaveLocationD.Text = d;
+   //         combo_SaveLocation.SelectedItem = mapId;
+   //         chk_bloodmoon.Checked = DataUtils.GetBoolValue(Vars.BLOODMOON_EFFECT);
+			//txt_bloodmoonCount.Text = DataUtils.Get(Vars.BLOODMOON_COUNT).ToString();
+			//calculatePercentages();
 		}
+
 		private void fillForm()
         {
-			fillTabCollectibles();
+			fillTabItemsAndStories();
 			fillTabValues();
 			fillTabEntities();
 			fillTabBasic();
@@ -232,7 +222,7 @@ namespace HS_Save_Editor
 		private void btn_loadSaveFile_Click(object sender, EventArgs e)
 		{
 			OpenFileDialog picker = new OpenFileDialog();
-			picker.InitialDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Hero's Spirit");// @"C:\Users\nimro\source\repos\HS_Save_Editor\HS_Save_Editor"; // Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location),@"..\..\");
+			picker.InitialDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Hero's Spirit\\Saves");
 
 			if (picker.ShowDialog() == DialogResult.OK)
 			{
@@ -249,26 +239,22 @@ namespace HS_Save_Editor
 				DataUtils.Load();
 				try
 				{
-					if (DataUtils.GetBoolValue(Vars.NGPP))
-					{
-						Collectibles.gameMode = GameMode.NGPP;
-					}
-					else if (DataUtils.GetBoolValue(Vars.NGP))
-					{
-						Collectibles.gameMode = GameMode.NGP;
-					}
-					else
-					{
-						Collectibles.gameMode = GameMode.NG;
-					}
-					theCollectibles.addDoneCollectibles();
-					fillForm();
-					if (imageForm == null)
-					{
-						imageForm = new MapWindow(getGameType());
-					}
-				}
-				catch (Exception ex)
+					cb_GameMode.Items.Clear();
+                    cb_GameMode.Items.AddRange(DataUtils.GetGameModes());
+                    cb_GameMode.SelectedIndex = 0;
+                    //Collectibles.gameMode = Enum.TryParse(typeof(Save), cb_GameMode.SelectedItem, out );
+
+                    //fillTabCollectibles();
+                    //fillTabValues();
+                    //fillTabEntities();
+                    //theCollectibles.addDoneCollectibles();
+                    //fillForm();
+                    //if (imageForm == null)
+                    //{
+                    //	imageForm = new MapWindow(getGameType());
+                    //}
+                }
+                catch (Exception ex)
                 {
 					MessageBox.Show(ex.Message);
                 }
@@ -359,7 +345,7 @@ namespace HS_Save_Editor
 				theCollectibles.collect((string)list_allitems.SelectedItem);
 				list_flags.Items.Add((string)list_allitems.SelectedItem);
 				list_allitems.Items.Remove(list_allitems.SelectedItem);
-				fillTabCollectibles();
+				fillTabItemsAndStories();
 				fillTabValues();
 				fillTabBasic();
 			}
@@ -373,227 +359,11 @@ namespace HS_Save_Editor
 				theCollectibles.uncollect((string)list_flags.SelectedItem);
 				list_allitems.Items.Add((string)list_flags.SelectedItem);
 				list_flags.Items.Remove(list_flags.SelectedItem);
-				fillTabCollectibles();
+				//fillTabCollectibles();
 				fillTabValues();
 				fillTabBasic();
 			}
 
-		}
-
-		/****     Collectibles Events  ****/
-		private void txt_portalStones_TextChanged(object sender, EventArgs e)
-        {
-			if (txt_portalStones.Modified)
-			{
-				DataUtils.Set(Vars.PORTAL_STONES, Convert.ToByte(txt_portalStones.Text));
-				fillTabValues();
-			}
-		}
-
-		private void txt_portalStonesTotal_TextChanged(object sender, EventArgs e)
-		{
-			if (txt_portalStonesTotal.Modified)
-			{ 
-				DataUtils.Set(Vars.TOTAL_PORTAL_STONES, Convert.ToByte(txt_portalStonesTotal.Text));
-				fillTabValues();
-			}
-		}
-
-		private void txt_treasure_TextChanged(object sender, EventArgs e)
-        {
-			if (txt_treasure.Modified)
-            {
-				DataUtils.Set(Vars.TREASURES, Convert.ToByte(txt_treasure.Text));
-				fillTabValues();
-			}
-		}
-		private void txt_treasureTotal_TextChanged(object sender, EventArgs e)
-		{
-			if (txt_treasureTotal.Modified)
-			{ 
-				DataUtils.Set(Vars.TOTAL_TREASURES, Convert.ToByte(txt_treasureTotal.Text));
-				fillTabValues();
-			}
-		}
-
-		private void txt_possum_TextChanged(object sender, EventArgs e)
-        {
-			if (txt_possum.Modified)
-			{ 
-				DataUtils.Set(Vars.POSSUM_COINS, Convert.ToByte(txt_possum.Text));
-				fillTabValues();
-			}
-		}
-		private void txt_possumTotal_TextChanged(object sender, EventArgs e)
-		{
-			if (txt_possumTotal.Modified)
-			{ 
-				DataUtils.Set(Vars.TOTAL_POSSUM_COINS, Convert.ToByte(txt_possumTotal.Text));
-				fillTabValues();
-			}
-		}
-
-		private void txt_goldKey_TextChanged(object sender, EventArgs e)
-        {
-			if (txt_goldKey.Modified)
-			{ 
-				DataUtils.Set(Vars.GOLD_KEYS, Convert.ToByte(txt_goldKey.Text));
-				fillTabValues();
-			}
-		}
-		private void txt_goldKeyTotal_TextChanged(object sender, EventArgs e)
-		{
-			if (txt_goldKeyTotal.Modified)
-			{ 
-				DataUtils.Set(Vars.TOTAL_GOLD_KEYS, Convert.ToByte(txt_goldKeyTotal.Text));
-				fillTabValues();
-			}
-		}
-
-		private void txt_Gems_TextChanged(object sender, EventArgs e)
-		{
-			if (txt_gems.Modified)
-			{
-				DataUtils.Set(Vars.GEMS, Convert.ToByte(txt_gems.Text));
-				fillTabValues();
-			}
-		}
-		private void txt_gemsTotal_TextChanged(object sender, EventArgs e)
-		{
-			if (txt_gemsTotal.Modified)
-			{ 
-				DataUtils.Set(Vars.TOTAL_GEMS, Convert.ToByte(txt_gemsTotal.Text));
-				fillTabValues();
-			}
-		}
-
-		private void txt_silverKey_TextChanged(object sender, EventArgs e)
-        {
-			if (txt_silverKey.Modified)
-			{ 
-				DataUtils.Set(Vars.SILVER_KEYS, Convert.ToByte(txt_silverKey.Text));
-				fillTabValues();
-			}
-		}
-		private void txt_silverKeyTotal_TextChanged(object sender, EventArgs e)
-		{
-			if (txt_silverKeyTotal.Modified)
-			{ 
-				DataUtils.Set(Vars.TOTAL_SILVER_KEYS, Convert.ToByte(txt_silverKeyTotal.Text));
-				fillTabValues();
-			}
-		}
-
-		private void txt_triangle_TextChanged(object sender, EventArgs e)
-        {
-			if (txt_triangle.Modified)
-			{ 
-				DataUtils.Set(Vars.NGP_TOKENS, Convert.ToByte(txt_triangle.Text));
-				fillTabValues();
-			}
-		}
-		private void txt_triangleTotal_TextChanged(object sender, EventArgs e)
-		{
-			if (txt_triangleTotal.Modified)
-			{ 
-				DataUtils.Set(Vars.TOTAL_NGP_TOKENS, Convert.ToByte(txt_triangleTotal.Text));
-				fillTabValues();
-			}
-
-		}
-
-		private void txt_greenGem_TextChanged(object sender, EventArgs e)
-		{
-			if (txt_greenGem.Modified)
-			{ 
-				DataUtils.Set(Vars.SECRET_TOKENS, Convert.ToByte(txt_greenGem.Text));
-				fillTabValues();
-			}
-		}
-
-		private void txt_greenGemUsed_TextChanged(object sender, EventArgs e)
-        {
-			if (txt_greenGemUsed.Modified)
-			{ 
-				DataUtils.Set(Vars.SECRET_SOCKETS, Convert.ToByte(txt_greenGemUsed.Text));
-				fillTabValues();
-			}
-		}
-
-		private void chk_hammer_CheckedChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.HAMMERS, chk_hammer.Checked ? (byte)1 : (byte)0);
-			fillTabValues();
-		}
-
-		private void chk_windRing_CheckedChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.WATER_RING, chk_windRing.Checked ? (byte)1 : (byte)0);
-			fillTabValues();
-		}
-		private void chk_lavaCharm_CheckedChanged(object sender, EventArgs e)
-		{
-			DataUtils.Set(Vars.LAVA_CHARMS, chk_lavaCharm.Checked ? (byte)1 : (byte)0);
-			fillTabValues();
-		}
-		private void chk_skeletonKey_CheckedChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.SKELETON_KEY, chk_skeletonKey.Checked ? (byte)1 : (byte)0);
-			fillTabValues();
-		}
-
-		private void chk_boots_CheckedChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.BOOTS, chk_boots.Checked ? (byte)1 : (byte)0);
-			fillTabValues();
-		}
-
-		private void chk_bobs_CheckedChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.GEM_BOOTS, chk_bobs.Checked ? (byte)1 : (byte)0);
-			fillTabValues();
-		}
-
-		private void chk_smugglersEye_CheckedChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.COLLECTOR_EYE, chk_smugglersEye.Checked ? (byte)1 : (byte)0);
-			fillTabValues();
-		}
-
-		private void chk_compass_CheckedChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.COMPASSES, chk_compass.Checked ? (byte)1 : (byte)0);
-			fillTabValues();
-		}
-
-		private void chk_spectacles_CheckedChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.SPECTACLES, chk_spectacles.Checked ? (byte)1 : (byte)0);
-			fillTabValues();
-		}
-
-		private void chk_broom_CheckedChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.BROOM, chk_broom.Checked ? (byte)1 : (byte)0);
-			fillTabValues();
-		}
-
-		private void chk_mirror_CheckedChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.MIRROR, chk_mirror.Checked ? (byte)1 : (byte)0);
-			fillTabValues();
-		}
-
-		private void chk_saveCrystals_CheckedChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.SAVE_CRYSTAL, chk_saveCrystals.Checked ? (byte)1 : (byte)0);
-			fillAllValues();
-		}
-
-		private void chk_carrot_CheckedChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.CARROT, chk_carrot.Checked ? (byte)1 : (byte)0);
-			fillAllValues();
 		}
 
 		/****     Basic Info Tab    ****/
@@ -611,42 +381,6 @@ namespace HS_Save_Editor
 			}
 		}
 
-		private void chk_bSword_CheckedChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.GEM_SWORD, chk_bSword.Checked ? (byte)1 : (byte)0);
-			fillAllValues();
-		}
-
-		private void chk_bShield_CheckedChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.GEM_SHIELD, chk_bShield.Checked ? (byte)box_bShieldCharge.Value : (byte)0x00);
-			fillAllValues();
-		}
-
-		private void chk_rSword_CheckedChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.RED_SWORD, chk_rSword.Checked ? (byte)1 : (byte)0);
-			fillAllValues();
-		}
-
-		private void chk_rShield_CheckedChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.RED_SHIELD, chk_rShield.Checked ? (byte)1 : (byte)0);
-			fillAllValues();
-		}
-
-		private void chk_greenSword_CheckedChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.GREEN_SWORD, chk_greenSword.Checked ? (byte)1 : (byte)0);
-			fillAllValues();
-		}
-
-		private void chk_greenShield_CheckedChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.GREEN_SHIELD, chk_greenSword.Checked ? (byte)1 : (byte)0);
-			fillAllValues();
-		}
-
 		private void chk_bHeart_CheckedChanged(object sender, EventArgs e)
         {
 			DataUtils.Set(Vars.GEM_HEART, chk_bHeart.Checked ? (byte)1 : (byte)0);
@@ -655,49 +389,30 @@ namespace HS_Save_Editor
 
 		private void box_steps_TextChanged(object sender, EventArgs e)
         {
-			if (box_steps.Modified)
-				DataUtils.TotalSteps = int.Parse(box_steps.Text);
+            int.TryParse(box_steps.Text, out int steps);
+            DataUtils.SaveData.Steps = steps;
 		}
 
 		private void box_time_TextChanged(object sender, EventArgs e)
         {
-			if (box_time.Modified)
-				DataUtils.SetPlaytime(box_time.Text);
+			int.TryParse(box_time.Text, out int time);
+			DataUtils.SaveData.Playtime = time;
 		}
 
         private void box_deaths_ValueChanged(object sender, EventArgs e)
         {
-			DataUtils.SetDeaths((int)box_deaths.Value);
+			DataUtils.SaveData.Deaths = (int)box_deaths.Value;
 		}
 
         private void box_kills_ValueChanged(object sender, EventArgs e)
         {
-			DataUtils.SetKills((int)box_kills.Value);
+			DataUtils.SaveData.Kills = (int)box_kills.Value;
 		}
 
         private void combo_SaveLocation_SelectedIndexChanged(object sender, EventArgs e)
         {
 			if (DataUtils.dataIsLoaded && (sender == combo_SaveLocation || txt_SaveLocationX.Modified || txt_SaveLocationY.Modified || txt_SaveLocationD.Modified))
 				DataUtils.SetPosition((int)Enum.Parse(typeof(Maps), combo_SaveLocation.Text), txt_SaveLocationX.Text, txt_SaveLocationY.Text, txt_SaveLocationD.Text);
-		}
-
-        private void box_swords_ValueChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.SWORDS, (byte)box_swords.Value);
-			DataUtils.Set(Vars.TOTAL_SWORDS, (byte)box_swords.Value);
-			fillAllValues();
-		}
-
-		private void box_hearts_ValueChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.HEARTS, (byte)box_hearts.Value);
-			fillAllValues();
-		}
-
-		private void chk_preventNight_CheckedChanged(object sender, EventArgs e)
-        {
-			DataUtils.Set(Vars.PREVENTED_NIGHT, chk_preventNight.Checked ? (byte)1 : (byte)0);
-			fillAllValues();
 		}
 
 		private void chk_witchEnding_CheckedChanged(object sender, EventArgs e)
@@ -724,6 +439,49 @@ namespace HS_Save_Editor
 			ConfigWindow config = new ConfigWindow();
 			config.Show();
 
+        }
+
+		private void cb_GameMode_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			DataUtils.SetGameMode((string)cb_GameMode.SelectedItem);
+			fillTabBasic();
+            fillTabItemsAndStories();
+        }
+
+        private void box_item_DoubleClick(object sender, EventArgs e)
+        {
+            var item = ((string)(box_item.SelectedItem)).Split(':');
+			var item_value = DataUtils.SaveData.Items[item[0]];
+
+            itemEdit ie = new itemEdit(item[0], item_value.GetType(), item_value);
+			ie.ShowDialog();
+			if (ie.DialogResult== DialogResult.OK)
+			{
+				DataUtils.SaveData.Items[item[0]] = Convert.ToInt32(ie.ItemValue);
+				box_item.Items[box_item.SelectedIndex] = string.Format("{0}: {1}", item[0],ie.ItemValue);
+			}
+
+        }
+
+        private void box_story_DoubleClick(object sender, EventArgs e)
+        {
+            var item = ((string)(box_story.SelectedItem)).Split(':');
+            var item_value = DataUtils.SaveData.Story[item[0]];
+
+            itemEdit ie = new itemEdit(item[0], item_value.GetType(), item_value);
+            ie.ShowDialog();
+            if (ie.DialogResult == DialogResult.OK)
+            {
+				if (item_value.GetType() == typeof(bool))
+				{
+					DataUtils.SaveData.Story[item[0]] = Convert.ToBoolean(ie.ItemValue);
+				}
+				if (item_value.GetType() == typeof(int) || item_value.GetType() == typeof(long))
+				{
+					DataUtils.SaveData.Story[item[0]] = Convert.ToInt64(ie.ItemValue);
+				}
+                box_story.Items[box_story.SelectedIndex] = string.Format("{0}: {1}", item[0], ie.ItemValue);
+            }
         }
     }
 }

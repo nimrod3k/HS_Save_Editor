@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HS_Tools;
 
 namespace HS_Save_Editor
 {
@@ -15,7 +16,7 @@ namespace HS_Save_Editor
         public int mapFilter = 0; // 0 means all
         public bool otherFilter = true;
         public bool keyItemsFilter = true;
-        public static GameMode gameMode = GameMode.NG;
+        public static GameMode gameMode = GameMode.Normal;
 
 
         public static void Initialize(string filename = @"flags.txt")
@@ -34,9 +35,9 @@ namespace HS_Save_Editor
                         string[] collect_names = collect_split[1].Split('-');
                         if (collect_names.Length == 1)
                         {
-                            names[(int)GameMode.NG] = (CollectName)Enum.Parse(typeof(CollectName), collect_names[0]);
-                            names[(int)GameMode.NGP] = names[(int)GameMode.NG];
-                            names[(int)GameMode.NGPP] = names[(int)GameMode.NG];
+                            names[(int)GameMode.Normal] = (CollectName)Enum.Parse(typeof(CollectName), collect_names[0]);
+                            names[(int)GameMode.Plus] = names[(int)GameMode.Normal];
+                            names[(int)GameMode.Plus2] = names[(int)GameMode.Normal];
                         }
                         else
                         {
@@ -102,13 +103,13 @@ namespace HS_Save_Editor
         {
             if (_allCollectibles[key][(int)gameMode] == CollectName.unknown)
             {
-                if (gameMode == GameMode.NGP && _allCollectibles[key][(int)GameMode.NGPP] == CollectName.unknown)
+                if (gameMode == GameMode.Plus && _allCollectibles[key][(int)GameMode.Plus2] == CollectName.unknown)
                 {
-                    _allCollectibles[key][(int)GameMode.NGPP] = type;
+                    _allCollectibles[key][(int)GameMode.Plus2] = type;
                 }
-                if (gameMode == GameMode.NGPP && _allCollectibles[key][(int)GameMode.NGP] == CollectName.unknown)
+                if (gameMode == GameMode.Plus2 && _allCollectibles[key][(int)GameMode.Plus] == CollectName.unknown)
                 {
-                    _allCollectibles[key][(int)GameMode.NGP] = type;
+                    _allCollectibles[key][(int)GameMode.Plus] = type;
                 }
             }
             _allCollectibles[key][(int)gameMode] = type;
@@ -258,14 +259,6 @@ namespace HS_Save_Editor
         }
 
 
-    }
-
-    enum GameMode
-    {
-        NG,
-        NGP,
-        NGPP,
-        size
     }
 
     public enum CollectName
