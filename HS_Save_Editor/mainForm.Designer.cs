@@ -1,6 +1,6 @@
 ﻿namespace HS_Save_Editor
 {
-    partial class Form1
+    partial class mainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -30,45 +30,14 @@
         {
             this.btn_loadSaveFile = new System.Windows.Forms.Button();
             this.tab_saveData = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.chk_bloodmoon = new System.Windows.Forms.CheckBox();
-            this.label36 = new System.Windows.Forms.Label();
-            this.txt_bloodmoonCount = new System.Windows.Forms.TextBox();
-            this.txt_witchBasic = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.txt_witchPerfect = new System.Windows.Forms.TextBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.txt_convergePercent = new System.Windows.Forms.TextBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.chk_witchEnding = new System.Windows.Forms.CheckBox();
-            this.box_kills = new System.Windows.Forms.NumericUpDown();
-            this.label21 = new System.Windows.Forms.Label();
-            this.txt_percent = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txt_SaveLocationD = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txt_SaveLocationX = new System.Windows.Forms.TextBox();
-            this.txt_SaveLocationY = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.combo_SaveLocation = new System.Windows.Forms.ComboBox();
-            this.chk_bHeart = new System.Windows.Forms.CheckBox();
-            this.box_deaths = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.box_time = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.box_steps = new System.Windows.Forms.TextBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.box_story = new System.Windows.Forms.ListBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.box_item = new System.Windows.Forms.ListBox();
-            this.chk_Equipment = new System.Windows.Forms.CheckedListBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabBasicInfo = new System.Windows.Forms.TabPage();
+            this.cBasicInfo = new HS_Save_Editor.CBasicInfo();
+            this.tabStory = new System.Windows.Forms.TabPage();
+            this.cStory = new HS_Save_Editor.CStory();
+            this.tabEquipment = new System.Windows.Forms.TabPage();
+            this.cEquipment = new HS_Save_Editor.CEquipment();
+            this.tabItems = new System.Windows.Forms.TabPage();
+            this.tabEntities = new System.Windows.Forms.TabPage();
             this.lbl_uncollectedCount = new System.Windows.Forms.Label();
             this.lbl_collectedCount = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
@@ -95,7 +64,7 @@
             this.btn_itemsLeft = new System.Windows.Forms.Button();
             this.list_allitems = new System.Windows.Forms.ListBox();
             this.list_flags = new System.Windows.Forms.ListBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabDataBreakdown = new System.Windows.Forms.TabPage();
             this.label20 = new System.Windows.Forms.Label();
             this.list_missedPercent = new System.Windows.Forms.ListBox();
             this.list_xtraPercent = new System.Windows.Forms.ListBox();
@@ -104,15 +73,16 @@
             this.btn_OpenMap = new System.Windows.Forms.Button();
             this.btn_config = new System.Windows.Forms.Button();
             this.cb_GameMode = new System.Windows.Forms.ComboBox();
+            this.cItems = new HS_Save_Editor.Controls.CItems();
             this.tab_saveData.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.box_kills)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.box_deaths)).BeginInit();
-            this.tabPage2.SuspendLayout();
-            this.tabPage4.SuspendLayout();
+            this.tabBasicInfo.SuspendLayout();
+            this.tabStory.SuspendLayout();
+            this.tabEquipment.SuspendLayout();
+            this.tabItems.SuspendLayout();
+            this.tabEntities.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            this.tabDataBreakdown.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_loadSaveFile
@@ -127,10 +97,12 @@
             // 
             // tab_saveData
             // 
-            this.tab_saveData.Controls.Add(this.tabPage1);
-            this.tab_saveData.Controls.Add(this.tabPage2);
-            this.tab_saveData.Controls.Add(this.tabPage4);
-            this.tab_saveData.Controls.Add(this.tabPage3);
+            this.tab_saveData.Controls.Add(this.tabBasicInfo);
+            this.tab_saveData.Controls.Add(this.tabStory);
+            this.tab_saveData.Controls.Add(this.tabEquipment);
+            this.tab_saveData.Controls.Add(this.tabItems);
+            this.tab_saveData.Controls.Add(this.tabEntities);
+            this.tab_saveData.Controls.Add(this.tabDataBreakdown);
             this.tab_saveData.Location = new System.Drawing.Point(12, 40);
             this.tab_saveData.Name = "tab_saveData";
             this.tab_saveData.SelectedIndex = 0;
@@ -138,415 +110,90 @@
             this.tab_saveData.TabIndex = 1;
             this.tab_saveData.SelectedIndexChanged += new System.EventHandler(this.tab_saveData_SelectedIndexChanged);
             // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.chk_bloodmoon);
-            this.tabPage1.Controls.Add(this.label36);
-            this.tabPage1.Controls.Add(this.txt_bloodmoonCount);
-            this.tabPage1.Controls.Add(this.txt_witchBasic);
-            this.tabPage1.Controls.Add(this.label25);
-            this.tabPage1.Controls.Add(this.txt_witchPerfect);
-            this.tabPage1.Controls.Add(this.label24);
-            this.tabPage1.Controls.Add(this.txt_convergePercent);
-            this.tabPage1.Controls.Add(this.label23);
-            this.tabPage1.Controls.Add(this.label22);
-            this.tabPage1.Controls.Add(this.chk_witchEnding);
-            this.tabPage1.Controls.Add(this.box_kills);
-            this.tabPage1.Controls.Add(this.label21);
-            this.tabPage1.Controls.Add(this.txt_percent);
-            this.tabPage1.Controls.Add(this.label19);
-            this.tabPage1.Controls.Add(this.label9);
-            this.tabPage1.Controls.Add(this.txt_SaveLocationD);
-            this.tabPage1.Controls.Add(this.label8);
-            this.tabPage1.Controls.Add(this.label7);
-            this.tabPage1.Controls.Add(this.txt_SaveLocationX);
-            this.tabPage1.Controls.Add(this.txt_SaveLocationY);
-            this.tabPage1.Controls.Add(this.label6);
-            this.tabPage1.Controls.Add(this.combo_SaveLocation);
-            this.tabPage1.Controls.Add(this.chk_bHeart);
-            this.tabPage1.Controls.Add(this.box_deaths);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.box_time);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.box_steps);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(768, 370);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Basic Info";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // chk_bloodmoon
-            // 
-            this.chk_bloodmoon.AutoSize = true;
-            this.chk_bloodmoon.Location = new System.Drawing.Point(12, 240);
-            this.chk_bloodmoon.Name = "chk_bloodmoon";
-            this.chk_bloodmoon.Size = new System.Drawing.Size(89, 19);
-            this.chk_bloodmoon.TabIndex = 45;
-            this.chk_bloodmoon.Text = "Bloodmoon";
-            this.chk_bloodmoon.UseVisualStyleBackColor = true;
-            this.chk_bloodmoon.CheckedChanged += new System.EventHandler(this.chk_bloodmoon_CheckedChanged);
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(104, 220);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(122, 15);
-            this.label36.TabIndex = 44;
-            this.label36.Text = "Bloodmoon Time Left";
-            // 
-            // txt_bloodmoonCount
-            // 
-            this.txt_bloodmoonCount.Location = new System.Drawing.Point(104, 238);
-            this.txt_bloodmoonCount.Name = "txt_bloodmoonCount";
-            this.txt_bloodmoonCount.Size = new System.Drawing.Size(120, 23);
-            this.txt_bloodmoonCount.TabIndex = 42;
-            this.txt_bloodmoonCount.TextChanged += new System.EventHandler(this.txt_bloodmoonCount_TextChanged);
-            // 
-            // txt_witchBasic
-            // 
-            this.txt_witchBasic.Location = new System.Drawing.Point(586, 332);
-            this.txt_witchBasic.Name = "txt_witchBasic";
-            this.txt_witchBasic.ReadOnly = true;
-            this.txt_witchBasic.Size = new System.Drawing.Size(120, 23);
-            this.txt_witchBasic.TabIndex = 40;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(586, 304);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(68, 15);
-            this.label25.TabIndex = 39;
-            this.label25.Text = "Witch Basic";
-            // 
-            // txt_witchPerfect
-            // 
-            this.txt_witchPerfect.Location = new System.Drawing.Point(455, 332);
-            this.txt_witchPerfect.Name = "txt_witchPerfect";
-            this.txt_witchPerfect.ReadOnly = true;
-            this.txt_witchPerfect.Size = new System.Drawing.Size(120, 23);
-            this.txt_witchPerfect.TabIndex = 38;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(455, 304);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(78, 15);
-            this.label24.TabIndex = 37;
-            this.label24.Text = "Witch Perfect";
-            // 
-            // txt_convergePercent
-            // 
-            this.txt_convergePercent.Location = new System.Drawing.Point(317, 332);
-            this.txt_convergePercent.Name = "txt_convergePercent";
-            this.txt_convergePercent.ReadOnly = true;
-            this.txt_convergePercent.Size = new System.Drawing.Size(120, 23);
-            this.txt_convergePercent.TabIndex = 36;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(317, 304);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(101, 15);
-            this.label23.TabIndex = 35;
-            this.label23.Text = "Convergence part";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(179, 304);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(67, 15);
-            this.label22.TabIndex = 34;
-            this.label22.Text = "Green/NPC";
-            // 
-            // chk_witchEnding
-            // 
-            this.chk_witchEnding.AutoSize = true;
-            this.chk_witchEnding.Location = new System.Drawing.Point(435, 162);
-            this.chk_witchEnding.Name = "chk_witchEnding";
-            this.chk_witchEnding.Size = new System.Drawing.Size(97, 19);
-            this.chk_witchEnding.TabIndex = 33;
-            this.chk_witchEnding.Text = "Witch Ending";
-            this.chk_witchEnding.UseVisualStyleBackColor = true;
-            this.chk_witchEnding.CheckedChanged += new System.EventHandler(this.chk_witchEnding_CheckedChanged);
-            // 
-            // box_kills
-            // 
-            this.box_kills.Location = new System.Drawing.Point(288, 88);
-            this.box_kills.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.box_kills.Name = "box_kills";
-            this.box_kills.Size = new System.Drawing.Size(120, 23);
-            this.box_kills.TabIndex = 30;
-            this.box_kills.ValueChanged += new System.EventHandler(this.box_kills_ValueChanged);
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(246, 90);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(28, 15);
-            this.label21.TabIndex = 29;
-            this.label21.Text = "Kills";
-            // 
-            // txt_percent
-            // 
-            this.txt_percent.Location = new System.Drawing.Point(179, 332);
-            this.txt_percent.Name = "txt_percent";
-            this.txt_percent.ReadOnly = true;
-            this.txt_percent.Size = new System.Drawing.Size(120, 23);
-            this.txt_percent.TabIndex = 28;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(33, 332);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(132, 15);
-            this.label19.TabIndex = 3;
-            this.label19.Text = "Completion Percentage";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(349, 138);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(14, 15);
-            this.label9.TabIndex = 27;
-            this.label9.Text = "d";
-            // 
-            // txt_SaveLocationD
-            // 
-            this.txt_SaveLocationD.Location = new System.Drawing.Point(368, 130);
-            this.txt_SaveLocationD.Name = "txt_SaveLocationD";
-            this.txt_SaveLocationD.Size = new System.Drawing.Size(40, 23);
-            this.txt_SaveLocationD.TabIndex = 26;
-            this.txt_SaveLocationD.TextChanged += new System.EventHandler(this.combo_SaveLocation_SelectedIndexChanged);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(286, 138);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(13, 15);
-            this.label8.TabIndex = 25;
-            this.label8.Text = "y";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(230, 138);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(13, 15);
-            this.label7.TabIndex = 24;
-            this.label7.Text = "x";
-            // 
-            // txt_SaveLocationX
-            // 
-            this.txt_SaveLocationX.Location = new System.Drawing.Point(246, 130);
-            this.txt_SaveLocationX.Name = "txt_SaveLocationX";
-            this.txt_SaveLocationX.Size = new System.Drawing.Size(38, 23);
-            this.txt_SaveLocationX.TabIndex = 23;
-            this.txt_SaveLocationX.TextChanged += new System.EventHandler(this.combo_SaveLocation_SelectedIndexChanged);
-            // 
-            // txt_SaveLocationY
-            // 
-            this.txt_SaveLocationY.Location = new System.Drawing.Point(305, 130);
-            this.txt_SaveLocationY.Name = "txt_SaveLocationY";
-            this.txt_SaveLocationY.Size = new System.Drawing.Size(40, 23);
-            this.txt_SaveLocationY.TabIndex = 22;
-            this.txt_SaveLocationY.TextChanged += new System.EventHandler(this.combo_SaveLocation_SelectedIndexChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(17, 133);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(80, 15);
-            this.label6.TabIndex = 21;
-            this.label6.Text = "Save Location";
-            // 
-            // combo_SaveLocation
-            // 
-            this.combo_SaveLocation.FormattingEnabled = true;
-            this.combo_SaveLocation.Location = new System.Drawing.Point(103, 130);
-            this.combo_SaveLocation.Name = "combo_SaveLocation";
-            this.combo_SaveLocation.Size = new System.Drawing.Size(121, 23);
-            this.combo_SaveLocation.TabIndex = 3;
-            this.combo_SaveLocation.SelectedIndexChanged += new System.EventHandler(this.combo_SaveLocation_SelectedIndexChanged);
-            // 
-            // chk_bHeart
-            // 
-            this.chk_bHeart.AutoSize = true;
-            this.chk_bHeart.Location = new System.Drawing.Point(646, 50);
-            this.chk_bHeart.Name = "chk_bHeart";
-            this.chk_bHeart.Size = new System.Drawing.Size(81, 19);
-            this.chk_bHeart.TabIndex = 17;
-            this.chk_bHeart.Text = "Blue Heart";
-            this.chk_bHeart.UseVisualStyleBackColor = true;
-            this.chk_bHeart.CheckedChanged += new System.EventHandler(this.chk_bHeart_CheckedChanged);
-            // 
-            // box_deaths
-            // 
-            this.box_deaths.Location = new System.Drawing.Point(104, 88);
-            this.box_deaths.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.box_deaths.Name = "box_deaths";
-            this.box_deaths.Size = new System.Drawing.Size(120, 23);
-            this.box_deaths.TabIndex = 10;
-            this.box_deaths.ValueChanged += new System.EventHandler(this.box_deaths_ValueChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(33, 96);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 15);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Deaths";
-            // 
-            // box_time
-            // 
-            this.box_time.Location = new System.Drawing.Point(104, 54);
-            this.box_time.Name = "box_time";
-            this.box_time.Size = new System.Drawing.Size(120, 23);
-            this.box_time.TabIndex = 8;
-            this.box_time.TextChanged += new System.EventHandler(this.box_time_TextChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 57);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 15);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Total Time";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 15);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Total Steps";
-            // 
-            // box_steps
-            // 
-            this.box_steps.Location = new System.Drawing.Point(104, 14);
-            this.box_steps.Name = "box_steps";
-            this.box_steps.Size = new System.Drawing.Size(120, 23);
-            this.box_steps.TabIndex = 0;
-            this.box_steps.TextChanged += new System.EventHandler(this.box_steps_TextChanged);
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.box_story);
-            this.tabPage2.Controls.Add(this.label3);
-            this.tabPage2.Controls.Add(this.box_item);
-            this.tabPage2.Controls.Add(this.chk_Equipment);
-            this.tabPage2.Controls.Add(this.label30);
-            this.tabPage2.Controls.Add(this.label16);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(768, 370);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Items and Story";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // box_story
-            // 
-            this.box_story.FormattingEnabled = true;
-            this.box_story.ItemHeight = 15;
-            this.box_story.Location = new System.Drawing.Point(507, 31);
-            this.box_story.Name = "box_story";
-            this.box_story.Size = new System.Drawing.Size(250, 319);
-            this.box_story.TabIndex = 72;
-            this.box_story.DoubleClick += new System.EventHandler(this.box_story_DoubleClick);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(515, 3);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 25);
-            this.label3.TabIndex = 71;
-            this.label3.Text = "Story";
-            // 
-            // box_item
-            // 
-            this.box_item.FormattingEnabled = true;
-            this.box_item.ItemHeight = 15;
-            this.box_item.Location = new System.Drawing.Point(251, 31);
-            this.box_item.Name = "box_item";
-            this.box_item.Size = new System.Drawing.Size(250, 319);
-            this.box_item.TabIndex = 70;
-            this.box_item.DoubleClick += new System.EventHandler(this.box_item_DoubleClick);
-            // 
-            // chk_Equipment
-            // 
-            this.chk_Equipment.FormattingEnabled = true;
-            this.chk_Equipment.Location = new System.Drawing.Point(3, 31);
-            this.chk_Equipment.Name = "chk_Equipment";
-            this.chk_Equipment.Size = new System.Drawing.Size(234, 328);
-            this.chk_Equipment.TabIndex = 69;
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label30.Location = new System.Drawing.Point(9, 3);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(109, 25);
-            this.label30.TabIndex = 65;
-            this.label30.Text = "Equipment";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label16.Location = new System.Drawing.Point(259, 3);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(60, 25);
-            this.label16.TabIndex = 45;
-            this.label16.Text = "Items";
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.lbl_uncollectedCount);
-            this.tabPage4.Controls.Add(this.lbl_collectedCount);
-            this.tabPage4.Controls.Add(this.label34);
-            this.tabPage4.Controls.Add(this.label33);
-            this.tabPage4.Controls.Add(this.groupBox2);
-            this.tabPage4.Controls.Add(this.groupBox1);
-            this.tabPage4.Controls.Add(this.label18);
-            this.tabPage4.Controls.Add(this.label17);
-            this.tabPage4.Controls.Add(this.btn_itemsRight);
-            this.tabPage4.Controls.Add(this.btn_itemsLeft);
-            this.tabPage4.Controls.Add(this.list_allitems);
-            this.tabPage4.Controls.Add(this.list_flags);
-            this.tabPage4.Location = new System.Drawing.Point(4, 24);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(768, 370);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Entities";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            // tabBasicInfo
+            // 
+            this.tabBasicInfo.Controls.Add(this.cBasicInfo);
+            this.tabBasicInfo.Location = new System.Drawing.Point(4, 24);
+            this.tabBasicInfo.Name = "tabBasicInfo";
+            this.tabBasicInfo.Padding = new System.Windows.Forms.Padding(3);
+            this.tabBasicInfo.Size = new System.Drawing.Size(768, 370);
+            this.tabBasicInfo.TabIndex = 0;
+            this.tabBasicInfo.Text = "Basic Info";
+            this.tabBasicInfo.UseVisualStyleBackColor = true;
+            // 
+            // cBasicInfo
+            // 
+            this.cBasicInfo.Location = new System.Drawing.Point(0, 0);
+            this.cBasicInfo.Name = "cBasicInfo";
+            this.cBasicInfo.Size = new System.Drawing.Size(415, 370);
+            this.cBasicInfo.TabIndex = 41;
+            // 
+            // tabStory
+            // 
+            this.tabStory.Controls.Add(this.cStory);
+            this.tabStory.Location = new System.Drawing.Point(4, 24);
+            this.tabStory.Name = "tabStory";
+            this.tabStory.Size = new System.Drawing.Size(768, 370);
+            this.tabStory.TabIndex = 4;
+            this.tabStory.Text = "Story";
+            this.tabStory.UseVisualStyleBackColor = true;
+            // 
+            // cStory
+            // 
+            this.cStory.Location = new System.Drawing.Point(3, 0);
+            this.cStory.Name = "cStory";
+            this.cStory.Size = new System.Drawing.Size(415, 370);
+            this.cStory.TabIndex = 42;
+            // 
+            // tabEquipment
+            // 
+            this.tabEquipment.Controls.Add(this.cEquipment);
+            this.tabEquipment.Location = new System.Drawing.Point(4, 24);
+            this.tabEquipment.Name = "tabEquipment";
+            this.tabEquipment.Size = new System.Drawing.Size(768, 370);
+            this.tabEquipment.TabIndex = 5;
+            this.tabEquipment.Text = "Equipment";
+            this.tabEquipment.UseVisualStyleBackColor = true;
+            // 
+            // cEquipment
+            // 
+            this.cEquipment.Location = new System.Drawing.Point(-4, 0);
+            this.cEquipment.Name = "cEquipment";
+            this.cEquipment.Size = new System.Drawing.Size(415, 370);
+            this.cEquipment.TabIndex = 0;
+            // 
+            // tabItems
+            // 
+            this.tabItems.Controls.Add(this.cItems);
+            this.tabItems.Location = new System.Drawing.Point(4, 24);
+            this.tabItems.Name = "tabItems";
+            this.tabItems.Padding = new System.Windows.Forms.Padding(3);
+            this.tabItems.Size = new System.Drawing.Size(768, 370);
+            this.tabItems.TabIndex = 1;
+            this.tabItems.Text = "Items";
+            this.tabItems.UseVisualStyleBackColor = true;
+            // 
+            // tabEntities
+            // 
+            this.tabEntities.Controls.Add(this.lbl_uncollectedCount);
+            this.tabEntities.Controls.Add(this.lbl_collectedCount);
+            this.tabEntities.Controls.Add(this.label34);
+            this.tabEntities.Controls.Add(this.label33);
+            this.tabEntities.Controls.Add(this.groupBox2);
+            this.tabEntities.Controls.Add(this.groupBox1);
+            this.tabEntities.Controls.Add(this.label18);
+            this.tabEntities.Controls.Add(this.label17);
+            this.tabEntities.Controls.Add(this.btn_itemsRight);
+            this.tabEntities.Controls.Add(this.btn_itemsLeft);
+            this.tabEntities.Controls.Add(this.list_allitems);
+            this.tabEntities.Controls.Add(this.list_flags);
+            this.tabEntities.Location = new System.Drawing.Point(4, 24);
+            this.tabEntities.Name = "tabEntities";
+            this.tabEntities.Padding = new System.Windows.Forms.Padding(3);
+            this.tabEntities.Size = new System.Drawing.Size(768, 370);
+            this.tabEntities.TabIndex = 3;
+            this.tabEntities.Text = "Entities";
+            this.tabEntities.UseVisualStyleBackColor = true;
             // 
             // lbl_uncollectedCount
             // 
@@ -852,18 +499,18 @@
             this.list_flags.TabIndex = 2;
             this.list_flags.SelectedIndexChanged += new System.EventHandler(this.list_flags_SelectedIndexChanged);
             // 
-            // tabPage3
+            // tabDataBreakdown
             // 
-            this.tabPage3.Controls.Add(this.label20);
-            this.tabPage3.Controls.Add(this.list_missedPercent);
-            this.tabPage3.Controls.Add(this.list_xtraPercent);
-            this.tabPage3.Controls.Add(this.list_values);
-            this.tabPage3.Location = new System.Drawing.Point(4, 24);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(768, 370);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Data Breakdown";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabDataBreakdown.Controls.Add(this.label20);
+            this.tabDataBreakdown.Controls.Add(this.list_missedPercent);
+            this.tabDataBreakdown.Controls.Add(this.list_xtraPercent);
+            this.tabDataBreakdown.Controls.Add(this.list_values);
+            this.tabDataBreakdown.Location = new System.Drawing.Point(4, 24);
+            this.tabDataBreakdown.Name = "tabDataBreakdown";
+            this.tabDataBreakdown.Size = new System.Drawing.Size(768, 370);
+            this.tabDataBreakdown.TabIndex = 2;
+            this.tabDataBreakdown.Text = "Data Breakdown";
+            this.tabDataBreakdown.UseVisualStyleBackColor = true;
             // 
             // label20
             // 
@@ -940,7 +587,14 @@
             this.cb_GameMode.TabIndex = 19;
             this.cb_GameMode.SelectedIndexChanged += new System.EventHandler(this.cb_GameMode_SelectedIndexChanged);
             // 
-            // Form1
+            // cItems
+            // 
+            this.cItems.Location = new System.Drawing.Point(0, 0);
+            this.cItems.Name = "cItems";
+            this.cItems.Size = new System.Drawing.Size(415, 370);
+            this.cItems.TabIndex = 0;
+            // 
+            // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -951,22 +605,20 @@
             this.Controls.Add(this.btn_save);
             this.Controls.Add(this.tab_saveData);
             this.Controls.Add(this.btn_loadSaveFile);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "mainForm";
+            this.Text = "Hero\'s Spirit Save Editor";
             this.tab_saveData.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.box_kills)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.box_deaths)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
+            this.tabBasicInfo.ResumeLayout(false);
+            this.tabStory.ResumeLayout(false);
+            this.tabEquipment.ResumeLayout(false);
+            this.tabItems.ResumeLayout(false);
+            this.tabEntities.ResumeLayout(false);
+            this.tabEntities.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
+            this.tabDataBreakdown.ResumeLayout(false);
+            this.tabDataBreakdown.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -975,28 +627,13 @@
 
         private Button btn_loadSaveFile;
         private TabControl tab_saveData;
-        private TabPage tabPage1;
-        private TabPage tabPage2;
-        private TabPage tabPage3;
-        private Label label1;
-        private TextBox box_steps;
-        private Label label2;
-        private TextBox box_time;
-        private Label label5;
-        private NumericUpDown box_deaths;
+        private TabPage tabBasicInfo;
+        private TabPage tabItems;
+        private TabPage tabDataBreakdown;
         private CheckBox chk_bHeart;
         private Button btn_save;
         private ListBox list_values;
-        private ComboBox combo_SaveLocation;
-        private Label label6;
-        private Label label8;
-        private Label label7;
-        private TextBox txt_SaveLocationX;
-        private TextBox txt_SaveLocationY;
-        private Label label9;
-        private TextBox txt_SaveLocationD;
-        private Label label16;
-        private TabPage tabPage4;
+        private TabPage tabEntities;
         private ListBox list_allitems;
         private ListBox list_flags;
         private Button btn_itemsRight;
@@ -1016,26 +653,13 @@
         private CheckBox chk_feature_portals;
         private CheckBox chk_feature_swords;
         private CheckBox chk_feature_keyItems;
-        private Label label19;
-        private TextBox txt_percent;
         private ListBox list_xtraPercent;
         private Label label20;
         private ListBox list_missedPercent;
-        private NumericUpDown box_kills;
-        private Label label21;
         private Button btn_OpenMap;
-        private CheckBox chk_witchEnding;
-        private Label label22;
-        private TextBox txt_convergePercent;
-        private Label label23;
-        private TextBox txt_witchBasic;
-        private Label label25;
-        private TextBox txt_witchPerfect;
-        private Label label24;
         private ComboBox combo_map;
         private CheckBox chk_feature_other;
         private CheckBox chk_feature_pcoin;
-        private Label label30;
         private Label label34;
         private Label label33;
         private Label lbl_uncollectedCount;
@@ -1045,9 +669,11 @@
         private CheckBox chk_bloodmoon;
         private Button btn_config;
         private ComboBox cb_GameMode;
-        private CheckedListBox chk_Equipment;
-        private ListBox box_item;
-        private ListBox box_story;
-        private Label label3;
+        private CBasicInfo cBasicInfo;
+        private TabPage tabStory;
+        private TabPage tabEquipment;
+        private CStory cStory;
+        private CEquipment cEquipment;
+        private Controls.CItems cItems;
     }
 }

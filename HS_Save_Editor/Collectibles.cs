@@ -77,7 +77,7 @@ namespace HS_Save_Editor
             foreach (var key in _allCollectibles.Keys)
             {
                 string modesText = _allCollectibles[key][0].ToString();
-                if (getMap(key) == Maps.THE_UNDERWORLD)
+                if (getMap(key) == HSGlobal.Maps["The Underworld"])
                     modesText = CollectName.DoesNotExist.ToString();
                 if (!_allCollectibles[key].All(x => x == CollectName.unknown))
                 {
@@ -166,9 +166,9 @@ namespace HS_Save_Editor
             return modeItem;
         }
         
-        private static Maps getMap(string key)
+        private static int getMap(string key)
         {
-            return (Maps)Convert.ToInt32(key.Split('.')[0]);
+            return Convert.ToInt32(key.Split('.')[0]);
         }
 
         private bool isInSet(string key)
@@ -195,52 +195,52 @@ namespace HS_Save_Editor
             if (!DataUtils.dataIsLoaded)
                 return null;
             List<string> collected = new List<string>();
-            foreach (var key in DataUtils.GetFlags().Keys)
-            {
-                if (isInSet(key))
-                {
-                    string[] key_parts = key.Split('.');
-                    string item = "Unknown";
-                    if (_allCollectibles.ContainsKey(key))
-                    {
-                        item = _allCollectibles[key][(int)gameMode].ToString();
-                    }
-                    string line = string.Format
-                        (
-                        "({0})'{1}': {2}",
-                        (Maps)Convert.ToInt64(key_parts[0]),
-                        key,
-                        item
-                        );
-                    collected.Add(line);
-                }
-            }
+            //foreach (var key in DataUtils.GetFlags().Keys)
+            //{
+            //    if (isInSet(key))
+            //    {
+            //        string[] key_parts = key.Split('.');
+            //        string item = "Unknown";
+            //        if (_allCollectibles.ContainsKey(key))
+            //        {
+            //            item = _allCollectibles[key][(int)gameMode].ToString();
+            //        }
+            //        string line = string.Format
+            //            (
+            //            "({0})'{1}': {2}",
+            //            (Maps)Convert.ToInt64(key_parts[0]),
+            //            key,
+            //            item
+            //            );
+            //        collected.Add(line);
+            //    }
+            //}
             return collected;
         }
 
         public List<string> getUncollected()
         {
             List<string> uncollected = new List<string>();
-            foreach (var key in _uncollected)
-            {
-                if (isInSet(key))
-                {
-                    string[] key_parts = key.Split('.');
-                    string item = "Unknown";
-                    if (_allCollectibles.ContainsKey(key))
-                    {
-                        item = _allCollectibles[key][(int)gameMode].ToString();
-                    }
-                    string line = string.Format
-                        (
-                        "({0})'{1}': {2}",
-                        (Maps)Convert.ToInt64(key_parts[0]),
-                        key,
-                        item
-                        );
-                    uncollected.Add(line);
-                }
-            }
+            //foreach (var key in _uncollected)
+            //{
+            //    if (isInSet(key))
+            //    {
+            //        string[] key_parts = key.Split('.');
+            //        string item = "Unknown";
+            //        if (_allCollectibles.ContainsKey(key))
+            //        {
+            //            item = _allCollectibles[key][(int)gameMode].ToString();
+            //        }
+            //        string line = string.Format
+            //            (
+            //            "({0})'{1}': {2}",
+            //            (Maps)Convert.ToInt64(key_parts[0]),
+            //            key,
+            //            item
+            //            );
+            //        uncollected.Add(line);
+            //    }
+            //}
             return uncollected;
         }
 

@@ -52,16 +52,33 @@ namespace HS_Save_Editor
 		{
 			if (gameMode == "NG")
 				SaveData = _SaveBundle.OG;
-            if (gameMode == "NG+")
-                SaveData = _SaveBundle.Plus;
-            if (gameMode == "NG++")
-                SaveData = _SaveBundle.Plus2;
-            if (gameMode == "NG-")
-                SaveData = _SaveBundle.Minus;
-            if (gameMode == "Bunny")
-                SaveData = _SaveBundle.Bunny;
+			if (gameMode == "NG+")
+				SaveData = _SaveBundle.Plus;
+			if (gameMode == "NG++")
+				SaveData = _SaveBundle.Plus2;
+			if (gameMode == "NG-")
+				SaveData = _SaveBundle.Minus;
+			if (gameMode == "Bunny")
+				SaveData = _SaveBundle.Bunny;
+		}
 
-        }
+
+		internal static void SaveGameMode(string gameMode)
+		{
+			if (SaveData is not null)
+			{
+				if (gameMode == "NG")
+					_SaveBundle.OG = SaveData;
+				if (gameMode == "NG+")
+					_SaveBundle.Plus = SaveData;
+				if (gameMode == "NG++")
+					_SaveBundle.Plus2 = SaveData;
+				if (gameMode == "NG-")
+					_SaveBundle.Minus = SaveData;
+				if (gameMode == "Bunny")
+					_SaveBundle.Bunny = SaveData;
+			}
+		}
 
         /// <summary>
         /// Loads Save File
@@ -104,47 +121,16 @@ namespace HS_Save_Editor
 			}
 		}
 
-		internal static string Save(int mapId, int x, int y, int d, string? file = null)
+		internal static string Save(string? file, string gameMode)
 		{
-			string text = "";
-			string text2 = "";
+            string saveFile = filename + "_new";
+            if (!string.IsNullOrEmpty(file))
+                saveFile = file;
 
-			text = string.Concat(new string[]
-			{
-				text,
-				"{\"position\": \"",
-				mapId.ToString(),
-				".",
-				x.ToString(),
-				".",
-				y.ToString(),
-				".",
-				d.ToString(),
-				"\", "
-			});
-			text = text + "\"values\": " + JsonConvert.SerializeObject(hsdata.values);
-			text = text + ", \"hearts\": " + JsonConvert.SerializeObject(hsdata.hearts);
-			text = text + ", \"flags\": " + JsonConvert.SerializeObject(hsdata.flags);
-			text = text + ", \"playtime\": " + hsdata.playtime.ToString();
-			text = text + ", \"deaths\": " + hsdata.deaths.ToString();
-			text = text + ", \"label\": \"" + hsdata.label + "\"}";
-			for (int i = 0; i <= text.Length / 8; i++)
-			{
-				string s = text.Substring(i * 8, Math.Min(8, text.Length - i * 8));
-				text2 += HS_Save_Tools.Encode(s, DataUtils.TotalSteps + i);
-			}
-
-			text = DataUtils.TotalSteps.ToString("D10") + text2.Substring(0, 4);
-			for (int j = 0; j <= (text2.Length - 4) / 8; j++)
-			{
-				string s2 = text2.Substring(Math.Min(text2.Length - 1, j * 8 + 4), Math.Min(8, text2.Length - (j * 8 + 4)));
-				text += HS_Save_Tools.Encode(s2, DataUtils.TotalSteps + j);
-			}
-			
-			string saveFile = filename + "_new";
-			if (!string.IsNullOrEmpty(file))
-				saveFile = file;
-			File.WriteAllText(saveFile, text);
+            string json = JsonConvert.SerializeObject(_SaveBundle);
+			byte[] bytes = HS_Save_Tools.CompressJson(json);
+			File.WriteAllBytes(saveFile, bytes);
+		
 			return saveFile;
 		}
 
@@ -229,9 +215,9 @@ namespace HS_Save_Editor
 		{
 			hsdata.kills = kills;
 		}
-		internal static Maps GetPositionMap()
+		internal static int GetPositionMap()
 		{
-			return (Maps)Convert.ToInt64(hsdata.position.Split('.')[0]);
+			return Convert.ToInt32(hsdata.position.Split('.')[0]);
 		}
 		internal static string GetPositionX()
 		{
@@ -252,22 +238,14 @@ namespace HS_Save_Editor
 			return hsdata.position;
 		}
 
-		internal static void GetPosition(out Maps mapId, out string x, out string y, out string d)
+		internal static void GetPosition(out int mapId, out int x, out int y, out Direction d)
 		{
-			string[] position = ((string)hsdata.position.Clone()).Split('.');
-			mapId = (Maps)Convert.ToInt64(position[0]);
-			x = position[1];
-			y = position[2];
-			d = position[3];
-		}
-		internal static void GetPosition(out int mapId, out int x, out int y, out int d)
-		{
-			GetPosition(out Maps map, out string xs, out string ys, out string ds);
-			mapId = (int)map;
-			x = Convert.ToInt32(xs);
-			y = Convert.ToInt32(ys);
-			d = Convert.ToInt32(ds);
-		}
+            mapId = SaveData.PlayerLocation.MapId;
+            x = SaveData.PlayerLocation.X;
+			y = SaveData.PlayerLocation.X;
+            d = SaveData.PlayerLocation.Direction;
+        }
+
 		internal static void SetPosition(int mapId, string x, string y, string d)
 		{
 			hsdata.position = String.Format("{0}.{1}.{2}.{3}",

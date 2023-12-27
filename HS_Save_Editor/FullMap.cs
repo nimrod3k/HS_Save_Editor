@@ -14,17 +14,17 @@ namespace HS_Save_Editor
 {
     public partial class FullMap : Form
     {
-        Maps _mapID;
+        int _mapID;
         Map? theMap = null;
 
         public FullMap()
         {
             InitializeComponent();
-            for (var i = 1; i < (int)Maps.MAX_VAL; ++i)
+            for (var i = 1; i <= HSGlobal.Maps.Values.Max(); ++i)
             {
-                if (Enum.IsDefined(typeof(Maps), i))
+                if (HSGlobal.Maps.Values.Contains(i))
                 {
-                    Maps value = (Maps)i;
+                    int value = i;
                     comboBox1.Items.Add(value.ToString());
                 }
             }
@@ -37,10 +37,10 @@ namespace HS_Save_Editor
             UpdateMap(_mapID);
         }
 
-        public void UpdateMap(Maps MapID)
+        public void UpdateMap(int MapID)
         {
             if (MapID == 0)
-                MapID = Maps.DUST_SHELF;
+                MapID = HSGlobal.Maps["DUST_SHELF"];
             if (theMap == null)
             {
                 theMap = new Map((int)MapID);
@@ -55,7 +55,7 @@ namespace HS_Save_Editor
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Maps newID = (Maps)Enum.Parse(typeof(Maps), (string)comboBox1.SelectedItem);
+            int newID = HSGlobal.Maps[(string)comboBox1.SelectedItem];
             if (_mapID != newID)
             {
                 if (theMap != null)

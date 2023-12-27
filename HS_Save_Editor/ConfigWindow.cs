@@ -17,12 +17,12 @@ namespace HS_Save_Editor
         {
             InitializeComponent();
 
-            txt_rompath.Text = HSGlobal.CONFIG.rompath;
+            txt_rompath.Text = HSGlobal.CONFIG.appPath;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            HSGlobal.CONFIG.rompath = txt_rompath.Text;
+            HSGlobal.CONFIG.appPath = txt_rompath.Text;
             HSGlobal.WriteConfig();
 
             Close();
