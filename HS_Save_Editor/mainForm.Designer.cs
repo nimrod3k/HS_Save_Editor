@@ -123,6 +123,7 @@
             // 
             // cBasicInfo
             // 
+            this.cBasicInfo.ImeMode = System.Windows.Forms.ImeMode.On;
             this.cBasicInfo.Location = new System.Drawing.Point(0, 0);
             this.cBasicInfo.Name = "cBasicInfo";
             this.cBasicInfo.Size = new System.Drawing.Size(768, 370);
@@ -605,6 +606,7 @@
             this.Controls.Add(this.btn_save);
             this.Controls.Add(this.tab_saveData);
             this.Controls.Add(this.btn_loadSaveFile);
+            this.KeyPreview = true;
             this.Name = "mainForm";
             this.Text = "Hero\'s Spirit Save Editor";
             this.tab_saveData.ResumeLayout(false);

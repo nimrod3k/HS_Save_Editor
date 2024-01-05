@@ -33,11 +33,11 @@ namespace HS_Save_Editor
 			combo_map.Items.Add("All");
 			combo_map.Items.AddRange(HSGlobal.Maps.Keys.ToArray());
 			combo_map.SelectedIndex = 0;
-			initialized = true;
-		}
+            initialized = true;
+        }
 
 
-		private void fillAllValues()
+        private void fillAllValues()
         {
 			list_values.Items.Clear();
 			foreach (Vars id in Enum.GetValues(typeof(Vars)))
@@ -140,8 +140,9 @@ namespace HS_Save_Editor
 			cStory.fillStoryTab();
 			cEquipment.fillEquipmentTab();
 			cItems.fillItemTab();
-			//fillTabValues();
-			//fillTabEntities();
+            //fillTabValues();
+            //fillTabEntities();
+            initialized = true;
         }
 
 
@@ -327,6 +328,5 @@ namespace HS_Save_Editor
 			DataUtils.SetGameMode((string)cb_GameMode.SelectedItem);
 			fillForm();
         }
-
     }
 }
