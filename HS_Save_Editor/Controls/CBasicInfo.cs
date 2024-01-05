@@ -139,5 +139,36 @@ namespace HS_Save_Editor
             if (!holdMapUpdate)
                 DrawMap();
         }
+
+        internal void CBasicInfo_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.KeyValue == (int)Keys.Down)
+            {
+                num_SaveLocationY.Value = num_SaveLocationY.Value + 1;
+                combo_SaveLocationD.SelectedItem = Direction.South;
+            }
+            if (e.KeyValue == (int)Keys.Up && num_SaveLocationY.Value > 0)
+            {
+                num_SaveLocationY.Value = num_SaveLocationY.Value - 1;
+                combo_SaveLocationD.SelectedItem = Direction.North;
+            }
+            if (e.KeyValue == (int)Keys.Left && num_SaveLocationX.Value > 0)
+            {
+                num_SaveLocationX.Value = num_SaveLocationX.Value - 1;
+                combo_SaveLocationD.SelectedItem = Direction.West;
+            }
+            if (e.KeyValue == (int)Keys.Right)
+            {
+                num_SaveLocationX.Value = num_SaveLocationX.Value + 1;
+                combo_SaveLocationD.SelectedItem = Direction.East;
+            }
+        
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            num_SaveLocationX.Select();
+        }
     }
 }

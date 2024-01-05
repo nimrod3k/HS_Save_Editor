@@ -43,7 +43,6 @@
             this.combo_SaveLocationD = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.num_SaveLocationX = new System.Windows.Forms.NumericUpDown();
             this.num_SaveLocationY = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.combo_SaveLocation = new System.Windows.Forms.ComboBox();
@@ -54,11 +53,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.box_steps = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.num_SaveLocationX = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.box_kills)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.num_SaveLocationX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_SaveLocationY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.box_deaths)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_SaveLocationX)).BeginInit();
             this.SuspendLayout();
             // 
             // txt_witchBasic
@@ -196,21 +196,9 @@
             this.label7.TabIndex = 52;
             this.label7.Text = "X";
             // 
-            // num_SaveLocationX
-            // 
-            this.num_SaveLocationX.Location = new System.Drawing.Point(37, 167);
-            this.num_SaveLocationX.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.num_SaveLocationX.Name = "num_SaveLocationX";
-            this.num_SaveLocationX.Size = new System.Drawing.Size(38, 23);
-            this.num_SaveLocationX.TabIndex = 51;
-            this.num_SaveLocationX.ValueChanged += new System.EventHandler(this.num_SaveLocationX_ValueChanged);
-            // 
             // num_SaveLocationY
             // 
+            this.num_SaveLocationY.InterceptArrowKeys = false;
             this.num_SaveLocationY.Location = new System.Drawing.Point(96, 167);
             this.num_SaveLocationY.Maximum = new decimal(new int[] {
             1000,
@@ -221,6 +209,7 @@
             this.num_SaveLocationY.Size = new System.Drawing.Size(40, 23);
             this.num_SaveLocationY.TabIndex = 50;
             this.num_SaveLocationY.ValueChanged += new System.EventHandler(this.num_SaveLocationY_ValueChanged);
+            this.num_SaveLocationY.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CBasicInfo_KeyDown);
             // 
             // label6
             // 
@@ -304,6 +293,22 @@
             this.pictureBox1.Size = new System.Drawing.Size(336, 352);
             this.pictureBox1.TabIndex = 66;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // num_SaveLocationX
+            // 
+            this.num_SaveLocationX.InterceptArrowKeys = false;
+            this.num_SaveLocationX.Location = new System.Drawing.Point(37, 167);
+            this.num_SaveLocationX.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.num_SaveLocationX.Name = "num_SaveLocationX";
+            this.num_SaveLocationX.Size = new System.Drawing.Size(38, 23);
+            this.num_SaveLocationX.TabIndex = 51;
+            this.num_SaveLocationX.ValueChanged += new System.EventHandler(this.num_SaveLocationX_ValueChanged);
+            this.num_SaveLocationX.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CBasicInfo_KeyDown);
             // 
             // CBasicInfo
             // 
@@ -335,13 +340,15 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.box_steps);
+            this.ImeMode = System.Windows.Forms.ImeMode.On;
             this.Name = "CBasicInfo";
             this.Size = new System.Drawing.Size(768, 370);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CBasicInfo_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.box_kills)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.num_SaveLocationX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_SaveLocationY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.box_deaths)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_SaveLocationX)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -364,7 +371,6 @@
         private ComboBox combo_SaveLocationD;
         private Label label8;
         private Label label7;
-        private NumericUpDown num_SaveLocationX;
         private NumericUpDown num_SaveLocationY;
         private Label label6;
         private ComboBox combo_SaveLocation;
@@ -375,5 +381,6 @@
         private Label label1;
         private TextBox box_steps;
         private PictureBox pictureBox1;
+        private NumericUpDown num_SaveLocationX;
     }
 }
