@@ -15,18 +15,13 @@ namespace HS_Save_Editor
     public partial class FullMap : Form
     {
         int _mapID;
-        Map? theMap = null;
 
         public FullMap()
         {
             InitializeComponent();
-            for (var i = 1; i <= HSGlobal.Maps.Values.Max(); ++i)
+            foreach (var key in HSGlobal.Maps.Keys)
             {
-                if (HSGlobal.Maps.Values.Contains(i))
-                {
-                    int value = i;
-                    comboBox1.Items.Add(value.ToString());
-                }
+                comboBox1.Items.Add(key);
             }
             comboBox1.SelectedIndex = 0;
 
@@ -40,17 +35,17 @@ namespace HS_Save_Editor
         public void UpdateMap(int MapID)
         {
             if (MapID == 0)
-                MapID = HSGlobal.Maps["DUST_SHELF"];
-            if (theMap == null)
+                MapID = HSGlobal.Maps["Dust Shelf"];
+            if (HSGlobal.map == null)
             {
-                theMap = new Map((int)MapID);
-                theMap.Update();
+                HSGlobal.map = new Map((int)MapID);
+                HSGlobal.map.Update(1,1);
             }
-            Bitmap? bmp;
-            theMap.Render(out bmp);
+            Bitmap bmp = HSGlobal.map.Draw();
+            //theMap.Render(out bmp);
 
             if (bmp != null)
-                pictureBox1.Image = ViewMap.ResizeImage(bmp, new Size(pictureBox1.Width, pictureBox1.Height));
+                pictureBox1.Image = HSGlobal.ResizeImage(bmp, new Size(pictureBox1.Width, pictureBox1.Height));
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -58,10 +53,10 @@ namespace HS_Save_Editor
             int newID = HSGlobal.Maps[(string)comboBox1.SelectedItem];
             if (_mapID != newID)
             {
-                if (theMap != null)
+                if (HSGlobal.map != null)
                 {
-                    theMap.Dispose();
-                    theMap = null;
+                    HSGlobal.map.Dispose();
+                    HSGlobal.map = null;
                 }
                 _mapID = newID;
                 UpdateMap(_mapID);

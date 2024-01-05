@@ -7,6 +7,7 @@ namespace HS_Save_Editor
 {
     public partial class mainForm : Form
     {
+		public static bool initialized = false;
 		MapWindow? imageForm = null;
 		FullMap? theMap = null;
 		Collectibles theCollectibles = new Collectibles();
@@ -23,7 +24,7 @@ namespace HS_Save_Editor
                 config.ShowDialog();
             }
 
-            HSInit.Initialize();
+            HSGlobal.Initialize();
 
             InitializeComponent();
             Collectibles.Initialize();
@@ -32,6 +33,7 @@ namespace HS_Save_Editor
 			combo_map.Items.Add("All");
 			combo_map.Items.AddRange(HSGlobal.Maps.Keys.ToArray());
 			combo_map.SelectedIndex = 0;
+			initialized = true;
 		}
 
 

@@ -37,6 +37,7 @@
             this.tabEquipment = new System.Windows.Forms.TabPage();
             this.cEquipment = new HS_Save_Editor.CEquipment();
             this.tabItems = new System.Windows.Forms.TabPage();
+            this.cItems = new HS_Save_Editor.Controls.CItems();
             this.tabEntities = new System.Windows.Forms.TabPage();
             this.lbl_uncollectedCount = new System.Windows.Forms.Label();
             this.lbl_collectedCount = new System.Windows.Forms.Label();
@@ -73,7 +74,6 @@
             this.btn_OpenMap = new System.Windows.Forms.Button();
             this.btn_config = new System.Windows.Forms.Button();
             this.cb_GameMode = new System.Windows.Forms.ComboBox();
-            this.cItems = new HS_Save_Editor.Controls.CItems();
             this.tab_saveData.SuspendLayout();
             this.tabBasicInfo.SuspendLayout();
             this.tabStory.SuspendLayout();
@@ -125,8 +125,8 @@
             // 
             this.cBasicInfo.Location = new System.Drawing.Point(0, 0);
             this.cBasicInfo.Name = "cBasicInfo";
-            this.cBasicInfo.Size = new System.Drawing.Size(415, 370);
-            this.cBasicInfo.TabIndex = 41;
+            this.cBasicInfo.Size = new System.Drawing.Size(768, 370);
+            this.cBasicInfo.TabIndex = 0;
             // 
             // tabStory
             // 
@@ -172,6 +172,13 @@
             this.tabItems.TabIndex = 1;
             this.tabItems.Text = "Items";
             this.tabItems.UseVisualStyleBackColor = true;
+            // 
+            // cItems
+            // 
+            this.cItems.Location = new System.Drawing.Point(0, 0);
+            this.cItems.Name = "cItems";
+            this.cItems.Size = new System.Drawing.Size(415, 370);
+            this.cItems.TabIndex = 0;
             // 
             // tabEntities
             // 
@@ -586,13 +593,6 @@
             this.cb_GameMode.Size = new System.Drawing.Size(144, 23);
             this.cb_GameMode.TabIndex = 19;
             this.cb_GameMode.SelectedIndexChanged += new System.EventHandler(this.cb_GameMode_SelectedIndexChanged);
-            // 
-            // cItems
-            // 
-            this.cItems.Location = new System.Drawing.Point(0, 0);
-            this.cItems.Name = "cItems";
-            this.cItems.Size = new System.Drawing.Size(415, 370);
-            this.cItems.TabIndex = 0;
             // 
             // mainForm
             // 

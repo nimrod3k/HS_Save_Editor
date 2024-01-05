@@ -91,33 +91,6 @@ namespace HS_Save_Editor
 				byte[] data = File.ReadAllBytes(filename);
                 string value = HS_Save_Tools.DecompressJson(data);
                 _SaveBundle = JsonConvert.DeserializeObject<SaveBundle>(value);
-
-                //DataUtils.TotalSteps = int.Parse(text.Substring(0, 10));
-				if (_SaveBundle != null)
-				{
-
-					/*hsdata = (HSJsonData?)JsonConvert.DeserializeObject(saveData, typeof(HSJsonData));
-					if (hsdata != null && hsdata.values != null)
-					{
-						byte[] values = hsdata.values;
-						bool flag = values.Length < Enum.GetNames(typeof(Vars)).Length;
-						if (flag)
-						{
-							int k = values.Length;
-							Array.Resize<byte>(ref values, Enum.GetNames(typeof(Vars)).Length);
-							while (k < values.Length)
-							{
-								DataUtils.Set((Vars)k, 0);
-								k++;
-							}
-							hsdata.values = values;
-						}
-						if (hsdata.label == null)
-						{
-							hsdata.label = "";
-						}
-					}*/
-				}
 			}
 		}
 
@@ -242,7 +215,7 @@ namespace HS_Save_Editor
 		{
             mapId = SaveData.PlayerLocation.MapId;
             x = SaveData.PlayerLocation.X;
-			y = SaveData.PlayerLocation.X;
+			y = SaveData.PlayerLocation.Y;
             d = SaveData.PlayerLocation.Direction;
         }
 

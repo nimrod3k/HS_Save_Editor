@@ -13,7 +13,7 @@ namespace HS_Save_Editor
 {
     public partial class MapWindow : Form
     {
-        ViewMap viewMap;
+        //ViewMap viewMap;
         Map? theMap = null;
         CollectName theCollectible = CollectName.unknown;
         string key = "";
@@ -21,7 +21,7 @@ namespace HS_Save_Editor
         public MapWindow(GameType type)
         {
             HSGlobal.gameType = type;
-            viewMap = new ViewMap(type, 5);
+            //viewMap = new ViewMap(type, 5);
             InitializeComponent();
             box_itemtype.DataSource = Enum.GetNames(typeof(CollectName));
             lbl_gameMode.Text = type.ToString();
@@ -30,26 +30,26 @@ namespace HS_Save_Editor
 
         public void UpdateMap(string flag, CollectName collectType)
         {
-            theCollectible = collectType;
-            key = flag;
-            box_itemtype.SelectedItem = collectType.ToString();
-            viewMap.updateMap(flag);
-            if (theMap != null && viewMap.mapID != Map.MapId)
-            {
-                theMap.Dispose();
-                theMap = new Map(viewMap.mapID);
-                theMap.Update();
-            }
-            if (theMap == null)
-            {
-                theMap = new Map(viewMap.mapID);
-                theMap.Update();
-            }
-            viewMap.adjustEP(theMap.Width, theMap.Height);
-            theMap.Render(ref viewMap);
+            //theCollectible = collectType;
+            //key = flag;
+            //box_itemtype.SelectedItem = collectType.ToString();
+            ////viewMap.updateMap(flag);
+            //if (theMap != null && viewMap.mapID != Map.MapId)
+            //{
+            //    theMap.Dispose();
+            //    theMap = new Map(viewMap.mapID);
+            //    //theMap.Update();
+            //}
+            //if (theMap == null)
+            //{
+            //    theMap = new Map(viewMap.mapID);
+            //    //theMap.Update();
+            //}
+            ////viewMap.adjustEP(theMap.Width, theMap.Height);
+            ////theMap.Render(ref viewMap);
 
 
-            pictureBox1.Image = ViewMap.ResizeImage(viewMap.bitmap, new Size(pictureBox1.Width,pictureBox1.Height));
+            //pictureBox1.Image = HSGlobal.ResizeImage(viewMap.bitmap, new Size(pictureBox1.Width,pictureBox1.Height));
         }
 
         private void button1_Click(object sender, EventArgs e)

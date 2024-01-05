@@ -14,6 +14,7 @@ namespace HS_Save_Editor
 {
     public partial class CBasicInfo : UserControl
     {
+        bool holdMapUpdate = false;
         public CBasicInfo()
         {
             InitializeComponent();
@@ -41,6 +42,30 @@ namespace HS_Save_Editor
             //calculatePercentages();
         }
 
+        public void UpdateMap()
+        {
+            if (mainForm.initialized)
+            {
+                if (HSGlobal.map == null || Map.MapId != DataUtils.SaveData.PlayerLocation.MapId)
+                    HSGlobal.map = new Map(DataUtils.SaveData.PlayerLocation.MapId);
+                HSGlobal.map.Update(21, 22);
+            }
+        }
+
+        public void DrawMap()
+        {
+            if (mainForm.initialized)
+            {
+                UpdateMap();
+                Bitmap bmp = HSGlobal.map.DrawFocused(DataUtils.SaveData.PlayerLocation.X, DataUtils.SaveData.PlayerLocation.Y, DataUtils.SaveData.PlayerLocation.Direction, 21, 22, true);
+                if (bmp != null)
+                {
+                    Bitmap bmp2 = HSGlobal.ResizeImage(bmp, new Size(pictureBox1.Width, pictureBox1.Height));
+                    bmp2.Save(@"C:\Program Files (x86)\Steam\steamapps\common\Hero's Spirit Alpha (v5)\test\something.png");
+                    pictureBox1.Image = bmp2;
+                }
+            }
+        }
         private void calculatePercentages()
         {
             txt_percent.Text = CompletionCalculator.Calculate().ToString();
@@ -74,27 +99,45 @@ namespace HS_Save_Editor
         private void combo_SaveLocation_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (DataUtils.SaveData is not null)
+            {
                 DataUtils.SaveData.PlayerLocation.MapId = (int)HSGlobal.Maps[(string)combo_SaveLocation.SelectedItem];
+                if (!holdMapUpdate)
+                {
+                    UpdateMap();
+                    holdMapUpdate = true;
+                    if (num_SaveLocationX.Value >= HSGlobal.map.Width)
+                        num_SaveLocationX.Value = HSGlobal.map.Width - 1;
+                    if (num_SaveLocationY.Value >= HSGlobal.map.Height)
+                        num_SaveLocationY.Value = HSGlobal.map.Height - 1;
+                    holdMapUpdate = false;
+                    DrawMap();
+                }
+            }
         }
 
         private void num_SaveLocationX_ValueChanged(object sender, EventArgs e)
         {
             if (DataUtils.SaveData is not null)
                 DataUtils.SaveData.PlayerLocation.X = (int)num_SaveLocationX.Value;
+            if (!holdMapUpdate)
+                DrawMap();
         }
 
         private void num_SaveLocationY_ValueChanged(object sender, EventArgs e)
         {
             if (DataUtils.SaveData is not null)
                 DataUtils.SaveData.PlayerLocation.Y = (int)num_SaveLocationY.Value;
+            if (!holdMapUpdate)
+                DrawMap();
         }
 
         private void combo_SaveLocationD_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (DataUtils.SaveData is not null)
                 DataUtils.SaveData.PlayerLocation.Direction = (Direction)combo_SaveLocationD.SelectedItem;
-                    //Enum.Parse<Direction>((string)combo_SaveLocationD.SelectedItem);
-
+            //Enum.Parse<Direction>((string)combo_SaveLocationD.SelectedItem);
+            if (!holdMapUpdate)
+                DrawMap();
         }
     }
 }

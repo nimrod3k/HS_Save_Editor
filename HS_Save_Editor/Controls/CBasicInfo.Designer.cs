@@ -53,10 +53,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.box_steps = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.box_kills)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_SaveLocationX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_SaveLocationY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.box_deaths)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // txt_witchBasic
@@ -295,10 +297,19 @@
             this.box_steps.TabIndex = 41;
             this.box_steps.TextChanged += new System.EventHandler(this.box_steps_TextChanged);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(429, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(336, 352);
+            this.pictureBox1.TabIndex = 66;
+            this.pictureBox1.TabStop = false;
+            // 
             // CBasicInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.txt_witchBasic);
             this.Controls.Add(this.label25);
             this.Controls.Add(this.txt_witchPerfect);
@@ -325,11 +336,12 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.box_steps);
             this.Name = "CBasicInfo";
-            this.Size = new System.Drawing.Size(415, 370);
+            this.Size = new System.Drawing.Size(768, 370);
             ((System.ComponentModel.ISupportInitialize)(this.box_kills)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_SaveLocationX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_SaveLocationY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.box_deaths)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -362,5 +374,6 @@
         private Label label2;
         private Label label1;
         private TextBox box_steps;
+        private PictureBox pictureBox1;
     }
 }
