@@ -362,6 +362,3 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /HS_Save_Editor/savedat*
-/HS_Tools
-/HS_Save_Editor/3rdParty
-/3rdParty
