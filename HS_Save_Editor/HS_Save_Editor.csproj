@@ -30,4 +30,12 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="3rdParty\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\HS_Tools\HS_Tools.csproj" />
+  </ItemGroup>
+
 </Project>
