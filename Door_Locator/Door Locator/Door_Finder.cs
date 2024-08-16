@@ -7,6 +7,7 @@ namespace Door_Locator
     public partial class Door_Finder : Form
     {
         string _SavePath;
+        List<string>? MissingDoors = null;
         public Door_Finder()
         {
             string appData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
@@ -80,29 +81,53 @@ namespace Door_Locator
                 if (data != null && data.values != null)
                 {
                     var lines = File.ReadLines(@"C:\Users\nimro\source\repos\HS_Old\HS_Save_Editor\Door_Locator\Door Locator\doors.txt");
-                    
-                    List<string> missing_doors = new List<string>();
-                    
+
+                    MissingDoors = new List<string>();
 
                     foreach (var line in lines)
                     {
                         string[] split_line = line.Split(':');
                         if (!data.flags.ContainsKey(split_line[0])) 
                         {
-                            missing_doors.Add(line);
+                            MissingDoors.Add(line);
                         }
                     }
 
-                    Random rnd = new Random();
-
-                    var rand_door = missing_doors[rnd.Next(0, missing_doors.Count() - 1)];
-                    var split_rand_door = rand_door.Split(":");
-                    textBox1.Text = String.Format("Door is found : {0} {1}", split_rand_door[0], split_rand_door[1]);
-
-                    byte[] values = data.values;
-                    bool flag = values.Length < Enum.GetNames(typeof(Vars)).Length;
+                    rand_lookup();
                 }
             }
+        }
+
+        private void rand_lookup()
+        {
+            if (MissingDoors != null)
+            {
+                if (MissingDoors.Count > 0)
+                {
+                    Random rnd = new Random();
+
+                    var rand_door = MissingDoors[rnd.Next(0, MissingDoors.Count() - 1)];
+                    var split_rand_door = rand_door.Split(":");
+
+                    var doorColor = "Gold";
+
+                    if (split_rand_door[1] == "s")
+                        doorColor = "Silver";
+
+                    var doorText = Utils.hintDict[Enum.Parse<Maps>(split_rand_door[0].Split('.')[0])];
+
+                    textBox1.Text = String.Format("A {0} Door is {1}", doorColor, doorText);
+                }
+                else
+                {
+                    textBox1.Text = "You seem to have opened all Gold and Silver Doors";
+                }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            rand_lookup();
         }
     }
 }

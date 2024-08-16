@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 //using HS.Utils;
 using Microsoft.CSharp.RuntimeBinder;
-using Newtonsoft.Json;
+using System.Text.Json;
 using HS_Tools;
 
 namespace HS_Save_Editor
@@ -36,7 +36,7 @@ namespace HS_Save_Editor
 			if (saveData != null)
 			{
 
-				data = (HSJsonData?)JsonConvert.DeserializeObject(saveData, typeof(HSJsonData));
+				data = JsonSerializer.Deserialize<HSJsonData>(saveData);
 				if (data != null && data.values != null)
 				{
 					byte[] values = data.values;
@@ -97,9 +97,9 @@ namespace HS_Save_Editor
 				d.ToString(),
 				"\", "
 			});
-			text = text + "\"values\": " + JsonConvert.SerializeObject(data.values);
-			text = text + ", \"hearts\": " + JsonConvert.SerializeObject(data.hearts);
-			text = text + ", \"flags\": " + JsonConvert.SerializeObject(data.flags);
+			text = text + "\"values\": " + JsonSerializer.Serialize(data.values);
+			text = text + ", \"hearts\": " + JsonSerializer.Serialize(data.hearts);
+			text = text + ", \"flags\": " + JsonSerializer.Serialize(data.flags);
 			text = text + ", \"playtime\": " + data.playtime.ToString();
 			text = text + ", \"deaths\": " + data.deaths.ToString();
 			text = text + ", \"label\": \"" + data.label + "\"}";
