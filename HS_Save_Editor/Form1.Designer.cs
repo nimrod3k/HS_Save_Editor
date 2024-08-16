@@ -1507,7 +1507,7 @@
             this.Controls.Add(this.tab_saveData);
             this.Controls.Add(this.btn_loadSaveFile);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Hero\'s Spirit Save File Editor";
             this.tab_saveData.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
