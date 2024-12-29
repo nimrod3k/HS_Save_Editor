@@ -13,4 +13,10 @@
     <ProjectReference Include="..\..\..\HS_Tools\HS_Tools.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="doors.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

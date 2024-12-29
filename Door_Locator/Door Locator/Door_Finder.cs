@@ -80,7 +80,7 @@ namespace Door_Locator
                 data = JsonSerializer.Deserialize<HSJsonData>(saveData);
                 if (data != null && data.values != null)
                 {
-                    var lines = File.ReadLines(@"C:\Users\nimro\source\repos\HS_Old\HS_Save_Editor\Door_Locator\Door Locator\doors.txt");
+                    var lines = File.ReadLines(@"doors.txt");
 
                     MissingDoors = new List<string>();
 
