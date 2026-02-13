@@ -4,7 +4,7 @@ using HS_Tools;
 
 namespace HS_Save_Editor
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
 		MapWindow? imageForm = null;
 		FullMap? theMap = null;
@@ -12,7 +12,7 @@ namespace HS_Save_Editor
 		List<string>? collected = new();
 		List<string> uncollected = new();
 
-		public Form1()
+		public MainForm()
         {
             InitializeComponent();
 			combo_SaveLocation.DataSource = Enum.GetValues(typeof(Maps));
