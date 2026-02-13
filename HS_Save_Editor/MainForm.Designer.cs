@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btn_loadSaveFile = new System.Windows.Forms.Button();
             this.tab_saveData = new System.Windows.Forms.TabControl();
+            this.tabBasicInfo = new System.Windows.Forms.TabPage();
+            this.cBasicInfo = new HS_Save_Editor.CBasicInfo();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.chk_bloodmoon = new System.Windows.Forms.CheckBox();
             this.label36 = new System.Windows.Forms.Label();
@@ -46,8 +48,6 @@
             this.chk_witchEnding = new System.Windows.Forms.CheckBox();
             this.chk_greenShield = new System.Windows.Forms.CheckBox();
             this.box_bShieldCharge = new System.Windows.Forms.NumericUpDown();
-            this.box_kills = new System.Windows.Forms.NumericUpDown();
-            this.label21 = new System.Windows.Forms.Label();
             this.txt_percent = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -64,16 +64,10 @@
             this.chk_bHeart = new System.Windows.Forms.CheckBox();
             this.chk_bShield = new System.Windows.Forms.CheckBox();
             this.chk_bSword = new System.Windows.Forms.CheckBox();
-            this.box_deaths = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.box_time = new System.Windows.Forms.TextBox();
             this.box_swords = new System.Windows.Forms.NumericUpDown();
             this.box_hearts = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.box_steps = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label32 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
@@ -154,10 +148,9 @@
             this.btn_OpenMap = new System.Windows.Forms.Button();
             this.btn_config = new System.Windows.Forms.Button();
             this.tab_saveData.SuspendLayout();
+            this.tabBasicInfo.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.box_bShieldCharge)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.box_kills)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.box_deaths)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.box_swords)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.box_hearts)).BeginInit();
             this.tabPage2.SuspendLayout();
@@ -179,6 +172,7 @@
             // 
             // tab_saveData
             // 
+            this.tab_saveData.Controls.Add(this.tabBasicInfo);
             this.tab_saveData.Controls.Add(this.tabPage1);
             this.tab_saveData.Controls.Add(this.tabPage2);
             this.tab_saveData.Controls.Add(this.tabPage4);
@@ -189,6 +183,24 @@
             this.tab_saveData.Size = new System.Drawing.Size(776, 398);
             this.tab_saveData.TabIndex = 1;
             this.tab_saveData.SelectedIndexChanged += new System.EventHandler(this.tab_saveData_SelectedIndexChanged);
+            // 
+            // tabBasicInfo
+            // 
+            this.tabBasicInfo.Controls.Add(this.cBasicInfo);
+            this.tabBasicInfo.Location = new System.Drawing.Point(4, 24);
+            this.tabBasicInfo.Name = "tabBasicInfo";
+            this.tabBasicInfo.Size = new System.Drawing.Size(768, 370);
+            this.tabBasicInfo.TabIndex = 4;
+            this.tabBasicInfo.Text = "Basic Info";
+            this.tabBasicInfo.UseVisualStyleBackColor = true;
+            // 
+            // cBasicInfo
+            // 
+            this.cBasicInfo.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.cBasicInfo.Location = new System.Drawing.Point(0, 0);
+            this.cBasicInfo.Name = "cBasicInfo";
+            this.cBasicInfo.Size = new System.Drawing.Size(768, 370);
+            this.cBasicInfo.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -206,8 +218,6 @@
             this.tabPage1.Controls.Add(this.chk_witchEnding);
             this.tabPage1.Controls.Add(this.chk_greenShield);
             this.tabPage1.Controls.Add(this.box_bShieldCharge);
-            this.tabPage1.Controls.Add(this.box_kills);
-            this.tabPage1.Controls.Add(this.label21);
             this.tabPage1.Controls.Add(this.txt_percent);
             this.tabPage1.Controls.Add(this.label19);
             this.tabPage1.Controls.Add(this.label9);
@@ -224,16 +234,10 @@
             this.tabPage1.Controls.Add(this.chk_bHeart);
             this.tabPage1.Controls.Add(this.chk_bShield);
             this.tabPage1.Controls.Add(this.chk_bSword);
-            this.tabPage1.Controls.Add(this.box_deaths);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.box_time);
             this.tabPage1.Controls.Add(this.box_swords);
             this.tabPage1.Controls.Add(this.box_hearts);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.box_steps);
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -258,7 +262,7 @@
             this.label36.AutoSize = true;
             this.label36.Location = new System.Drawing.Point(104, 220);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(122, 15);
+            this.label36.Size = new System.Drawing.Size(123, 15);
             this.label36.TabIndex = 44;
             this.label36.Text = "Bloodmoon Time Left";
             // 
@@ -376,28 +380,6 @@
             this.box_bShieldCharge.TabIndex = 31;
             this.box_bShieldCharge.ValueChanged += new System.EventHandler(this.chk_bShield_CheckedChanged);
             // 
-            // box_kills
-            // 
-            this.box_kills.Location = new System.Drawing.Point(288, 88);
-            this.box_kills.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.box_kills.Name = "box_kills";
-            this.box_kills.Size = new System.Drawing.Size(120, 23);
-            this.box_kills.TabIndex = 30;
-            this.box_kills.ValueChanged += new System.EventHandler(this.box_kills_ValueChanged);
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(246, 90);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(28, 15);
-            this.label21.TabIndex = 29;
-            this.label21.Text = "Kills";
-            // 
             // txt_percent
             // 
             this.txt_percent.Location = new System.Drawing.Point(179, 332);
@@ -446,7 +428,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(230, 138);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(13, 15);
+            this.label7.Size = new System.Drawing.Size(12, 15);
             this.label7.TabIndex = 24;
             this.label7.Text = "x";
             // 
@@ -550,36 +532,6 @@
             this.chk_bSword.UseVisualStyleBackColor = true;
             this.chk_bSword.CheckedChanged += new System.EventHandler(this.chk_bSword_CheckedChanged);
             // 
-            // box_deaths
-            // 
-            this.box_deaths.Location = new System.Drawing.Point(104, 88);
-            this.box_deaths.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.box_deaths.Name = "box_deaths";
-            this.box_deaths.Size = new System.Drawing.Size(120, 23);
-            this.box_deaths.TabIndex = 10;
-            this.box_deaths.ValueChanged += new System.EventHandler(this.box_deaths_ValueChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(33, 96);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 15);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Deaths";
-            // 
-            // box_time
-            // 
-            this.box_time.Location = new System.Drawing.Point(104, 54);
-            this.box_time.Name = "box_time";
-            this.box_time.Size = new System.Drawing.Size(120, 23);
-            this.box_time.TabIndex = 8;
-            this.box_time.TextChanged += new System.EventHandler(this.box_time_TextChanged);
-            // 
             // box_swords
             // 
             this.box_swords.Location = new System.Drawing.Point(506, 14);
@@ -613,32 +565,6 @@
             this.label3.Size = new System.Drawing.Size(41, 15);
             this.label3.TabIndex = 3;
             this.label3.Text = "Hearts";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 57);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 15);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Total Time";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 15);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Total Steps";
-            // 
-            // box_steps
-            // 
-            this.box_steps.Location = new System.Drawing.Point(104, 14);
-            this.box_steps.Name = "box_steps";
-            this.box_steps.Size = new System.Drawing.Size(120, 23);
-            this.box_steps.TabIndex = 0;
-            this.box_steps.TextChanged += new System.EventHandler(this.box_steps_TextChanged);
             // 
             // tabPage2
             // 
@@ -734,7 +660,7 @@
             this.label29.AutoSize = true;
             this.label29.Location = new System.Drawing.Point(439, 39);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(32, 15);
+            this.label29.Size = new System.Drawing.Size(33, 15);
             this.label29.TabIndex = 64;
             this.label29.Text = "Total";
             // 
@@ -833,7 +759,7 @@
             this.label26.AutoSize = true;
             this.label26.Location = new System.Drawing.Point(259, 150);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(96, 15);
+            this.label26.Size = new System.Drawing.Size(97, 15);
             this.label26.TabIndex = 52;
             this.label26.Text = "Blue Triangle Key";
             // 
@@ -929,7 +855,7 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(305, 180);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(50, 15);
+            this.label13.Size = new System.Drawing.Size(51, 15);
             this.label13.TabIndex = 41;
             this.label13.Text = "Treasure";
             // 
@@ -1302,7 +1228,7 @@
             this.chk_feature_treasures.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_feature_treasures.Location = new System.Drawing.Point(282, 22);
             this.chk_feature_treasures.Name = "chk_feature_treasures";
-            this.chk_feature_treasures.Size = new System.Drawing.Size(74, 19);
+            this.chk_feature_treasures.Size = new System.Drawing.Size(75, 19);
             this.chk_feature_treasures.TabIndex = 14;
             this.chk_feature_treasures.Text = "Treasures";
             this.chk_feature_treasures.UseVisualStyleBackColor = true;
@@ -1497,7 +1423,7 @@
             this.btn_config.UseVisualStyleBackColor = true;
             this.btn_config.Click += new System.EventHandler(this.btn_config_Click);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1508,14 +1434,13 @@
             this.Controls.Add(this.tab_saveData);
             this.Controls.Add(this.btn_loadSaveFile);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Hero\'s Spirit Save File Editor";
             this.tab_saveData.ResumeLayout(false);
+            this.tabBasicInfo.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.box_bShieldCharge)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.box_kills)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.box_deaths)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.box_swords)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.box_hearts)).EndInit();
             this.tabPage2.ResumeLayout(false);
@@ -1657,5 +1582,7 @@
         private TextBox txt_bloodmoonCount;
         private CheckBox chk_bloodmoon;
         private Button btn_config;
+        private TabPage tabBasicInfo;
+        private CBasicInfo cBasicInfo;
     }
 }

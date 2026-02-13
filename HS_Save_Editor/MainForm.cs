@@ -121,14 +121,6 @@ namespace HS_Save_Editor
 			list_xtraPercent.DataSource = percents;
 		}
 
-		private void calculatePercentages()
-        {
-			txt_percent.Text = CompletionCalculator.Calculate().ToString();
-			txt_convergePercent.Text = CompletionCalculator.Calculate(true, false).ToString();
-			txt_witchBasic.Text = CompletionCalculator.Calculate(false, false, false).ToString();
-			txt_witchPerfect.Text = CompletionCalculator.Calculate(false, false, true).ToString();
-		}
-
 		private void fillTabEntities()
 		{
 			if (DataUtils.dataIsLoaded)
@@ -190,12 +182,8 @@ namespace HS_Save_Editor
 		private void fillTabBasic()
         {
 			box_hearts.Value = (decimal)DataUtils.Get(Vars.HEARTS);
-			box_steps.Text = DataUtils.TotalSteps.ToString();
 			box_swords.Value = (decimal)DataUtils.Get(Vars.SWORDS);
 			chk_preventNight.Checked = DataUtils.GetBoolValue(Vars.PREVENTED_NIGHT);
-			box_time.Text = DataUtils.GetPlaytime();
-			box_deaths.Value = DataUtils.GetDeaths();
-			box_kills.Value = DataUtils.GetKills();
 			chk_bHeart.Checked = DataUtils.GetBoolValue(Vars.GEM_HEART);
 			chk_bShield.Checked = DataUtils.GetBoolValue(Vars.GEM_SHIELD);
 			box_bShieldCharge.Value = DataUtils.Get(Vars.GEM_SHIELD);
@@ -209,16 +197,14 @@ namespace HS_Save_Editor
 									DataUtils.GetBoolValue(Vars.WITCH_WATER_RING) ||
 									DataUtils.GetBoolValue(Vars.WITCH_PHASE2);
 			DataUtils.GetPosition(out Maps mapId, out string x, out string y, out string d);
-			txt_SaveLocationX.Text = x;
-			txt_SaveLocationY.Text = y;
 			txt_SaveLocationD.Text = d;
             combo_SaveLocation.SelectedItem = mapId;
             chk_bloodmoon.Checked = DataUtils.GetBoolValue(Vars.BLOODMOON_EFFECT);
 			txt_bloodmoonCount.Text = DataUtils.Get(Vars.BLOODMOON_COUNT).ToString();
-			calculatePercentages();
 		}
 		private void fillForm()
         {
+			cBasicInfo.fillBasicTab();
 			fillTabCollectibles();
 			fillTabValues();
 			fillTabEntities();
@@ -277,12 +263,12 @@ namespace HS_Save_Editor
 
 		private void btn_save_Click(object sender, EventArgs e)
 		{
-			DataUtils.GetPosition(out int mapId, out int x, out int y, out int d );
+			DataUtils.GetPosition(out int mapId, out int x, out int y, out Direction d );
 			SaveFileDialog save = new SaveFileDialog();
 			save.FileName = String.Format("{0}_new", DataUtils.filename);
 			var result = save.ShowDialog();
 			if (result == DialogResult.OK)
-				DataUtils.Save(mapId, x, y, d, save.FileName);
+				DataUtils.Save(mapId, x, y, (int)d, save.FileName);
 		}
 		
 		private void btn_OpenMap_Click(object sender, EventArgs e)

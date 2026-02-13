@@ -236,13 +236,13 @@ namespace HS_Save_Editor
 			y = position[2];
 			d = position[3];
 		}
-		internal static void GetPosition(out int mapId, out int x, out int y, out int d)
+		internal static void GetPosition(out int mapId, out int x, out int y, out Direction d)
 		{
 			GetPosition(out Maps map, out string xs, out string ys, out string ds);
 			mapId = (int)map;
 			x = Convert.ToInt32(xs);
 			y = Convert.ToInt32(ys);
-			d = Convert.ToInt32(ds);
+			d = (Direction)Convert.ToInt32(ds);
 		}
 		internal static void SetPosition(int mapId, string x, string y, string d)
 		{
