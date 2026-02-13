@@ -101,8 +101,9 @@ namespace HS_Save_Editor
 			text = text + ", \"hearts\": " + JsonSerializer.Serialize(data.hearts);
 			text = text + ", \"flags\": " + JsonSerializer.Serialize(data.flags);
 			text = text + ", \"playtime\": " + data.playtime.ToString();
-			text = text + ", \"deaths\": " + data.deaths.ToString();
-			text = text + ", \"label\": \"" + data.label + "\"}";
+            text = text + ", \"deaths\": " + data.deaths.ToString();
+            text = text + ", \"kills\": " + data.kills.ToString();
+            text = text + ", \"label\": \"" + data.label + "\"}";
 			for (int i = 0; i <= text.Length / 8; i++)
 			{
 				string s = text.Substring(i * 8, Math.Min(8, text.Length - i * 8));
